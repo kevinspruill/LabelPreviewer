@@ -1,0 +1,1697 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EuroPlus.NiceLabel>
+  <FileVersion>52</FileVersion>
+  <SolutionFileVersion Type="SolutionFileVersion">
+    <FileVersion>1</FileVersion>
+  </SolutionFileVersion>
+  <Id>29a08e8d-d802-4113-97ce-42ac537b64d5</Id>
+  <Name>2-OVAL_STRIP_BADGES</Name>
+  <Variables>
+    <Item Type="Variable">
+      <Id>d3adda6c-ce2c-4a1d-acdb-e2e65be7968d</Id>
+      <Name>Description12</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.614826388888889</DayRolloverTime>
+      <PromptOrder>1037</PromptOrder>
+      <PromptText>Description12</PromptText>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>Description12</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>814af673-9a48-4606-8bfa-fbb85b1235a0</Id>
+      <Name>Description14</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.656736111111111</DayRolloverTime>
+      <PromptOrder>1018</PromptOrder>
+      <MultilineLineLength>4096</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>Description14</MergeName>
+      <Description>Description14</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>febd872d-b8ac-482b-acff-aef08d1483af</Id>
+      <Name>Description9</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.614768518518519</DayRolloverTime>
+      <PromptOrder>1027</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description9</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>9b19b3d6-fd8e-4250-b84e-64fa7bd7a049</Id>
+      <Name>Description1</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.406423611111111</DayRolloverTime>
+      <PromptOrder>1012</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description1</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>39ba0cf2-67ef-48d6-a8f9-3396e4f89f3b</Id>
+      <Name>Price</Name>
+      <DefaultValue Type="DoubleContents">
+        <InputFormatInfo Type="NumberFormatInfoWrapper">
+          <CurrencySymbol>$</CurrencySymbol>
+        </InputFormatInfo>
+        <OutputFormatInfo Type="NumberFormatInfoWrapper">
+          <CurrencySymbol>$</CurrencySymbol>
+        </OutputFormatInfo>
+        <InputFormat>c</InputFormat>
+        <OutputFormat>c</OutputFormat>
+      </DefaultValue>
+      <SampleValue Type="DoubleContents">
+        <InputFormatInfo Type="NumberFormatInfoWrapper">
+          <CurrencySymbol>$</CurrencySymbol>
+        </InputFormatInfo>
+        <OutputFormatInfo Type="NumberFormatInfoWrapper">
+          <CurrencySymbol>$</CurrencySymbol>
+        </OutputFormatInfo>
+        <DoubleValue>9999999.99</DoubleValue>
+        <InputFormat>c</InputFormat>
+        <OutputFormat>c</OutputFormat>
+        <UserValue>$9,999,999.99</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.408703703703704</DayRolloverTime>
+      <PromptOrder>1020</PromptOrder>
+      <PromptText>Price</PromptText>
+      <MultilineLineLength>14</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>14</Length>
+      </Constraints>
+      <MergeName>Price</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>3837d36e-8515-49e9-979b-981869959d1e</Id>
+      <Name>SellByDays</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>999999</StringValue>
+        <UserValue>999999</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.408831018518518</DayRolloverTime>
+      <PromptOrder>1021</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <FormatId>395096b3-2c51-4f9b-9891-5af6d1a4ee6a</FormatId>
+      <AllowedCharactersForCustomFormat>0123456789</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>SellByDays</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>c424f037-7974-49df-b3b3-33a46e182ab2</Id>
+      <Name>Weight</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.408368055555556</DayRolloverTime>
+      <PromptOrder>1018</PromptOrder>
+      <MultilineLineLength>30</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>30</Length>
+      </Constraints>
+      <MergeName>Weight</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>31dcae60-f8af-44f2-a006-7f4f717d91ac</Id>
+      <Name>Description10</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.614826388888889</DayRolloverTime>
+      <PromptOrder>1028</PromptOrder>
+      <PromptText>Description10</PromptText>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>Description10</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>d8409940-a513-4e07-8cda-b92361625140</Id>
+      <Name>Description2</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.406643518518519</DayRolloverTime>
+      <PromptOrder>1013</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description2</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>8f011b82-b102-4aa9-9228-baa718d70a59</Id>
+      <Name>Description4</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.406805555555556</DayRolloverTime>
+      <PromptOrder>1015</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description4</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>550cc578-09dd-410d-bc03-e5954e1a059f</Id>
+      <Name>BarcodeVal</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.408553240740741</DayRolloverTime>
+      <PromptOrder>1019</PromptOrder>
+      <MultilineLineLength>13</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>13</Length>
+      </Constraints>
+      <MergeName>BarcodeVal</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>c838ee79-ccf6-4bbf-af7f-b7847f7f849f</Id>
+      <Name>Ingredients</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.40755787037037</DayRolloverTime>
+      <PromptOrder>1017</PromptOrder>
+      <MultilineLineLength>4096</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>Ingredients</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>83d6b439-403b-49f6-839f-2d8f9df1a08d</Id>
+      <Name>PricePerPound</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Prefix>$/LB </Prefix>
+      <DayRolloverTime>0.711921296296296</DayRolloverTime>
+      <PromptOrder>1064</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>PricePerPound</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>60797c4e-b980-4eea-8496-496052e66157</Id>
+      <Name>Scaleable</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.377372685185185</DayRolloverTime>
+      <PromptOrder>1028</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Scaleable</MergeName>
+      <Description>Scaleable</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>5fcf0283-7c2e-4906-b54e-39969c14fb71</Id>
+      <Name>Description6</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.46025462962963</DayRolloverTime>
+      <PromptOrder>1031</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description6</MergeName>
+      <Description>Description6</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>83614f3e-20f0-48ce-baa3-9e246a725b7a</Id>
+      <Name>Description7</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.460532407407407</DayRolloverTime>
+      <PromptOrder>1032</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description7</MergeName>
+      <Description>Description7</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>4fcc35ee-245c-44f8-a2e5-f9136fb42655</Id>
+      <Name>Description8</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.460810185185185</DayRolloverTime>
+      <PromptOrder>1033</PromptOrder>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description8</MergeName>
+      <Description>Description8</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>f1a95fe7-e554-4289-b9d3-3519d2d3cc65</Id>
+      <Name>Description5</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.406863425925926</DayRolloverTime>
+      <PromptOrder>1016</PromptOrder>
+      <PromptText>Description5</PromptText>
+      <MultilineLineLength>50</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>50</Length>
+      </Constraints>
+      <MergeName>Description5</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>1ea733d1-49b9-4b4f-bda1-deebc3bd20ae</Id>
+      <Name>NFServingPerPack</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.469085648148148</DayRolloverTime>
+      <PromptOrder>1013</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFServingPerPack</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+      <Name>NFCalories</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.469201388888889</DayRolloverTime>
+      <PromptOrder>1014</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFCalories</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>b6f2e723-6c7f-4e06-a091-f956507567d4</Id>
+      <Name>NFCaloriesFat</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.469282407407407</DayRolloverTime>
+      <PromptOrder>1015</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFCaloriesFat</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>79dec37b-0144-4eb0-af39-ecbbd1b04652</Id>
+      <Name>NFTransFatG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.478055555555556</DayRolloverTime>
+      <PromptOrder>1044</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTransFatG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>24acaddb-10a2-4d72-83d9-a48f16831fbe</Id>
+      <Name>NFTotalFatG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.469548611111111</DayRolloverTime>
+      <PromptOrder>1017</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTotalFatG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>3a50a2e4-db28-481d-8008-d2a1c81cc417</Id>
+      <Name>NFSatFatG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.469756944444444</DayRolloverTime>
+      <PromptOrder>1019</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFSatFatG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>863c0477-013c-4af2-a8cf-f4b1fba42441</Id>
+      <Name>NFTotCarboG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.470324074074074</DayRolloverTime>
+      <PromptOrder>1025</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTotCarboG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>7601c75a-9316-40af-9899-667676f0e405</Id>
+      <Name>NFDietFiberG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.47068287037037</DayRolloverTime>
+      <PromptOrder>1027</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFDietFiberG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>c5172533-1af8-4c85-830e-8e57d17c98d1</Id>
+      <Name>NFSugarsG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.476099537037037</DayRolloverTime>
+      <PromptOrder>1040</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFSugarsG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>c4555332-798d-4472-beb9-677de8f3723e</Id>
+      <Name>NFProteinG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.476759259259259</DayRolloverTime>
+      <PromptOrder>1043</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFProteinG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>cd31b6f4-18c1-46a4-ab04-46f42d3cf24a</Id>
+      <Name>NFVitA</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.470914351851852</DayRolloverTime>
+      <PromptOrder>1030</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFVitA</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>ec433be5-912e-407f-89de-acc85617ea25</Id>
+      <Name>NFVitC</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.47099537037037</DayRolloverTime>
+      <PromptOrder>1031</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFVitC</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>f623356a-0eb5-4ea8-81a5-b2e09f6f922a</Id>
+      <Name>NFCalcium</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.471076388888889</DayRolloverTime>
+      <PromptOrder>1032</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFCalcium</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>8d95444f-cb4a-4d54-a04b-64386a146af1</Id>
+      <Name>NFIron</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.471180555555556</DayRolloverTime>
+      <PromptOrder>1033</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFIron</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>04afc3c1-35b9-4a26-a831-0dae8b3d36a9</Id>
+      <Name>NFSodium</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.470023148148148</DayRolloverTime>
+      <PromptOrder>1022</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFSodium</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>f75e5af1-a7c2-4fd0-8cdc-d9d30ff33b32</Id>
+      <Name>NFCholesterol</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.469837962962963</DayRolloverTime>
+      <PromptOrder>1020</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFCholesterol</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>823ac085-1860-465e-8202-cbbfe27c853c</Id>
+      <Name>NFTotCarbo</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.470243055555556</DayRolloverTime>
+      <PromptOrder>1024</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTotCarbo</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>9c152828-ffe4-4925-b0cc-b643467050f3</Id>
+      <Name>NFDietFiber</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.470613425925926</DayRolloverTime>
+      <PromptOrder>1026</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFDietFiber</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>59131c71-ed2d-4f58-9af9-1a60ceb24b97</Id>
+      <Name>NFTransFat</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.478298611111111</DayRolloverTime>
+      <PromptOrder>1045</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTransFat</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>6a25aa43-612a-408f-ab71-ac89b67138ab</Id>
+      <Name>NFTotalFat</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.469456018518519</DayRolloverTime>
+      <PromptOrder>1016</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFTotalFat</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>4e6e23b5-f52a-4f4d-a85c-1d238dfd04b6</Id>
+      <Name>NFSatFat</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.469652777777778</DayRolloverTime>
+      <PromptOrder>1018</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFSatFat</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>414fc36e-70c3-4aef-9b1e-1ae71847d144</Id>
+      <Name>NFCholesterolMG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mg</Suffix>
+      <DayRolloverTime>0.469930555555556</DayRolloverTime>
+      <PromptOrder>1021</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFCholesterolMG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>fbb2e4cf-94b3-47da-9ad4-eee75105c8e7</Id>
+      <Name>NFSodiumMG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mg</Suffix>
+      <DayRolloverTime>0.470127314814815</DayRolloverTime>
+      <PromptOrder>1023</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>10</Length>
+      </Constraints>
+      <MergeName>NFSodiumMG</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+      <Name>NFServingSize</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0.468796296296296</DayRolloverTime>
+      <PromptOrder>1012</PromptOrder>
+      <MultilineLineLength>25</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat Base64Encoded="true">AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8wMTIzNDU2Nzg5Ojs8PT4/QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl9gYWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXp7fH1+f+KCrMKB4oCaxpLigJ7igKbigKDigKHLhuKAsMWg4oC5xZLCjcW9wo/CkOKAmOKAmeKAnOKAneKAouKAk+KAlMuc4oSixaHigLrFk8Kdxb7FuMKgwqHCosKjwqTCpcKmwqfCqMKpwqrCq8Kswq3CrsKvwrDCscKywrPCtMK1wrbCt8K4wrnCusK7wrzCvcK+wr/DgMOBw4LDg8OEw4XDhsOHw4jDicOKw4vDjMONw47Dj8OQw5HDksOTw5TDlcOWw5fDmMOZw5rDm8Ocw53DnsOfw6DDocOiw6PDpMOlw6bDp8Oow6nDqsOrw6zDrcOuw6/DsMOxw7LDs8O0w7XDtsO3w7jDucO6w7vDvMO9w74=</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>25</Length>
+      </Constraints>
+      <MergeName>NFServingSize</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>1e902033-a2de-4693-b9be-dd3fc772a185</Id>
+      <Name>NFPotassium</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1023</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFPotassium</MergeName>
+      <Description>102 - Potassium %</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>3b048b20-26e7-4a03-b68a-cd5828d3732a</Id>
+      <Name>NFVitD</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1022</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFVitD</MergeName>
+      <Description>98 - Vitamin D %</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>ba2119c8-973c-4520-9195-dcf3fe4284a4</Id>
+      <Name>NFIronmcg</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mg</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1021</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFIronmcg</MergeName>
+      <Description>101</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>8f368776-26cc-491f-bf8a-1c272e753144</Id>
+      <Name>NFPotassiummcg</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mg</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1024</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFPotassiummcg</MergeName>
+      <Description>103</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>32105bf9-9ee2-49d5-a922-2cf331e8003f</Id>
+      <Name>NFCalciummcg</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mg</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1020</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFCalciummcg</MergeName>
+      <Description>100</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>012fb752-2b8f-4e83-9e19-0a7742d3c1a0</Id>
+      <Name>NFVitDmcg</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>mcg</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1026</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFVitDmcg</MergeName>
+      <Description>99</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>27ba7328-99ce-48b8-b175-37a213730ac4</Id>
+      <Name>NFSugarsAdded</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>%</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1028</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFSugarsAdded</MergeName>
+      <Description>96 - Sugars Added %</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>9384eee8-d81a-444f-a403-2b4d24d3d90b</Id>
+      <Name>NFSugarsAddedG</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Step>0</Step>
+      <IsMultiline>False</IsMultiline>
+      <Suffix>g</Suffix>
+      <DayRolloverTime>0.780532407407407</DayRolloverTime>
+      <PromptOrder>1027</PromptOrder>
+      <MultilineLineLength>255</MultilineLineLength>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <AllowedCharactersForCustomFormat>123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz</AllowedCharactersForCustomFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>255</Length>
+      </Constraints>
+      <MergeName>NFSugarsAddedG</MergeName>
+      <Description>97</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>8c293f8b-68c4-4b4f-8151-22ebaf621282</Id>
+      <Name>TodaysDate</Name>
+      <DefaultValue Type="SystemDateTimeContents">
+        <IsPrinterClock>False</IsPrinterClock>
+        <Offset Type="DateTimeOffsets">
+          <Days>0</Days>
+          <Hours>0</Hours>
+          <Minutes>0</Minutes>
+          <Seconds>0</Seconds>
+        </Offset>
+        <DisplayType>1</DisplayType>
+        <InputFormat>M/d/yyyy</InputFormat>
+        <OutputFormat>M/d/yyyy</OutputFormat>
+      </DefaultValue>
+      <SampleValue Type="SystemDateTimeContents">
+        <IsPrinterClock>False</IsPrinterClock>
+        <Offset Type="DateTimeOffsets">
+          <Days>0</Days>
+          <Hours>0</Hours>
+          <Minutes>0</Minutes>
+          <Seconds>0</Seconds>
+        </Offset>
+        <DisplayType>1</DisplayType>
+        <InputFormat>M/d/yyyy</InputFormat>
+        <OutputFormat>M/d/yyyy</OutputFormat>
+        <UserValue>4/21/2022</UserValue>
+      </SampleValue>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0</DayRolloverTime>
+      <PromptOrder>1023</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>TodaysDate</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="Variable">
+      <Id>894743b5-1442-4d61-a4c5-2b8fe0fd40a6</Id>
+      <Name>DateAddition</Name>
+      <DefaultValue Type="DateTimeContents">
+        <IsPrinterClock>False</IsPrinterClock>
+        <UsageType>0</UsageType>
+        <DateTimeValue>2958465.99999999</DateTimeValue>
+        <IsClientDateTime>False</IsClientDateTime>
+        <Offset Type="DateTimeOffsets">
+          <Days>0</Days>
+          <Hours>0</Hours>
+          <Minutes>0</Minutes>
+          <Seconds>0</Seconds>
+        </Offset>
+        <DisplayType>1</DisplayType>
+        <InputFormat>MM/dd/yyyy</InputFormat>
+        <OutputFormat>MM/dd/yy</OutputFormat>
+        <UserValue>[82088a55-fe85-45cf-b38d-f2f4c4d932fd]</UserValue>
+      </DefaultValue>
+      <SampleValue Type="DateTimeContents">
+        <IsPrinterClock>False</IsPrinterClock>
+        <UsageType>0</UsageType>
+        <DateTimeValue>44672.4698699306</DateTimeValue>
+        <IsClientDateTime>False</IsClientDateTime>
+        <Offset Type="DateTimeOffsets">
+          <Days>0</Days>
+          <Hours>0</Hours>
+          <Minutes>0</Minutes>
+          <Seconds>0</Seconds>
+        </Offset>
+        <DisplayType>1</DisplayType>
+        <InputFormat>MM/dd/yyyy</InputFormat>
+        <OutputFormat>MM/dd/yyyy</OutputFormat>
+        <UserValue>04/21/2022</UserValue>
+      </SampleValue>
+      <IsMultiline>False</IsMultiline>
+      <DayRolloverTime>0</DayRolloverTime>
+      <PromptOrder>1025</PromptOrder>
+      <DeviceInternalCounterType>1</DeviceInternalCounterType>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <DataSourceReference Type="SolutionDataSourceReference">
+        <Id>82088a55-fe85-45cf-b38d-f2f4c4d932fd</Id>
+      </DataSourceReference>
+      <MergeName>DateAddition</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+  </Variables>
+  <Functions>
+    <Item Type="ConcatenateFunction">
+      <Id>246def0c-4bd4-4a59-885f-901b15ae3eee</Id>
+      <Name>DescriptionFields</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <Separator Base64Encoded="true">DQo=</Separator>
+      <IgnoreEmptyValues>False</IgnoreEmptyValues>
+      <DataValues>
+        <Item Type="DataValue">
+          <DataSourceReference Type="SolutionDataSourceReference">
+            <Id>9b19b3d6-fd8e-4250-b84e-64fa7bd7a049</Id>
+          </DataSourceReference>
+        </Item>
+        <Item Type="DataValue">
+          <DataSourceReference Type="SolutionDataSourceReference">
+            <Id>d8409940-a513-4e07-8cda-b92361625140</Id>
+          </DataSourceReference>
+        </Item>
+      </DataValues>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>DescriptionFields</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="DateAddFunction">
+      <Id>82088a55-fe85-45cf-b38d-f2f4c4d932fd</Id>
+      <Name>DateAddition_1</Name>
+      <SampleValue Type="DateTimeContents">
+        <IsPrinterClock>False</IsPrinterClock>
+        <UsageType>0</UsageType>
+        <DateTimeValue>44672</DateTimeValue>
+        <IsClientDateTime>False</IsClientDateTime>
+        <Offset Type="DateTimeOffsets">
+          <Days>0</Days>
+          <Hours>0</Hours>
+          <Minutes>0</Minutes>
+          <Seconds>0</Seconds>
+        </Offset>
+        <DisplayType>1</DisplayType>
+        <OutputFormat>MM/dd/yyyy</OutputFormat>
+        <UserValue>04/21/2022</UserValue>
+      </SampleValue>
+      <Day Type="DataValue">
+        <DataSourceReference Type="SolutionDataSourceReference">
+          <Id>3837d36e-8515-49e9-979b-981869959d1e</Id>
+        </DataSourceReference>
+        <FixedValue Type="DoubleContents">
+          <InputFormatInfo Type="NumberFormatInfoWrapper">
+            <CurrencyNegativePattern>0</CurrencyNegativePattern>
+            <CurrencySymbol>$</CurrencySymbol>
+          </InputFormatInfo>
+          <OutputFormatInfo Type="NumberFormatInfoWrapper">
+            <CurrencyNegativePattern>0</CurrencyNegativePattern>
+            <CurrencySymbol>$</CurrencySymbol>
+          </OutputFormatInfo>
+        </FixedValue>
+      </Day>
+      <Month Type="DataValue">
+        <FixedValue Type="IntegerContents" />
+      </Month>
+      <Year Type="DataValue">
+        <FixedValue Type="IntegerContents" />
+      </Year>
+      <InputDataSourceReference Type="SolutionDataSourceReference">
+        <Id>8c293f8b-68c4-4b4f-8151-22ebaf621282</Id>
+      </InputDataSourceReference>
+      <OutputFormat>MM/dd/yyyy</OutputFormat>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>DateAddition</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>638a59e4-db00-43ff-8dd6-e42797f5c991</Id>
+      <Name>NFRTF</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgVUNBU0UoZDNhZGRhNmMtY2UyYy00YTFkLWFjZGItZTJlNjViZTc5NjhkKSA9ICJQQVJBIiBUaGVuDQpSZXN1bHQgPSAie1xydGYxXGFuc2lcYW5zaWNwZzEyNTJcZGVmZjB7XGZvbnR0Ymx7XGYwXGZuaWxcZmNoYXJzZXQwIEhlbHZldGljYS1CbGFjay1TZW1pQm9sZDt9e1xmMVxmbmlsXGZjaGFyc2V0MEhlbHZldGljYTt9fXtcY29sb3J0Ymw7XHJlZDBcZ3JlZW4wXGJsdWUwO31cdmlld2tpbmQ0XHVjMVxwYXJkXGNmMVxsYW5nMTAzM1xmMFxmczI0TnV0cml0aW9uIEZhY3RzXGZzMjggIFxmMVxmczE2ICBccHJvdGVjdFxmczE4IiAmIE5GU2VydmluZ1BlclBhY2smICIgXHByb3RlY3QwICBcZjAgU2VydmluZyBTaXplOiBccHJvdGVjdCAiICZORlNlcnZpbmdTaXplJiAiIFxwcm90ZWN0MCAsXGYxIFxwYXIgXGYwXGZzMjAgQ2Fsb3JpZXNcZnMxNiAgXHByb3RlY3RcZnMyOCAiICYgTkZDYWxvcmllcyYgIlxwcm90ZWN0MFxmczE2ICxcZjEgIFxwcm90ZWN0ICIgJiBORkNhbG9yaWVzRmF0JiIgXHByb3RlY3QwICBcZjAgVG90YWwgRmF0XGYxICBccHJvdGVjdCAiICYgTkZUb3RhbEZhdEcmIiAiICYgTkZUb3RhbEZhdCYgIiBccHJvdGVjdDAgIFxwcm90ZWN0ICIgJiBORlNhdEZhdEcmICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZTYXRGYXQmICIgXHByb3RlY3QwIFxwcm90ZWN0ICIgJiBORlRyYW5zRmF0RyYgIiBccHJvdGVjdDAgIFxwcm90ZWN0ICIgJiBORkNob2xlc3Rlcm9sTUcmICIgXHByb3RlY3QwICBcZjAgQ2hvbGVzdC5cZjEgXHByb3RlY3QgIiAmIE5GQ2hvbGVzdGVyb2wmICIgIiAmIE5GU29kaXVtTUcmICIgXHByb3RlY3QwICBcZjAgU29kaXVtXGYxICBccHJvdGVjdCAiICYgTkZTb2RpdW0mICJccHJvdGVjdDAgIFxiIFRvdGFsIENhcmIuXGIwICBccHJvdGVjdCAiICYgTkZUb3RDYXJib0cmICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZUb3RDYXJibyYgIiAiICZORkRpZXRGaWJlckcmICIgXHByb3RlY3QwICIgJiBORkRpZXRGaWJlciYgIiAgXHByb3RlY3QgIiAmIE5GU3VnYXJzRyYgIiBccHJvdGVjdDAgIFxmMCBQcm90ZWluXGYxIFxwcm90ZWN0ICIgJiBORlByb3RlaW5HJiAiIFxwcm90ZWN0MCAgXHByb3RlY3QgIiAmIE5GVml0QSYgIiBccHJvdGVjdDAgIFxwcm90ZWN0ICIgJiBORlZpdEMmICJccHJvdGVjdDAgIFxwcm90ZWN0ICIgJiBORkNhbGNpdW0mICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZJcm9uJiAiIFxwcm90ZWN0MOKAnSBccGFyIH0iDQpFbmQgaWY=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgVUNBU0UoRGVzY3JpcHRpb24xMikgPSAiUEFSQSIgVGhlbg0KUmVzdWx0ID0gIntccnRmMVxhbnNpXGFuc2ljcGcxMjUyXGRlZmYwe1xmb250dGJse1xmMFxmbmlsXGZjaGFyc2V0MCBIZWx2ZXRpY2EtQmxhY2stU2VtaUJvbGQ7fXtcZjFcZm5pbFxmY2hhcnNldDBIZWx2ZXRpY2E7fX17XGNvbG9ydGJsO1xyZWQwXGdyZWVuMFxibHVlMDt9XHZpZXdraW5kNFx1YzFccGFyZFxjZjFcbGFuZzEwMzNcZjBcZnMyNE51dHJpdGlvbiBGYWN0c1xmczI4ICBcZjFcZnMxNiAgXHByb3RlY3RcZnMxOCIgJiBORlNlcnZpbmdQZXJQYWNrJiAiIFxwcm90ZWN0MCAgXGYwIFNlcnZpbmcgU2l6ZTogXHByb3RlY3QgIiAmTkZTZXJ2aW5nU2l6ZSYgIiBccHJvdGVjdDAgLFxmMSBccGFyIFxmMFxmczIwIENhbG9yaWVzXGZzMTYgIFxwcm90ZWN0XGZzMjggIiAmIE5GQ2Fsb3JpZXMmICJccHJvdGVjdDBcZnMxNiAsXGYxICBccHJvdGVjdCAiICYgTkZDYWxvcmllc0ZhdCYiIFxwcm90ZWN0MCAgXGYwIFRvdGFsIEZhdFxmMSAgXHByb3RlY3QgIiAmIE5GVG90YWxGYXRHJiIgIiAmIE5GVG90YWxGYXQmICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZTYXRGYXRHJiAiIFxwcm90ZWN0MCAgXHByb3RlY3QgIiAmIE5GU2F0RmF0JiAiIFxwcm90ZWN0MCBccHJvdGVjdCAiICYgTkZUcmFuc0ZhdEcmICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZDaG9sZXN0ZXJvbE1HJiAiIFxwcm90ZWN0MCAgXGYwIENob2xlc3QuXGYxIFxwcm90ZWN0ICIgJiBORkNob2xlc3Rlcm9sJiAiICIgJiBORlNvZGl1bU1HJiAiIFxwcm90ZWN0MCAgXGYwIFNvZGl1bVxmMSAgXHByb3RlY3QgIiAmIE5GU29kaXVtJiAiXHByb3RlY3QwICBcYiBUb3RhbCBDYXJiLlxiMCAgXHByb3RlY3QgIiAmIE5GVG90Q2FyYm9HJiAiIFxwcm90ZWN0MCAgXHByb3RlY3QgIiAmIE5GVG90Q2FyYm8mICIgIiAmTkZEaWV0RmliZXJHJiAiIFxwcm90ZWN0MCAiICYgTkZEaWV0RmliZXImICIgIFxwcm90ZWN0ICIgJiBORlN1Z2Fyc0cmICIgXHByb3RlY3QwICBcZjAgUHJvdGVpblxmMSBccHJvdGVjdCAiICYgTkZQcm90ZWluRyYgIiBccHJvdGVjdDAgIFxwcm90ZWN0ICIgJiBORlZpdEEmICIgXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZWaXRDJiAiXHByb3RlY3QwICBccHJvdGVjdCAiICYgTkZDYWxjaXVtJiAiIFxwcm90ZWN0MCAgXHByb3RlY3QgIiAmIE5GSXJvbiYgIiBccHJvdGVjdDDigJ0gXHBhciB9Ig0KRW5kIGlm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>d3adda6c-ce2c-4a1d-acdb-e2e65be7968d</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>NFRTF</MergeName>
+      <Description>RTF</Description>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>a5ce3863-ef9e-42a8-83de-3b4a75aa0d2c</Id>
+      <Name>CP__58</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgOWIxOWIzZDYtZmQ4ZS00MjUwLWI4NGUtNjRmYTdiZDdhMDQ5IDw+ICJIZWFsdGh5IGFuZCBXaG9sZXNvbWUiIEFORCBMZW4oZjFhOTVmZTctZTU1NC00Mjg5LWI5ZDMtMzUxOWQyZDNjYzY1KSA8IDMgVGhlbg0KUmVzdWx0ID0gMjQ2ZGVmMGMtNGJkNC00YTU5LTg4NWYtOTAxYjE1YWUzZWVlDQpFbmQgSWY=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgRGVzY3JpcHRpb24xIDw+ICJIZWFsdGh5IGFuZCBXaG9sZXNvbWUiIEFORCBMZW4oRGVzY3JpcHRpb241KSA8IDMgVGhlbg0KUmVzdWx0ID0gRGVzY3JpcHRpb25GaWVsZHMNCkVuZCBJZg==</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9b19b3d6-fd8e-4250-b84e-64fa7bd7a049</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>f1a95fe7-e554-4289-b9d3-3519d2d3cc65</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>246def0c-4bd4-4a59-885f-901b15ae3eee</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__58</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>8cf202de-6cac-445f-91b0-09f813952819</Id>
+      <Name>CP__57</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgOWIxOWIzZDYtZmQ4ZS00MjUwLWI4NGUtNjRmYTdiZDdhMDQ5ID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSIgVGhlbg0KUmVzdWx0ID0gZDg0MDk5NDAtYTUxMy00ZTA3LThjZGEtYjkyMzYxNjI1MTQwDQpFbHNlSWYgTGVuKGYxYTk1ZmU3LWU1NTQtNDI4OS1iOWQzLTM1MTlkMmQzY2M2NSkgPiAyIFRoZW4NClJlc3VsdCA9IDI0NmRlZjBjLTRiZDQtNGE1OS04ODVmLTkwMWIxNWFlM2VlZQ0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgRGVzY3JpcHRpb24xID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSIgVGhlbg0KUmVzdWx0ID0gRGVzY3JpcHRpb24yDQpFbHNlSWYgTGVuKERlc2NyaXB0aW9uNSkgPiAyIFRoZW4NClJlc3VsdCA9IERlc2NyaXB0aW9uRmllbGRzDQpFbmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9b19b3d6-fd8e-4250-b84e-64fa7bd7a049</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>d8409940-a513-4e07-8cda-b92361625140</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>f1a95fe7-e554-4289-b9d3-3519d2d3cc65</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>246def0c-4bd4-4a59-885f-901b15ae3eee</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__57</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>2ea18103-c952-4a6c-b187-bf73c152e1e6</Id>
+      <Name>CP__56</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgOWIxOWIzZDYtZmQ4ZS00MjUwLWI4NGUtNjRmYTdiZDdhMDQ5ID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSIgVGhlbg0KUmVzdWx0ID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSINCkVsc2UNClJlc3VsdCA9IGYxYTk1ZmU3LWU1NTQtNDI4OS1iOWQzLTM1MTlkMmQzY2M2NQ0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgRGVzY3JpcHRpb24xID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSIgVGhlbg0KUmVzdWx0ID0gIkhlYWx0aHkgYW5kIFdob2xlc29tZSINCkVsc2UNClJlc3VsdCA9IERlc2NyaXB0aW9uNQ0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9b19b3d6-fd8e-4250-b84e-64fa7bd7a049</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>f1a95fe7-e554-4289-b9d3-3519d2d3cc65</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__56</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>8c791249-e188-48ce-ba7e-29398bb8a2cb</Id>
+      <Name>CPVBS3</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPCAxIFRoZW4NCiAgIFJlc3VsdCA9ICJDQUxPUklFUyIgJiBWQkNSTEYgJiAiUEVSIiAmIFZCQ1JMRiAmICJTRVJWSU5HIg0KRWxzZQ0KSWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA8IDEgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9ICJTRVJWSU5HIiAmIFZCQ1JMRiAmICJTSVpFIg0KRW5kIElmDQpFbmQgSWY=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA8IDEgVGhlbg0KICAgUmVzdWx0ID0gIkNBTE9SSUVTIiAmIFZCQ1JMRiAmICJQRVIiICYgVkJDUkxGICYgIlNFUlZJTkciDQpFbHNlDQpJZiBMZW4oKFRyaW0oTkZDYWxvcmllcykpKSA8IDEgQU5EIExlbigoVHJpbShORlNlcnZpbmdTaXplKSkpID4gMCBUaGVuDQogICBSZXN1bHQgPSAiU0VSVklORyIgJiBWQkNSTEYgJiAiU0laRSINCkVuZCBJZg0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CPVBS3</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>2a7b58e5-6eb8-44dc-89f0-980abf85ee51</Id>
+      <Name>CP__54</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPCAxIFRoZW4NCiAgIFJlc3VsdCA9ICJDOlxQcm9ncmFtIEZpbGVzXE1NX0xhYmVsXExhYmVsc1xJbWFnZXNcbmZiYWRnZV9id19SZXZlcnNlLmpwZyINCkVsc2UNCklmIExlbigoVHJpbSg5YTE1YmM3OS05MTJiLTQwY2UtYWE4NC1lMzdiZTZjOWExZDIpKSkgPCAxIEFORCBMZW4oKFRyaW0oMGExOTg3NGEtNjVmNy00NTA3LWIwNGYtZmEzYjA3MWFmNDkyKSkpID4gMCBUaGVuDQogICBSZXN1bHQgPSAiQzpcUHJvZ3JhbSBGaWxlc1xNTV9MYWJlbFxMYWJlbHNcSW1hZ2VzXG5mYmFkZ2VfYndfUmV2ZXJzZS5qcGciDQpFbmQgSWYNCkVOZCBJZg==</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA8IDEgVGhlbg0KICAgUmVzdWx0ID0gIkM6XFByb2dyYW0gRmlsZXNcTU1fTGFiZWxcTGFiZWxzXEltYWdlc1xuZmJhZGdlX2J3X1JldmVyc2UuanBnIg0KRWxzZQ0KSWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPCAxIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gIkM6XFByb2dyYW0gRmlsZXNcTU1fTGFiZWxcTGFiZWxzXEltYWdlc1xuZmJhZGdlX2J3X1JldmVyc2UuanBnIg0KRW5kIElmDQpFTmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__54</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>9012b099-f8da-4848-b282-cc5ab8bbc3a7</Id>
+      <Name>CP__52</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPCAxIFRoZW4NCiAgIFJlc3VsdCA9IDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMg0KRWxzZQ0KSWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA8IDEgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9IDBhMTk4NzRhLTY1ZjctNDUwNy1iMDRmLWZhM2IwNzFhZjQ5Mg0KRW5kIElmDQpFbmQgSWY=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA8IDEgVGhlbg0KICAgUmVzdWx0ID0gTkZDYWxvcmllcw0KRWxzZQ0KSWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPCAxIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gTkZTZXJ2aW5nU2l6ZQ0KRW5kIElmDQpFbmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__52</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>615de698-235d-45e9-b5c7-1c8c91081041</Id>
+      <Name>CP__51</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9ICJDOlxQcm9ncmFtIEZpbGVzXE1NX0xhYmVsXExhYmVsc1xJbWFnZXNcbmZiYWRnZV9id19SZXZlcnNlLmpwZyINCkVuZCBJZg==</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gIkM6XFByb2dyYW0gRmlsZXNcTU1fTGFiZWxcTGFiZWxzXEltYWdlc1xuZmJhZGdlX2J3X1JldmVyc2UuanBnIg0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__51</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>735edee7-7569-4bdc-8043-891bdcb53324</Id>
+      <Name>CP__50</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9ICJDOlxQcm9ncmFtIEZpbGVzXE1NX0xhYmVsXExhYmVsc1xJbWFnZXNcbmZiYWRnZV9id19SZXZlcnNlLmpwZyINCkVuZCBJZg==</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gIkM6XFByb2dyYW0gRmlsZXNcTU1fTGFiZWxcTGFiZWxzXEltYWdlc1xuZmJhZGdlX2J3X1JldmVyc2UuanBnIg0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__50</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>5d413ee1-9eac-4917-b444-e366f2756e28</Id>
+      <Name>CP__49</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9ICJDQUxPUklFUyIgJiBWQkNSTEYgJiAiUEVSIiAmIFZCQ1JMRiAmICJTRVJWSU5HIg0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gIkNBTE9SSUVTIiAmIFZCQ1JMRiAmICJQRVIiICYgVkJDUkxGICYgIlNFUlZJTkciDQpFbmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__49</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>2003e30a-4fb6-4cfc-8b16-c9f22033a27c</Id>
+      <Name>CP__48</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIFJlc3VsdCA9ICJTRVJWSU5HIiAmIFZCQ1JMRiAmICJTSVpFIg0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgUmVzdWx0ID0gIlNFUlZJTkciICYgVkJDUkxGICYgIlNJWkUiDQpFbmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__48</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>bb12e377-5af5-4242-bf4f-f59cc73683b3</Id>
+      <Name>CP__47</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIERJTSBUZW1wUmVzdWx0DQpUZW1wUmVzdWx0ID0gOWExNWJjNzktOTEyYi00MGNlLWFhODQtZTM3YmU2YzlhMWQyDQoNCidFbnRlciBSZXBsYWNlIFN0YXRlbWVudHMgaGVyZQ0KVGVtcFJlc3VsdCA9IFJlcGxhY2UoVGVtcFJlc3VsdCwgIlNlcnZpbmcgU2l6ZTogIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiQ2Fsb3JpZXMgIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiLCAiLCAiIikNCg0KJ0RvIE5vdCBNb2RpZnkNClJlc3VsdCA9IFRlbXBSZXN1bHQNCkVuZCBJZg0KDQo=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgRElNIFRlbXBSZXN1bHQNClRlbXBSZXN1bHQgPSBORkNhbG9yaWVzDQoNCidFbnRlciBSZXBsYWNlIFN0YXRlbWVudHMgaGVyZQ0KVGVtcFJlc3VsdCA9IFJlcGxhY2UoVGVtcFJlc3VsdCwgIlNlcnZpbmcgU2l6ZTogIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiQ2Fsb3JpZXMgIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiLCAiLCAiIikNCg0KJ0RvIE5vdCBNb2RpZnkNClJlc3VsdCA9IFRlbXBSZXN1bHQNCkVuZCBJZg0KDQo=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__47</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>9a486295-94ea-498e-8b86-408d2680a51f</Id>
+      <Name>CP__46</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKChUcmltKDlhMTViYzc5LTkxMmItNDBjZS1hYTg0LWUzN2JlNmM5YTFkMikpKSA+IDAgQU5EIExlbigoVHJpbSgwYTE5ODc0YS02NWY3LTQ1MDctYjA0Zi1mYTNiMDcxYWY0OTIpKSkgPiAwIFRoZW4NCiAgIERJTSBUZW1wUmVzdWx0DQpUZW1wUmVzdWx0ID0gMGExOTg3NGEtNjVmNy00NTA3LWIwNGYtZmEzYjA3MWFmNDkyDQoNCidFbnRlciBSZXBsYWNlIFN0YXRlbWVudHMgaGVyZQ0KVGVtcFJlc3VsdCA9IFJlcGxhY2UoVGVtcFJlc3VsdCwgIlNlcnZpbmcgU2l6ZTogIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiQ2Fsb3JpZXMgIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiLCAiLCAiIikNCg0KJ0RvIE5vdCBNb2RpZnkNClJlc3VsdCA9IFRlbXBSZXN1bHQNCkVuZCBJZg==</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKChUcmltKE5GQ2Fsb3JpZXMpKSkgPiAwIEFORCBMZW4oKFRyaW0oTkZTZXJ2aW5nU2l6ZSkpKSA+IDAgVGhlbg0KICAgRElNIFRlbXBSZXN1bHQNClRlbXBSZXN1bHQgPSBORlNlcnZpbmdTaXplDQoNCidFbnRlciBSZXBsYWNlIFN0YXRlbWVudHMgaGVyZQ0KVGVtcFJlc3VsdCA9IFJlcGxhY2UoVGVtcFJlc3VsdCwgIlNlcnZpbmcgU2l6ZTogIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiQ2Fsb3JpZXMgIiwgIiIpDQpUZW1wUmVzdWx0ID0gUmVwbGFjZShUZW1wUmVzdWx0LCAiLCAiLCAiIikNCg0KJ0RvIE5vdCBNb2RpZnkNClJlc3VsdCA9IFRlbXBSZXN1bHQNCkVuZCBJZg==</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>9a15bc79-912b-40ce-aa84-e37be6c9a1d2</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>0a19874a-65f7-4507-b04f-fa3b071af492</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__46</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>7a31ce91-209b-4c8e-a394-ac07d556ec7f</Id>
+      <Name>CPVBS</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">RGltIGluY29taW5nRGF0ZURheXMNCg0KaW5jb21pbmdEYXRlRGF5cyA9IDM4MzdkMzZlLTg1MTUtNDllOS05NzliLTk4MTg2OTk1OWQxZQ0KDQpJZiAzODM3ZDM2ZS04NTE1LTQ5ZTktOTc5Yi05ODE4Njk5NTlkMWUgPD4gIjk5IiBUaGVuDQogICBSZXN1bHQgPSAiU0VMTCBCWToiICYgVkJDUkxGICYgODk0NzQzYjUtMTQ0Mi00ZDYxLWE0YzUtMmI4ZmUwZmQ0MGE2DQpFbHNlDQogICBSZXN1bHQgPSAiIg0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">RGltIGluY29taW5nRGF0ZURheXMNCg0KaW5jb21pbmdEYXRlRGF5cyA9IFNlbGxCeURheXMNCg0KSWYgU2VsbEJ5RGF5cyA8PiAiOTkiIFRoZW4NCiAgIFJlc3VsdCA9ICJTRUxMIEJZOiIgJiBWQkNSTEYgJiBEYXRlQWRkaXRpb24NCkVsc2UNCiAgIFJlc3VsdCA9ICIiDQpFbmQgSWY=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>3837d36e-8515-49e9-979b-981869959d1e</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>894743b5-1442-4d61-a4c5-2b8fe0fd40a6</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CPVBS</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>3a8ed299-3143-4bea-98fa-abfb552a4a1a</Id>
+      <Name>CPVBS2</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgNjA3OTdjNGUtYjk4MC00ZWVhLTg0OTYtNDk2MDUyZTY2MTU3ID0gIlRydWUiIFRoZW4NClJlc3VsdCA9IDgzZDZiNDM5LTQwM2ItNDlmNi04MzlmLTJkOGY5ZGYxYTA4ZA0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgU2NhbGVhYmxlID0gIlRydWUiIFRoZW4NClJlc3VsdCA9IFByaWNlUGVyUG91bmQNCkVuZCBJZg==</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>60797c4e-b980-4eea-8496-496052e66157</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>83d6b439-403b-49f6-839f-2d8f9df1a08d</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CPVBS2</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>c5e5ffae-9514-45c7-9074-17c6268534f7</Id>
+      <Name>CP__44</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgYzQyNGYwMzctNzk3NC00OWRmLWIzYjMtMzNhNDZlMTgyYWIyID0gIiAiIE9SIGM0MjRmMDM3LTc5NzQtNDlkZi1iM2IzLTMzYTQ2ZTE4MmFiMiA9ICIiICBPUiBjNDI0ZjAzNy03OTc0LTQ5ZGYtYjNiMy0zM2E0NmUxODJhYjIgPSAiMCIgVGhlbg0KDQogICBSZXN1bHQgPSAiICINCg0KRWxzZQ0KDQogICBSZXN1bHQgPSAiTkVUIFdUICIgJiAgYzQyNGYwMzctNzk3NC00OWRmLWIzYjMtMzNhNDZlMTgyYWIyDQoNCkVuZCBJZg0KDQo=</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgV2VpZ2h0ID0gIiAiIE9SIFdlaWdodCA9ICIiICBPUiBXZWlnaHQgPSAiMCIgVGhlbg0KDQogICBSZXN1bHQgPSAiICINCg0KRWxzZQ0KDQogICBSZXN1bHQgPSAiTkVUIFdUICIgJiAgV2VpZ2h0DQoNCkVuZCBJZg0KDQo=</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>c424f037-7974-49df-b3b3-33a46e182ab2</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__44</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>ee327b2e-660d-4c7a-a625-925f0f12af20</Id>
+      <Name>CP__45</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKDgxNGFmNjczLTlhNDgtNDYwNi04YmZhLWZiYjg1YjEyMzVhMCkgPiAyIFRoZW4NClJlc3VsdCA9IGM4MzhlZTc5LWNjZjYtNGJiZi1hZjdmLWI3ODQ3ZjdmODQ5Zg0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKERlc2NyaXB0aW9uMTQpID4gMiBUaGVuDQpSZXN1bHQgPSBJbmdyZWRpZW50cw0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>814af673-9a48-4606-8bfa-fbb85b1235a0</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>c838ee79-ccf6-4bbf-af7f-b7847f7f849f</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__45</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+    <Item Type="ExecuteScriptFunction">
+      <Id>ff97b647-a7f8-45d7-b6ab-01e443b7bf4b</Id>
+      <Name>CP__65</Name>
+      <SampleValue Type="StringContents">
+        <StringValue>??????</StringValue>
+        <UserValue>??????</UserValue>
+      </SampleValue>
+      <ScriptWithReferences Base64Encoded="true">SWYgTGVuKDgxNGFmNjczLTlhNDgtNDYwNi04YmZhLWZiYjg1YjEyMzVhMCkgPCAzIFRoZW4NClJlc3VsdCA9IGM4MzhlZTc5LWNjZjYtNGJiZi1hZjdmLWI3ODQ3ZjdmODQ5Zg0KRW5kIElm</ScriptWithReferences>
+      <Script Base64Encoded="true">SWYgTGVuKERlc2NyaXB0aW9uMTQpIDwgMyBUaGVuDQpSZXN1bHQgPSBJbmdyZWRpZW50cw0KRW5kIElm</Script>
+      <InputDataSourceReferences>
+        <Item Type="SolutionDataSourceReference">
+          <Id>814af673-9a48-4606-8bfa-fbb85b1235a0</Id>
+        </Item>
+        <Item Type="SolutionDataSourceReference">
+          <Id>c838ee79-ccf6-4bbf-af7f-b7847f7f849f</Id>
+        </Item>
+      </InputDataSourceReferences>
+      <Constraints Type="DataSourceConstraints">
+        <Length>0</Length>
+      </Constraints>
+      <MergeName>CP__65</MergeName>
+      <EditorHeights></EditorHeights>
+    </Item>
+  </Functions>
+  <SampleValue Type="StringContents" />
+  <SolutionType>1</SolutionType>
+  <LicenseInfos>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>CJGDPFMKQPPVZ65R4PQMWKYNW</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo" />
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>PARU2RMTQFHA86X4XBS4ATHE9</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEK89UHTVXKQ4QTREYT5U2CGG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo" />
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SER3L7NLBNNA6BSM54RT4XGTG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEK89UHTVXKQ4QTREYT5U2CGG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>PARU2RMTQFHA86X4XBS4ATHE9</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEK89UHTVXKQ4QTREYT5U2CGG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SER3L7NLBNNA6BSM54RT4XGTG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEK89UHTVXKQ4QTREYT5U2CGG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>PARU2RMTQFHA86X4XBS4ATHE9</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEQ2PWPAEXZJRJ6FJRECMSYHG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>PAC87GR35C7W4HF6LFCXN3KA9</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEQ2PWPAEXZJRJ6FJRECMSYHG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SEGEF77CB5SWLPZTQQAL7MC9G</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SDCK22E2N3W5MBURYR3JWLERG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>SDKP7ABX57Y8DCPVDECRT9BNG</SerialNumber>
+    </Item>
+    <Item Type="SolutionLicenseInfo">
+      <SerialNumber>DEMO TRIAL</SerialNumber>
+    </Item>
+  </LicenseInfos>
+  <SolutionSummary Type="SolutionSummary">
+    <SolutionName>2-OVAL_STRIP_BADGES</SolutionName>
+    <FormatCount>1</FormatCount>
+    <HasErrors>True</HasErrors>
+  </SolutionSummary>
+  <MergeName>2-OVAL_STRIP_BADGES</MergeName>
+  <EditorHeights></EditorHeights>
+</EuroPlus.NiceLabel>
