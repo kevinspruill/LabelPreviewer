@@ -531,33 +531,45 @@ namespace LabelPreviewer
                 textBlock.TextWrapping = TextWrapping.Wrap;
             }
 
+            
+
             // Get position adjusted for anchoring point
             Point position = item.GetAdjustedPosition();
             Canvas.SetLeft(textBlock, position.X);
             Canvas.SetTop(textBlock, position.Y);
 
+            Rectangle debugRect = new Rectangle
+            {
+                Width = item.Width,
+                Height = item.Height,
+                Fill = Brushes.Transparent,
+                Stroke = Brushes.Red,
+            };
+            Canvas.SetLeft(debugRect, position.X);  // Original position
+            Canvas.SetTop(debugRect, position.Y);
+
             // Set z-order if available
             if (item.ZOrder != 0)
             {
                 Canvas.SetZIndex(textBlock, item.ZOrder);
+                Canvas.SetZIndex(debugRect, item.ZOrder - 1);
             }
+
+            
+            canvas.Children.Add(debugRect);
 
             canvas.Children.Add(textBlock);
 
-            Rectangle debugRect = new Rectangle
-            {
-                Width = 10,
-                Height = 10,
-                Fill = Brushes.Red
-            };
-            Canvas.SetLeft(debugRect, item.X);  // Original position
-            Canvas.SetTop(debugRect, item.Y);
-            canvas.Children.Add(debugRect);
+            
 
         }
 
         private void RenderGraphicItem(Canvas canvas, GraphicDocumentItem item)
         {
+            // Set default size
+            if (item.Width == 0) { item.Width = 50; }
+            if (item.Height == 0) { item.Height = 50; }
+
             // Placeholder for graphics - just draw a rectangle with name
             Rectangle rect = new Rectangle
             {
@@ -595,6 +607,11 @@ namespace LabelPreviewer
 
         private void RenderBarcodeItem(Canvas canvas, BarcodeDocumentItem item)
         {
+            // Set default size
+            if (item.Width == 0) { item.Width = 100; }
+            if (item.Height == 0) { item.Height = 50; }
+
+
             // Placeholder for barcode - just draw a rectangle with "BARCODE" text
             Rectangle rect = new Rectangle
             {
@@ -690,16 +707,16 @@ namespace LabelPreviewer
             // Adjust based on the anchoring point
             switch (AnchoringPoint)
             {
-                case 2: // Top-center
+                case 1: // Top-center
                     adjustedX -= Width / 2;
                     break;
-                case 3: // Top-right
+                case 2: // Top-right
                     adjustedX -= Width;
                     break;
-                case 4: // Middle-left
+                case 5: // Middle-left
                     adjustedY -= Height / 2;
                     break;
-                case 5: // Middle-center
+                case 4: // Middle-center
                     adjustedX -= Width / 2;
                     adjustedY -= Height / 2;
                     break;
@@ -707,10 +724,10 @@ namespace LabelPreviewer
                     adjustedX -= Width;
                     adjustedY -= Height / 2;
                     break;
-                case 7: // Bottom-left
+                case 8: // Bottom-left
                     adjustedY -= Height;
                     break;
-                case 8: // Bottom-center
+                case 7: // Bottom-center
                     adjustedX -= Width / 2;
                     adjustedY -= Height;
                     break;
