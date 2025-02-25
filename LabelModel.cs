@@ -7,6 +7,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
+using ICSharpCode.SharpZipLib.Zip;
+
 
 namespace LabelPreviewer
 {
@@ -19,15 +21,67 @@ namespace LabelPreviewer
         public double Height { get; set; }
         public string BackgroundImagePath { get; set; }
 
-        public void LoadFromXml(string variablesXmlPath, string formatXmlPath)
+        public void LoadFromXml(string labelFilePath)
         {
             // Clear existing items first
             DocumentItems.Clear();
             Variables.Clear();
             Functions.Clear();
 
-            LoadVariablesFromXml(variablesXmlPath);
-            LoadFormatFromXml(formatXmlPath);
+            string password = ",^_A5Fus&!?j='Epiq*e";
+            string labelFile = System.IO.Path.GetFileName(labelFilePath);
+            string fileName = System.IO.Path.GetFileNameWithoutExtension(labelFilePath);
+            string fileNameInZip = $"{fileName}.slnx";
+
+            string variablesXMLData = null;
+            string formatXMLData = null;
+
+            try
+            {
+                // Extract all files from the ZIP archive
+                using (ZipFile zipFile = new ZipFile(File.OpenRead(labelFilePath)))
+                {
+                    zipFile.Password = password;
+
+                    // read the contents of the ZIP file, One file is in the root, and has an extension of .slnx, the other is in a subfolder called "Formats", with no extension
+                    foreach (ZipEntry entry in zipFile)
+                    {
+                        if (entry.Name == fileNameInZip)
+                        {
+                            using (Stream stream = zipFile.GetInputStream(entry))
+                            {
+                                // Read the contents of the file as a string
+                                using (StreamReader reader = new StreamReader(stream))
+                                {
+                                    variablesXMLData = reader.ReadToEnd();
+                                }
+                            }
+                        }
+                        else if (entry.Name.StartsWith("Formats/") && !entry.IsDirectory)
+                        {
+                            using (Stream stream = zipFile.GetInputStream(entry))
+                            {
+                                // Read the contents of the file as a string
+                                using (StreamReader reader = new StreamReader(stream))
+                                {
+                                    formatXMLData = reader.ReadToEnd();
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error Reading Label File: {ex.Message}",
+                    "Label Read Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            LoadVariablesFromXml(variablesXMLData);
+            LoadFormatFromXml(formatXMLData);
             GenerateProvisionalData();
         }
 
@@ -174,10 +228,10 @@ namespace LabelPreviewer
             }
         }
 
-        private void LoadVariablesFromXml(string xmlPath)
+        private void LoadVariablesFromXml(string variablesXMLData)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(xmlPath);
+            doc.LoadXml(variablesXMLData);
 
             XmlNodeList variableNodes = doc.SelectNodes("//EuroPlus.NiceLabel/Variables/Item[@Type='Variable']");
             if (variableNodes != null)
@@ -212,10 +266,10 @@ namespace LabelPreviewer
             }
         }
 
-        private void LoadFormatFromXml(string xmlPath)
+        private void LoadFormatFromXml(string formatXMLData)
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(xmlPath);
+            doc.LoadXml(formatXMLData);
 
             // Get label dimensions
             XmlNode mediaNode = doc.SelectSingleNode("//EuroPlus.NiceLabel/Media");

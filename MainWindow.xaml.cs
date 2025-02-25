@@ -14,6 +14,7 @@ namespace LabelPreviewer
     public partial class MainWindow : Window
     {
         private string variablesXmlPath;
+        private string labelFilePath;
         private string formatXmlPath;
         private LabelModel labelModel;
 
@@ -42,23 +43,19 @@ namespace LabelPreviewer
         {
             OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                Filter = "All Files (*.*)|*.*",
-                Title = "Select Variable Definition File"
+                Filter = "NiceLabel Label File (*.nlbl)|*.nlbl",
+                Title = "Select Label File"
             };
 
             if (openFileDialog.ShowDialog() == true)
             {
-                variablesXmlPath = openFileDialog.FileName;
+                labelFilePath = openFileDialog.FileName;
 
-                openFileDialog.Title = "Select Format Definition File";
-                if (openFileDialog.ShowDialog() == true)
-                {
-                    formatXmlPath = openFileDialog.FileName;
-                    btnRenderPreview.IsEnabled = true;
+                MessageBox.Show("Files loaded successfully. Click 'Render Preview' to display the label.",
+                    "Files Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    MessageBox.Show("Files loaded successfully. Click 'Render Preview' to display the label.",
-                        "Files Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                btnRenderPreview.IsEnabled = true;
+
             }
         }
 
@@ -68,7 +65,7 @@ namespace LabelPreviewer
             {
                 Mouse.OverrideCursor = Cursors.Wait;
 
-                labelModel.LoadFromXml(variablesXmlPath, formatXmlPath);
+                labelModel.LoadFromXml(labelFilePath);
                 labelModel.Render(previewCanvas);
 
                 // Update canvas size to match the label dimensions
