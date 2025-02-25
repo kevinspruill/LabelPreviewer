@@ -332,7 +332,7 @@ namespace LabelPreviewer
                     {
                         string geometryType = geometryNode.Attributes?["Type"]?.Value;
                         double x = 0, y = 0, width = 0, height = 0;
-                        int anchoringPoint = 1; // Default to top-left
+                        int anchoringPoint = 0; // Default to top-left
 
                         // Try to get anchoring point
                         XmlNode anchorNode = geometryNode.SelectSingleNode("AnchoringPoint");
@@ -349,9 +349,9 @@ namespace LabelPreviewer
                             // For PositionGeometry, get width and height from content if needed
                             if (item is TextDocumentItem)
                             {
-                                // Default sizes for text items
-                                width = 100; // Default width
-                                height = 20; // Default height
+                                // Get Height from content
+                                
+
                             }
                         }
                         else if (geometryType == "RectGeometry")
@@ -387,6 +387,9 @@ namespace LabelPreviewer
                         if (fixedValueNode != null)
                         {
                             item.Content = fixedValueNode.InnerText;
+                            // Adjust width based on content
+                            item.Width = item.Content.Length * 10;
+
                         }
                     }
                     else
@@ -595,12 +598,22 @@ namespace LabelPreviewer
             Rectangle debugRect = new Rectangle
             {
                 Width = item.Width,
-                Height = item.Height,
+                Height = item.FontSize,
                 Fill = Brushes.Transparent,
                 Stroke = Brushes.Red,
             };
             Canvas.SetLeft(debugRect, position.X);  // Original position
             Canvas.SetTop(debugRect, position.Y);
+
+            Rectangle debugAnchor = new Rectangle
+            {
+                Width = 5,
+                Height = 5,
+                Fill = Brushes.Red
+            };
+            Canvas.SetLeft(debugAnchor, position.X);  // Original position
+            Canvas.SetTop(debugAnchor, position.Y);
+
 
             // Set z-order if available
             if (item.ZOrder != 0)
@@ -609,12 +622,21 @@ namespace LabelPreviewer
                 Canvas.SetZIndex(debugRect, item.ZOrder - 1);
             }
 
-            
-            canvas.Children.Add(debugRect);
+            TextBlock anchorText = new TextBlock
+            {
+                Text = item.AnchoringPoint.ToString(),
+                Foreground = Brushes.White,
+                FontSize = 32
+            };
+            Canvas.SetLeft(anchorText, position.X);
+            Canvas.SetTop(anchorText, position.Y-32);
 
+               
+            canvas.Children.Add(debugRect);            
             canvas.Children.Add(textBlock);
+            canvas.Children.Add(debugAnchor); 
+            canvas.Children.Add(anchorText);
 
-            
 
         }
 
@@ -745,13 +767,22 @@ namespace LabelPreviewer
         public double Height { get; set; }
         public string Content { get; set; }
         public string DataSourceId { get; set; }
-        public int AnchoringPoint { get; set; } = 1; // Default to top-left
+        public int AnchoringPoint { get; set; } // Default to top-left
         public int ZOrder { get; set; } = 0; // Z-index order
 
         // NiceLabel anchoring points:
         // 1 = Top-left, 2 = Top-center, 3 = Top-right
         // 4 = Middle-left, 5 = Middle-center, 6 = Middle-right
         // 7 = Bottom-left, 8 = Bottom-center, 9 = Bottom-right
+
+        
+    }
+
+    public class TextDocumentItem : DocumentItem
+    {
+        public string FontName { get; set; } = "Arial";
+        public double FontSize { get; set; } = 10;
+        public Color FontColor { get; set; } = Colors.Black;
 
         public Point GetAdjustedPosition()
         {
@@ -761,13 +792,15 @@ namespace LabelPreviewer
             // Adjust based on the anchoring point
             switch (AnchoringPoint)
             {
-                case 1: // Top-center
+                case 0: // Top-Left
+                    break;
+                case 1: // Top-Center
                     adjustedX -= Width / 2;
                     break;
                 case 2: // Top-right
                     adjustedX -= Width;
                     break;
-                case 5: // Middle-left
+                case 3: // Middle-left
                     adjustedY -= Height / 2;
                     break;
                 case 4: // Middle-center
@@ -795,18 +828,90 @@ namespace LabelPreviewer
         }
     }
 
-    public class TextDocumentItem : DocumentItem
-    {
-        public string FontName { get; set; } = "Arial";
-        public double FontSize { get; set; } = 10;
-        public Color FontColor { get; set; } = Colors.Black;
-    }
-
     public class GraphicDocumentItem : DocumentItem
     {
+        public Point GetAdjustedPosition()
+        {
+            double adjustedX = X;
+            double adjustedY = Y;
+
+            // Adjust based on the anchoring point
+            switch (AnchoringPoint)
+            {
+                case 1: // Top-left
+                    break;
+                case 2: // Top-right
+                    adjustedX -= Width;
+                    break;
+                case 3: // Middle-left
+                    adjustedY -= Height / 2;
+                    break;
+                case 4: // Middle-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height / 2;
+                    break;
+                case 6: // Middle-right
+                    adjustedX -= Width;
+                    adjustedY -= Height / 2;
+                    break;
+                case 8: // Bottom-left
+                    adjustedY -= Height;
+                    break;
+                case 7: // Bottom-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height;
+                    break;
+                case 9: // Bottom-right
+                    adjustedX -= Width;
+                    adjustedY -= Height;
+                    break;
+            }
+
+            return new Point(adjustedX, adjustedY);
+        }
     }
 
     public class BarcodeDocumentItem : DocumentItem
     {
+        public Point GetAdjustedPosition()
+        {
+            double adjustedX = X;
+            double adjustedY = Y;
+
+            // Adjust based on the anchoring point
+            switch (AnchoringPoint)
+            {
+                case 1: // Top-center
+                    adjustedX -= Width / 2;
+                    break;
+                case 2: // Top-right
+                    adjustedX -= Width;
+                    break;
+                case 3: // Middle-left
+                    adjustedY -= Height / 2;
+                    break;
+                case 4: // Middle-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height / 2;
+                    break;
+                case 6: // Middle-right
+                    adjustedX -= Width;
+                    adjustedY -= Height / 2;
+                    break;
+                case 8: // Bottom-left
+                    adjustedY -= Height;
+                    break;
+                case 7: // Bottom-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height;
+                    break;
+                case 9: // Bottom-right
+                    adjustedX -= Width;
+                    adjustedY -= Height;
+                    break;
+            }
+
+            return new Point(adjustedX, adjustedY);
+        }
     }
 }
