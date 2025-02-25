@@ -51,10 +51,12 @@ namespace LabelPreviewer
             {
                 labelFilePath = openFileDialog.FileName;
 
-                MessageBox.Show("Files loaded successfully. Click 'Render Preview' to display the label.",
-                    "Files Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                //MessageBox.Show("Files loaded successfully. Click 'Render Preview' to display the label.",
+                //    "Files Loaded", MessageBoxButton.OK, MessageBoxImage.Information);
+                //
                 btnRenderPreview.IsEnabled = true;
+
+                btnRenderPreview_Click(sender, e);
 
             }
         }
