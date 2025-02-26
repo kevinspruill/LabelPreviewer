@@ -686,12 +686,13 @@ namespace LabelPreviewer
             }
         }
 
+        // Update the RenderTextObject method in LabelModel.cs
         private void RenderTextObject(Canvas canvas, TextObjectItem item)
         {
             string content = ResolveContent(item);
 
             item.Width = GetTextWidth(content, new FontFamily(item.FontName), item.FontSize);
-            
+
 
             TextBlock textBlock = new TextBlock
             {
@@ -726,6 +727,9 @@ namespace LabelPreviewer
                 Canvas.SetLeft(debugRect, position.X);
                 Canvas.SetTop(debugRect, position.Y);
 
+                // Calculate the actual anchor point coordinates based on the anchoring type
+                Point anchorPoint = CalculateAnchorPoint(position, item.Width, item.FontSize, item.AnchoringPoint);
+
                 Rectangle debugAnchor = new Rectangle
                 {
                     Width = 5,
@@ -733,8 +737,9 @@ namespace LabelPreviewer
                     Fill = Brushes.Red
                 };
 
-                Canvas.SetLeft(debugAnchor, position.X);
-                Canvas.SetTop(debugAnchor, position.Y);
+                // Position the anchor point indicator at the actual anchor point
+                Canvas.SetLeft(debugAnchor, anchorPoint.X - 2.5); // Center the 5x5 indicator
+                Canvas.SetTop(debugAnchor, anchorPoint.Y - 2.5);  // Center the 5x5 indicator
 
                 TextBlock anchorText = new TextBlock
                 {
@@ -743,8 +748,8 @@ namespace LabelPreviewer
                     FontSize = 8
                 };
 
-                Canvas.SetLeft(anchorText, position.X);
-                Canvas.SetTop(anchorText, position.Y - 15);
+                Canvas.SetLeft(anchorText, anchorPoint.X);
+                Canvas.SetTop(anchorText, anchorPoint.Y - 15);
 
                 canvas.Children.Add(debugRect);
                 canvas.Children.Add(debugAnchor);
@@ -760,6 +765,7 @@ namespace LabelPreviewer
             canvas.Children.Add(textBlock);
         }
 
+        // Update the RenderTextBox method in LabelModel.cs
         private void RenderTextBox(Canvas canvas, TextBoxItem item)
         {
             string content = ResolveContent(item);
@@ -805,29 +811,26 @@ namespace LabelPreviewer
                 Canvas.SetLeft(debugRect, position.X);
                 Canvas.SetTop(debugRect, position.Y);
 
-                Rectangle debugAnchor = new Rectangle
+                // Calculate the actual anchor point based on the anchoring type
+                Point anchorPoint = CalculateAnchorPoint(
+                    position,
+                    item.Width > 0 ? item.Width : 100,
+                    item.Height > 0 ? item.Height : item.FontSize * 2,
+                    item.AnchoringPoint);
+
+                Ellipse debugAnchor = new Ellipse
                 {
                     Width = 5,
                     Height = 5,
                     Fill = Brushes.Blue
                 };
 
-                Canvas.SetLeft(debugAnchor, position.X);
-                Canvas.SetTop(debugAnchor, position.Y);
-
-                TextBlock anchorText = new TextBlock
-                {
-                    Text = item.AnchoringPoint.ToString(),
-                    Foreground = Brushes.Blue,
-                    FontSize = 8
-                };
-
-                Canvas.SetLeft(anchorText, position.X);
-                Canvas.SetTop(anchorText, position.Y - 15);
+                // Position the anchor point indicator at the actual anchor point
+                Canvas.SetLeft(debugAnchor, anchorPoint.X - 2.5); // Center the 5x5 indicator
+                Canvas.SetTop(debugAnchor, anchorPoint.Y - 2.5);  // Center the 5x5 indicator
 
                 canvas.Children.Add(debugRect);
                 canvas.Children.Add(debugAnchor);
-                canvas.Children.Add(anchorText);
             }
 
             // Set z-order if available
@@ -837,6 +840,50 @@ namespace LabelPreviewer
             }
 
             canvas.Children.Add(textBlock);
+        }
+
+        // Add this helper method to calculate the actual anchor point coordinates
+        private Point CalculateAnchorPoint(Point adjustedPosition, double width, double height, AnchoringPoint anchorType)
+        {
+            double x = adjustedPosition.X;
+            double y = adjustedPosition.Y;
+
+            switch (anchorType)
+            {
+                case AnchoringPoint.LeftTop:
+                    // No adjustment needed, anchor is at the top-left
+                    break;
+                case AnchoringPoint.CenterTop:
+                    x += width / 2;
+                    break;
+                case AnchoringPoint.RightTop:
+                    x += width;
+                    break;
+                case AnchoringPoint.LeftMiddle:
+                    y += height / 2;
+                    break;
+                case AnchoringPoint.CenterMiddle:
+                    x += width / 2;
+                    y += height / 2;
+                    break;
+                case AnchoringPoint.RightMiddle:
+                    x += width;
+                    y += height / 2;
+                    break;
+                case AnchoringPoint.LeftBottom:
+                    y += height;
+                    break;
+                case AnchoringPoint.CenterBottom:
+                    x += width / 2;
+                    y += height;
+                    break;
+                case AnchoringPoint.RightBottom:
+                    x += width;
+                    y += height;
+                    break;
+            }
+
+            return new Point(x, y);
         }
         public static double GetTextWidth(string text, FontFamily fontFamily, double fontSize)
         {
