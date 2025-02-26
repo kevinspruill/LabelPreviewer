@@ -1429,13 +1429,10 @@ namespace LabelPreviewer
                 // Prepare variable values for the script
                 var variableValues = new Dictionary<string, string>();
 
-                // Add all input data source variables
-                foreach (var sourceId in InputDataSourceIds)
+                // Add ALL variables from the label to the script context
+                foreach (var variable in variables)
                 {
-                    if (variables.TryGetValue(sourceId, out var variable))
-                    {
-                        variableValues[sourceId] = variable.SampleValue ?? string.Empty;
-                    }
+                    variableValues[variable.Key] = variable.Value.SampleValue ?? string.Empty;
                 }
 
                 // Execute the script with variable references if available

@@ -116,23 +116,26 @@ namespace LabelPreviewer
             // Decode the script
             string script = DecodeBase64Script(base64Script);
 
-            // Method 1: Direct GUID replacement in the script
+            // Replace GUIDs with bracketed variable names
             foreach (var pair in variableValues)
             {
-                string cleanVarName = "var_" + pair.Key.Replace("-", "_");
+                string bracketVarName = "[" + pair.Key + "]";
 
-                // Replace the GUID in the script with a clean variable name
-                script = script.Replace(pair.Key, cleanVarName);
+                // Replace the GUID in the script with a bracketed version
+                script = script.Replace(pair.Key, bracketVarName);
 
-                // Add the variable with the clean name
-                SetVariable(cleanVarName, pair.Value);
+                // Add the variable with the bracketed name
+                SetVariable(bracketVarName, pair.Value);
             }
 
-            // Method 2: Set variables with their original names too (as a fallback)
-            foreach (var pair in variableValues)
-            {
-                SetVariable(pair.Key, pair.Value);
-            }
+            // Also set original GUIDs as fallback
+            //foreach (var pair in variableValues)
+            //{
+            //    SetVariable(pair.Key, pair.Value);
+            //}
+
+            // Add debugging if needed
+            System.Diagnostics.Debug.WriteLine($"Executing script:\n{script}");
 
             // Execute the script
             return ExecuteScript(script);
