@@ -13,11 +13,41 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <!--  Menu Bar  -->
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem
+                    x:Name="menuOpen"
+                    Click="btnOpenFiles_Click"
+                    Header="Open Label Files" />
+                <Separator />
+                <MenuItem
+                    x:Name="menuExit"
+                    Click="menuExit_Click"
+                    Header="Exit" />
+            </MenuItem>
+            <MenuItem Header="Tools">
+                <MenuItem
+                    x:Name="menuScriptTester"
+                    Click="menuScriptTester_Click"
+                    Header="Script Tester" />
+                <MenuItem
+                    x:Name="menuViewVariables"
+                    Click="menuViewVariables_Click"
+                    Header="View Variables" />
+                <MenuItem
+                    x:Name="menuViewFunctions"
+                    Click="menuViewFunctions_Click"
+                    Header="View Functions" />
+            </MenuItem>
+        </Menu>
+
         <StackPanel
-            Grid.Row="0"
+            Grid.Row="1"
             Margin="10,10,10,0"
             Orientation="Horizontal">
             <Button
@@ -76,7 +106,7 @@
 
         <ScrollViewer
             x:Name="previewScrollViewer"
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="10"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Auto">

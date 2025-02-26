@@ -39,7 +39,276 @@ namespace LabelPreviewer
                 }
             };
         }
+        private void menuExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
 
+        private void menuScriptTester_Click(object sender, RoutedEventArgs e)
+        {
+            VBScriptTester.ShowScriptTestingUI(this);
+        }
+
+        private void menuViewVariables_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || labelModel.Variables.Count == 0)
+            {
+                MessageBox.Show("No variables loaded. Please open a label file first.",
+                    "No Variables", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Create a window to display variables
+            var window = new Window
+            {
+                Title = "Label Variables",
+                Width = 600,
+                Height = 400,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this
+            };
+
+            // Create a data grid to display variables
+            var grid = new DataGrid
+            {
+                AutoGenerateColumns = false,
+                IsReadOnly = true,
+                Margin = new Thickness(10)
+            };
+
+            // Add columns
+            grid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "ID",
+                Binding = new System.Windows.Data.Binding("Id"),
+                Width = 250
+            });
+            grid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "Name",
+                Binding = new System.Windows.Data.Binding("Name"),
+                Width = 150
+            });
+            grid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "Value",
+                Binding = new System.Windows.Data.Binding("SampleValue"),
+                Width = 150
+            });
+
+            // Set the item source
+            grid.ItemsSource = labelModel.Variables.Values;
+
+            // Set the grid as the window content
+            window.Content = grid;
+
+            // Show the window
+            window.ShowDialog();
+        }
+
+        private void menuViewFunctions_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || labelModel.Functions.Count == 0)
+            {
+                MessageBox.Show("No functions loaded. Please open a label file first.",
+                    "No Functions", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Create a window to display functions
+            var window = new Window
+            {
+                Title = "Label Functions",
+                Width = 800,
+                Height = 600,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this
+            };
+
+            // Create a grid layout
+            var grid = new Grid();
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(10) });
+            grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
+
+            // Create a data grid for functions list
+            var functionsGrid = new DataGrid
+            {
+                AutoGenerateColumns = false,
+                IsReadOnly = true,
+                Margin = new Thickness(10)
+            };
+
+            // Add columns for functions grid
+            functionsGrid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "ID",
+                Binding = new System.Windows.Data.Binding("Id"),
+                Width = 250
+            });
+            functionsGrid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "Name",
+                Binding = new System.Windows.Data.Binding("Name"),
+                Width = 150
+            });
+            functionsGrid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "Value",
+                Binding = new System.Windows.Data.Binding("SampleValue"),
+                Width = 150
+            });
+            functionsGrid.Columns.Add(new DataGridTextColumn
+            {
+                Header = "Has Script",
+                Binding = new System.Windows.Data.Binding("Script"),
+                Width = 100,
+                Visibility = Visibility.Collapsed
+            });
+
+            // Add functions to the grid
+            functionsGrid.ItemsSource = labelModel.Functions.Values;
+
+            // Create a detail view for script
+            var scriptPanel = new StackPanel { Margin = new Thickness(10) };
+
+            var scriptLabel = new Label { Content = "Script (Base64 Encoded):" };
+            scriptPanel.Children.Add(scriptLabel);
+
+            var scriptBox = new TextBox
+            {
+                IsReadOnly = true,
+                TextWrapping = TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Height = 100
+            };
+            scriptPanel.Children.Add(scriptBox);
+
+            var decodedScriptLabel = new Label { Content = "Decoded Script:" };
+            scriptPanel.Children.Add(decodedScriptLabel);
+
+            var decodedScriptBox = new TextBox
+            {
+                IsReadOnly = true,
+                TextWrapping = TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Height = 120
+            };
+            scriptPanel.Children.Add(decodedScriptBox);
+
+            // Button to test the script
+            var testButton = new Button
+            {
+                Content = "Test Script",
+                Padding = new Thickness(10, 5, 10, 5),
+                Margin = new Thickness(0, 10, 0, 0),
+                HorizontalAlignment = HorizontalAlignment.Left
+            };
+            scriptPanel.Children.Add(testButton);
+
+            // Handle selection changed event
+            functionsGrid.SelectionChanged += (s, args) =>
+            {
+                if (functionsGrid.SelectedItem is Function selectedFunction)
+                {
+                    // Display the script
+                    scriptBox.Text = selectedFunction.Script ?? selectedFunction.ScriptWithReferences ?? "";
+
+                    // Try to decode and display the script
+                    if (!string.IsNullOrEmpty(scriptBox.Text))
+                    {
+                        try
+                        {
+                            var interpreter = new VBScriptInterpreter();
+                            decodedScriptBox.Text = interpreter.DecodeBase64Script(scriptBox.Text);
+                        }
+                        catch (Exception ex)
+                        {
+                            decodedScriptBox.Text = $"Error decoding script: {ex.Message}";
+                        }
+                    }
+                    else
+                    {
+                        decodedScriptBox.Text = "No script available.";
+                    }
+
+                    // Enable/disable test button based on script availability
+                    testButton.IsEnabled = !string.IsNullOrEmpty(scriptBox.Text);
+                }
+                else
+                {
+                    scriptBox.Text = "";
+                    decodedScriptBox.Text = "";
+                    testButton.IsEnabled = false;
+                }
+            };
+
+            // Handle test button click
+            testButton.Click += (s, args) =>
+            {
+                if (functionsGrid.SelectedItem is Function selectedFunction)
+                {
+                    try
+                    {
+                        // Prepare variables for testing
+                        var variableValues = new Dictionary<string, string>();
+
+                        // Add all input data source variables
+                        foreach (var sourceId in selectedFunction.InputDataSourceIds)
+                        {
+                            if (labelModel.Variables.TryGetValue(sourceId, out var variable))
+                            {
+                                variableValues[sourceId] = variable.SampleValue ?? string.Empty;
+                            }
+                        }
+
+                        // Create tester and execute script
+                        var tester = new VBScriptTester();
+                        string scriptToUse = !string.IsNullOrEmpty(selectedFunction.ScriptWithReferences)
+                            ? selectedFunction.ScriptWithReferences
+                            : selectedFunction.Script;
+
+                        if (!string.IsNullOrEmpty(scriptToUse))
+                        {
+                            tester.TestScript(scriptToUse, variableValues);
+                        }
+                        else
+                        {
+                            MessageBox.Show("No script available to test.", "No Script", MessageBoxButton.OK, MessageBoxImage.Information);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error testing script: {ex.Message}", "Script Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            };
+
+            // Add controls to the grid
+            Grid.SetRow(functionsGrid, 0);
+            grid.Children.Add(functionsGrid);
+
+            // Add a splitter
+            var splitter = new GridSplitter
+            {
+                Height = 5,
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                Background = Brushes.LightGray
+            };
+            Grid.SetRow(splitter, 1);
+            grid.Children.Add(splitter);
+
+            Grid.SetRow(scriptPanel, 2);
+            grid.Children.Add(scriptPanel);
+
+            // Set the grid as the window content
+            window.Content = grid;
+
+            // Show the window
+            window.ShowDialog();
+        }
         private void btnOpenFiles_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog

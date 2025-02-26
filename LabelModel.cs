@@ -263,8 +263,24 @@ namespace LabelPreviewer
                     {
                         Id = GetNodeValue(node, "Id"),
                         Name = GetNodeValue(node, "Name"),
-                        SampleValue = GetSampleValue(node)
+                        SampleValue = GetSampleValue(node),
+                        Script = GetNodeValue(node, "Script"),
+                        ScriptWithReferences = GetNodeValue(node, "ScriptWithReferences")
                     };
+
+                    // Extract input data source references
+                    XmlNodeList inputDataNodes = node.SelectNodes("InputDataSourceReferences/Item");
+                    if (inputDataNodes != null)
+                    {
+                        foreach (XmlNode inputNode in inputDataNodes)
+                        {
+                            string refId = GetNodeValue(inputNode, "Id");
+                            if (!string.IsNullOrEmpty(refId))
+                            {
+                                function.InputDataSourceIds.Add(refId);
+                            }
+                        }
+                    }
 
                     Functions[function.Id] = function;
                 }
@@ -1344,7 +1360,24 @@ namespace LabelPreviewer
                 }
                 else if (Functions != null && Functions.TryGetValue(item.DataSourceId, out Function function))
                 {
-                    return function.SampleValue ?? "???";
+                    // Execute the function instead of just returning the sample value
+                    if (!string.IsNullOrEmpty(function.Script) || !string.IsNullOrEmpty(function.ScriptWithReferences))
+                    {
+                        try
+                        {
+                            return function.Execute(Variables);
+                        }
+                        catch (Exception ex)
+                        {
+                            // If execution fails, fall back to the sample value
+                            System.Diagnostics.Debug.WriteLine($"Function execution failed: {ex.Message}");
+                            return function.SampleValue ?? "???";
+                        }
+                    }
+                    else
+                    {
+                        return function.SampleValue ?? "???";
+                    }
                 }
             }
 
@@ -1364,6 +1397,58 @@ namespace LabelPreviewer
         public string Id { get; set; }
         public string Name { get; set; }
         public string SampleValue { get; set; }
+        public string Script { get; set; }             // Base64-encoded script
+        public string ScriptWithReferences { get; set; } // Base64-encoded script with variable references
+        public List<string> InputDataSourceIds { get; set; } = new List<string>();
+
+        private static VBScriptInterpreter _interpreter;
+
+        // Lazy-initialize the interpreter
+        private static VBScriptInterpreter Interpreter =>
+            _interpreter ??= new VBScriptInterpreter();
+
+        /// <summary>
+        /// Executes the function's script with the provided variables
+        /// </summary>
+        public string Execute(Dictionary<string, Variable> variables)
+        {
+            try
+            {
+                // Reset the interpreter to clear any previous state
+                Interpreter.Reset();
+
+                // Prepare variable values for the script
+                var variableValues = new Dictionary<string, string>();
+
+                // Add all input data source variables
+                foreach (var sourceId in InputDataSourceIds)
+                {
+                    if (variables.TryGetValue(sourceId, out var variable))
+                    {
+                        variableValues[sourceId] = variable.SampleValue ?? string.Empty;
+                    }
+                }
+
+                // Execute the script with variable references if available
+                string scriptToExecute = !string.IsNullOrEmpty(ScriptWithReferences)
+                    ? ScriptWithReferences
+                    : Script;
+
+                if (string.IsNullOrEmpty(scriptToExecute))
+                    return SampleValue ?? string.Empty;
+
+                // Execute the script and get the result
+                object result = Interpreter.ExecuteBase64Script(scriptToExecute, variableValues);
+
+                // Convert result to string
+                return result?.ToString() ?? string.Empty;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error executing function '{Name}': {ex.Message}");
+                return SampleValue ?? $"Error: {ex.Message}";
+            }
+        }
     }
 
     public class DocumentItem
