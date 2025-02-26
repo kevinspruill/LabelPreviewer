@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -689,9 +690,13 @@ namespace LabelPreviewer
         {
             string content = ResolveContent(item);
 
+            item.Width = GetTextWidth(content, new FontFamily(item.FontName), item.FontSize);
+            
+
             TextBlock textBlock = new TextBlock
             {
                 Text = content,
+                Width = item.Width,
                 FontFamily = new FontFamily(item.FontName),
                 FontSize = item.FontSize,
                 Foreground = new SolidColorBrush(item.FontColor),
@@ -711,7 +716,7 @@ namespace LabelPreviewer
             {
                 Rectangle debugRect = new Rectangle
                 {
-                    Width = textBlock.Width > 0 ? textBlock.Width : 100, // Default width for visualization
+                    Width = item.Width > 0 ? item.Width : 100, // Default width for visualization
                     Height = item.FontSize,
                     Fill = Brushes.Transparent,
                     Stroke = Brushes.Red,
@@ -832,6 +837,21 @@ namespace LabelPreviewer
             }
 
             canvas.Children.Add(textBlock);
+        }
+        public static double GetTextWidth(string text, FontFamily fontFamily, double fontSize)
+        {
+            // Create a FormattedText object to measure the text
+            FormattedText formattedText = new FormattedText(
+                text,
+                CultureInfo.CurrentCulture,
+                FlowDirection.LeftToRight,
+                new Typeface(fontFamily, FontStyles.Normal, FontWeights.Normal, FontStretches.Normal),
+                fontSize,
+                Brushes.Black,
+                VisualTreeHelper.GetDpi(Application.Current.MainWindow).PixelsPerDip);
+
+            // Return the width
+            return formattedText.Width;
         }
 
         // Add a property to control debug visualization
