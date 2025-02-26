@@ -964,7 +964,7 @@ namespace LabelPreviewer
         public double Height { get; set; }
         public string Content { get; set; }
         public string DataSourceId { get; set; }
-        public AnchoringPoint AnchoringPoint { get; set; } = AnchoringPoint.TopLeft;
+        public AnchoringPoint AnchoringPoint { get; set; } = AnchoringPoint.LeftTop;
         public int ZOrder { get; set; } = 0; // Z-index order
 
         // NiceLabel anchoring points:
@@ -978,31 +978,31 @@ namespace LabelPreviewer
 
             switch (AnchoringPoint)
             {
-                case AnchoringPoint.TopCenter:
+                case AnchoringPoint.CenterTop:
                     adjustedX -= Width / 2;
                     break;
-                case AnchoringPoint.TopRight:
+                case AnchoringPoint.RightTop:
                     adjustedX -= Width;
                     break;
-                case AnchoringPoint.MiddleLeft:
+                case AnchoringPoint.LeftMiddle:
                     adjustedY -= Height / 2;
                     break;
-                case AnchoringPoint.MiddleCenter:
+                case AnchoringPoint.CenterMiddle:
                     adjustedX -= Width / 2;
                     adjustedY -= Height / 2;
                     break;
-                case AnchoringPoint.MiddleRight:
+                case AnchoringPoint.RightMiddle:
                     adjustedX -= Width;
                     adjustedY -= Height / 2;
                     break;
-                case AnchoringPoint.BottomLeft:
+                case AnchoringPoint.LeftBottom:
                     adjustedY -= Height;
                     break;
-                case AnchoringPoint.BottomCenter:
+                case AnchoringPoint.CenterBottom:
                     adjustedX -= Width / 2;
                     adjustedY -= Height;
                     break;
-                case AnchoringPoint.BottomRight:
+                case AnchoringPoint.RightBottom:
                     adjustedX -= Width;
                     adjustedY -= Height;
                     break;
@@ -1047,15 +1047,15 @@ namespace LabelPreviewer
 
     public enum AnchoringPoint
     {
-        None = 0,
-        TopLeft = 1,
-        TopCenter = 2,
-        TopRight = 3,
-        MiddleLeft = 4,
-        MiddleCenter = 5,
-        MiddleRight = 6,
-        BottomLeft = 7,
-        BottomCenter = 8,
-        BottomRight = 9
+        LeftTop,
+        CenterTop,
+        RightTop,
+        LeftMiddle,
+        CenterMiddle,
+        RightMiddle,
+        LeftBottom,
+        CenterBottom,
+        RightBottom,
+        None,
     }
 }
