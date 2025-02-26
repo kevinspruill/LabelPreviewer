@@ -266,6 +266,27 @@ namespace LabelPreviewer
             }
         }
 
+
+        private string GetNodeValue(XmlNode parentNode, string childNodeName)
+        {
+            if (parentNode == null || string.IsNullOrEmpty(childNodeName))
+                return null;
+
+            XmlNode childNode = parentNode.SelectSingleNode(childNodeName);
+            return childNode?.InnerText;
+        }
+
+        private string GetSampleValue(XmlNode node)
+        {
+            XmlNode sampleValueNode = node.SelectSingleNode("SampleValue/StringValue")
+                ?? node.SelectSingleNode("SampleValue/UserValue");
+
+            return sampleValueNode?.InnerText ?? String.Empty;
+        }
+
+        // This represents the changes needed in the LabelModel.cs file
+        // Method changes for distinguishing between text objects and text boxes
+
         private void LoadFormatFromXml(string formatXMLData)
         {
             XmlDocument doc = new XmlDocument();
@@ -311,7 +332,17 @@ namespace LabelPreviewer
                     switch (type)
                     {
                         case "TextDocumentItem":
-                            item = new TextDocumentItem();
+                            // Determine if it's a text object or text box based on geometry and attributes
+                            bool isTextBox = DetermineIfTextBox(node);
+
+                            if (isTextBox)
+                            {
+                                item = new TextBoxItem();
+                            }
+                            else
+                            {
+                                item = new TextObjectItem();
+                            }
                             break;
                         case "GraphicDocumentItem":
                             item = new GraphicDocumentItem();
@@ -345,14 +376,6 @@ namespace LabelPreviewer
                         {
                             x = double.Parse(GetNodeValue(geometryNode, "X") ?? "0") * 0.00377953;
                             y = double.Parse(GetNodeValue(geometryNode, "Y") ?? "0") * 0.00377953;
-
-                            // For PositionGeometry, get width and height from content if needed
-                            if (item is TextDocumentItem)
-                            {
-                                // Get Height from content
-                                
-
-                            }
                         }
                         else if (geometryType == "RectGeometry")
                         {
@@ -387,9 +410,13 @@ namespace LabelPreviewer
                         if (fixedValueNode != null)
                         {
                             item.Content = fixedValueNode.InnerText;
-                            // Adjust width based on content
-                            item.Width = item.Content.Length * 10;
 
+                            // For text objects, approximate width based on content if not specified
+                            if (item is TextObjectItem textObject && textObject.Width <= 0)
+                            {
+                                // Rough estimate: each character is about 0.6 times the font size
+                                textObject.Width = item.Content.Length * (textObject.FontSize * 0.6);
+                            }
                         }
                     }
                     else
@@ -433,6 +460,62 @@ namespace LabelPreviewer
                             {
                                 textItem.FontColor = Colors.Black; // Default to black if conversion fails
                             }
+
+                            // Check for multiline property
+                            XmlNode multilineNode = node.SelectSingleNode("Multiline");
+                            if (multilineNode != null)
+                            {
+                                textItem.IsMultiline = bool.Parse(multilineNode.InnerText);
+                            }
+
+                            // Check for text alignment
+                            XmlNode alignmentNode = node.SelectSingleNode("Alignment");
+                            if (alignmentNode != null)
+                            {
+                                string alignmentValue = alignmentNode.InnerText;
+                                switch (alignmentValue)
+                                {
+                                    case "0": // Left
+                                        textItem.TextAlignment = TextAlignment.Left;
+                                        break;
+                                    case "1": // Center
+                                        textItem.TextAlignment = TextAlignment.Center;
+                                        break;
+                                    case "2": // Right
+                                        textItem.TextAlignment = TextAlignment.Right;
+                                        break;
+                                    case "3": // Justify
+                                        textItem.TextAlignment = TextAlignment.Justify;
+                                        break;
+                                }
+                            }
+
+                            // For TextBoxItem, handle text wrapping
+                            if (textItem is TextBoxItem textBox)
+                            {
+                                XmlNode wrapNode = node.SelectSingleNode("TextWrapping");
+                                if (wrapNode != null)
+                                {
+                                    string wrapValue = wrapNode.InnerText;
+                                    switch (wrapValue)
+                                    {
+                                        case "0": // No Wrap
+                                            textBox.TextWrapping = TextWrapping.NoWrap;
+                                            break;
+                                        case "1": // Wrap
+                                            textBox.TextWrapping = TextWrapping.Wrap;
+                                            break;
+                                        case "2": // Wrap With Overflow
+                                            textBox.TextWrapping = TextWrapping.WrapWithOverflow;
+                                            break;
+                                    }
+                                }
+                                else
+                                {
+                                    // Default to Wrap for TextBoxItem
+                                    textBox.TextWrapping = TextWrapping.Wrap;
+                                }
+                            }
                         }
                     }
 
@@ -460,21 +543,47 @@ namespace LabelPreviewer
             }
         }
 
-        private string GetNodeValue(XmlNode parentNode, string childNodeName)
+        // Helper method to determine if a text element is a text box or text object
+        private bool DetermineIfTextBox(XmlNode node)
         {
-            if (parentNode == null || string.IsNullOrEmpty(childNodeName))
-                return null;
+            // Check if geometry is RectGeometry (has explicit width/height)
+            XmlNode geometryNode = node.SelectSingleNode("Geometry");
+            if (geometryNode != null)
+            {
+                string geometryType = geometryNode.Attributes?["Type"]?.Value;
+                if (geometryType == "RectGeometry")
+                {
+                    // Has defined width/height - likely a text box
+                    return true;
+                }
+            }
 
-            XmlNode childNode = parentNode.SelectSingleNode(childNodeName);
-            return childNode?.InnerText;
-        }
+            // Check if multiline flag is present and true
+            XmlNode multilineNode = node.SelectSingleNode("Multiline");
+            if (multilineNode != null && multilineNode.InnerText.ToLower() == "true")
+            {
+                return true;
+            }
 
-        private string GetSampleValue(XmlNode node)
-        {
-            XmlNode sampleValueNode = node.SelectSingleNode("SampleValue/StringValue")
-                ?? node.SelectSingleNode("SampleValue/UserValue");
+            // Check for wrapping mode
+            XmlNode wrapNode = node.SelectSingleNode("TextWrapping");
+            if (wrapNode != null && wrapNode.InnerText != "0") // Not "NoWrap"
+            {
+                return true;
+            }
 
-            return sampleValueNode?.InnerText ?? String.Empty;
+            // Check if there's a defined Max width
+            XmlNode maxWidthNode = node.SelectSingleNode("MaxWidth");
+            if (maxWidthNode != null && !string.IsNullOrEmpty(maxWidthNode.InnerText))
+            {
+                double maxWidth;
+                if (double.TryParse(maxWidthNode.InnerText, out maxWidth) && maxWidth > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void Render(Canvas canvas)
@@ -523,11 +632,11 @@ namespace LabelPreviewer
                         }
 
                         RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-    (int)(Width * 2), // Double resolution
-    (int)(Height * 2), // Double resolution
-    192, // Higher DPI (was 96)
-    192, // Higher DPI (was 96)
-    PixelFormats.Pbgra32);
+                            (int)(Width * 2), // Double resolution
+                            (int)(Height * 2), // Double resolution
+                            192, // Higher DPI (was 96)
+                            192, // Higher DPI (was 96)
+                            PixelFormats.Pbgra32);
 
                         imageBrush.ImageSource = renderBitmap;
                     }
@@ -552,11 +661,18 @@ namespace LabelPreviewer
                 canvas.Background = Brushes.White;
             }
 
-            foreach (var item in DocumentItems)
+            // Sort items by Z-order for proper rendering
+            var sortedItems = DocumentItems.OrderBy(item => item.ZOrder).ToList();
+
+            foreach (var item in sortedItems)
             {
-                if (item is TextDocumentItem textItem)
+                if (item is TextObjectItem textObjectItem)
                 {
-                    RenderTextItem(canvas, textItem);
+                    RenderTextObject(canvas, textObjectItem);
+                }
+                else if (item is TextBoxItem textBoxItem)
+                {
+                    RenderTextBox(canvas, textBoxItem);
                 }
                 else if (item is GraphicDocumentItem graphicItem)
                 {
@@ -569,7 +685,7 @@ namespace LabelPreviewer
             }
         }
 
-        private void RenderTextItem(Canvas canvas, TextDocumentItem item)
+        private void RenderTextObject(Canvas canvas, TextObjectItem item)
         {
             string content = ResolveContent(item);
 
@@ -578,67 +694,148 @@ namespace LabelPreviewer
                 Text = content,
                 FontFamily = new FontFamily(item.FontName),
                 FontSize = item.FontSize,
-                Foreground = new SolidColorBrush(item.FontColor)
+                Foreground = new SolidColorBrush(item.FontColor),
+                TextAlignment = item.TextAlignment
             };
 
-            if (item.Width > 0 && item.Height > 0)
-            {
-                textBlock.Width = item.Width;
-                textBlock.Height = item.Height;
-                textBlock.TextWrapping = TextWrapping.Wrap;
-            }
-
-            
+            // Text objects don't wrap by default
+            textBlock.TextWrapping = TextWrapping.NoWrap;
 
             // Get position adjusted for anchoring point
             Point position = item.GetAdjustedPosition();
             Canvas.SetLeft(textBlock, position.X);
             Canvas.SetTop(textBlock, position.Y);
 
-            Rectangle debugRect = new Rectangle
+            // Add debug visualization if needed
+            if (ShowDebugInfo)
             {
-                Width = item.Width,
-                Height = item.FontSize,
-                Fill = Brushes.Transparent,
-                Stroke = Brushes.Red,
-            };
-            Canvas.SetLeft(debugRect, position.X);  // Original position
-            Canvas.SetTop(debugRect, position.Y);
+                Rectangle debugRect = new Rectangle
+                {
+                    Width = textBlock.Width > 0 ? textBlock.Width : 100, // Default width for visualization
+                    Height = item.FontSize,
+                    Fill = Brushes.Transparent,
+                    Stroke = Brushes.Red,
+                    StrokeThickness = 1
+                };
 
-            Rectangle debugAnchor = new Rectangle
-            {
-                Width = 5,
-                Height = 5,
-                Fill = Brushes.Red
-            };
-            Canvas.SetLeft(debugAnchor, position.X);  // Original position
-            Canvas.SetTop(debugAnchor, position.Y);
+                Canvas.SetLeft(debugRect, position.X);
+                Canvas.SetTop(debugRect, position.Y);
 
+                Rectangle debugAnchor = new Rectangle
+                {
+                    Width = 5,
+                    Height = 5,
+                    Fill = Brushes.Red
+                };
+
+                Canvas.SetLeft(debugAnchor, position.X);
+                Canvas.SetTop(debugAnchor, position.Y);
+
+                TextBlock anchorText = new TextBlock
+                {
+                    Text = item.AnchoringPoint.ToString(),
+                    Foreground = Brushes.Red,
+                    FontSize = 8
+                };
+
+                Canvas.SetLeft(anchorText, position.X);
+                Canvas.SetTop(anchorText, position.Y - 15);
+
+                canvas.Children.Add(debugRect);
+                canvas.Children.Add(debugAnchor);
+                canvas.Children.Add(anchorText);
+            }
 
             // Set z-order if available
             if (item.ZOrder != 0)
             {
                 Canvas.SetZIndex(textBlock, item.ZOrder);
-                Canvas.SetZIndex(debugRect, item.ZOrder - 1);
             }
 
-            TextBlock anchorText = new TextBlock
-            {
-                Text = item.AnchoringPoint.ToString(),
-                Foreground = Brushes.White,
-                FontSize = 32
-            };
-            Canvas.SetLeft(anchorText, position.X);
-            Canvas.SetTop(anchorText, position.Y-32);
-
-               
-            canvas.Children.Add(debugRect);            
             canvas.Children.Add(textBlock);
-            canvas.Children.Add(debugAnchor); 
-            canvas.Children.Add(anchorText);
-
-
         }
+
+        private void RenderTextBox(Canvas canvas, TextBoxItem item)
+        {
+            string content = ResolveContent(item);
+
+            TextBlock textBlock = new TextBlock
+            {
+                Text = content,
+                FontFamily = new FontFamily(item.FontName),
+                FontSize = item.FontSize,
+                Foreground = new SolidColorBrush(item.FontColor),
+                TextAlignment = item.TextAlignment,
+                TextWrapping = item.TextWrapping
+            };
+
+            // TextBox has explicit width and height
+            if (item.Width > 0)
+            {
+                textBlock.Width = item.Width;
+            }
+
+            if (item.Height > 0)
+            {
+                textBlock.Height = item.Height;
+            }
+
+            // Get position adjusted for anchoring point
+            Point position = item.GetAdjustedPosition();
+            Canvas.SetLeft(textBlock, position.X);
+            Canvas.SetTop(textBlock, position.Y);
+
+            // Add debug visualization if needed
+            if (ShowDebugInfo)
+            {
+                Rectangle debugRect = new Rectangle
+                {
+                    Width = item.Width > 0 ? item.Width : 100,
+                    Height = item.Height > 0 ? item.Height : item.FontSize * 2,
+                    Fill = Brushes.Transparent,
+                    Stroke = Brushes.Blue,
+                    StrokeThickness = 1
+                };
+
+                Canvas.SetLeft(debugRect, position.X);
+                Canvas.SetTop(debugRect, position.Y);
+
+                Rectangle debugAnchor = new Rectangle
+                {
+                    Width = 5,
+                    Height = 5,
+                    Fill = Brushes.Blue
+                };
+
+                Canvas.SetLeft(debugAnchor, position.X);
+                Canvas.SetTop(debugAnchor, position.Y);
+
+                TextBlock anchorText = new TextBlock
+                {
+                    Text = item.AnchoringPoint.ToString(),
+                    Foreground = Brushes.Blue,
+                    FontSize = 8
+                };
+
+                Canvas.SetLeft(anchorText, position.X);
+                Canvas.SetTop(anchorText, position.Y - 15);
+
+                canvas.Children.Add(debugRect);
+                canvas.Children.Add(debugAnchor);
+                canvas.Children.Add(anchorText);
+            }
+
+            // Set z-order if available
+            if (item.ZOrder != 0)
+            {
+                Canvas.SetZIndex(textBlock, item.ZOrder);
+            }
+
+            canvas.Children.Add(textBlock);
+        }
+
+        // Add a property to control debug visualization
+        public bool ShowDebugInfo { get; set; } = true;
 
         private void RenderGraphicItem(Canvas canvas, GraphicDocumentItem item)
         {
@@ -778,13 +975,23 @@ namespace LabelPreviewer
         
     }
 
-    public class TextDocumentItem : DocumentItem
+    // Base class for all text items
+    public abstract class TextDocumentItem : DocumentItem
     {
         public string FontName { get; set; } = "Arial";
         public double FontSize { get; set; } = 10;
         public Color FontColor { get; set; } = Colors.Black;
+        public bool IsMultiline { get; set; } = false;
+        public TextAlignment TextAlignment { get; set; } = TextAlignment.Left;
 
-        public Point GetAdjustedPosition()
+        public abstract Point GetAdjustedPosition();
+    }
+
+    // A text object is a single line of text without explicit width/height constraints
+    // It expands to fit its content
+    public class TextObjectItem : TextDocumentItem
+    {
+        public override Point GetAdjustedPosition()
         {
             double adjustedX = X;
             double adjustedY = Y;
@@ -792,18 +999,16 @@ namespace LabelPreviewer
             // Adjust based on the anchoring point
             switch (AnchoringPoint)
             {
-                case 0: // Top-Left
-                    break;
-                case 1: // Top-Center
+                case 2: // Top-center
                     adjustedX -= Width / 2;
                     break;
-                case 2: // Top-right
+                case 3: // Top-right
                     adjustedX -= Width;
                     break;
-                case 3: // Middle-left
+                case 4: // Middle-left
                     adjustedY -= Height / 2;
                     break;
-                case 4: // Middle-center
+                case 5: // Middle-center
                     adjustedX -= Width / 2;
                     adjustedY -= Height / 2;
                     break;
@@ -811,10 +1016,57 @@ namespace LabelPreviewer
                     adjustedX -= Width;
                     adjustedY -= Height / 2;
                     break;
-                case 8: // Bottom-left
+                case 7: // Bottom-left
                     adjustedY -= Height;
                     break;
-                case 7: // Bottom-center
+                case 8: // Bottom-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height;
+                    break;
+                case 9: // Bottom-right
+                    adjustedX -= Width;
+                    adjustedY -= Height;
+                    break;
+            }
+
+            return new Point(adjustedX, adjustedY);
+        }
+    }
+
+    // A text box has explicit width/height constraints and can wrap text
+    public class TextBoxItem : TextDocumentItem
+    {
+        public TextWrapping TextWrapping { get; set; } = TextWrapping.Wrap;
+        
+        public override Point GetAdjustedPosition()
+        {
+            double adjustedX = X;
+            double adjustedY = Y;
+
+            // Adjust based on the anchoring point
+            switch (AnchoringPoint)
+            {
+                case 2: // Top-center
+                    adjustedX -= Width / 2;
+                    break;
+                case 3: // Top-right
+                    adjustedX -= Width;
+                    break;
+                case 4: // Middle-left
+                    adjustedY -= Height / 2;
+                    break;
+                case 5: // Middle-center
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height / 2;
+                    break;
+                case 6: // Middle-right
+                    adjustedX -= Width;
+                    adjustedY -= Height / 2;
+                    break;
+                case 7: // Bottom-left
+                    adjustedY -= Height;
+                    break;
+                case 8: // Bottom-center
                     adjustedX -= Width / 2;
                     adjustedY -= Height;
                     break;

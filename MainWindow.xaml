@@ -41,6 +41,37 @@
                 Content="Fit to Window"
                 IsChecked="True"
                 Unchecked="cbFitToWindow_Unchecked" />
+            <CheckBox
+                x:Name="cbShowDebugInfo"
+                Margin="10,0,0,0"
+                VerticalAlignment="Center"
+                Checked="cbShowDebugInfo_Checked"
+                Content="Show Debug Info"
+                IsChecked="True"
+                Unchecked="cbShowDebugInfo_Unchecked" />
+
+            <!--  Separator  -->
+            <Separator
+                Width="1"
+                Height="20"
+                Margin="10,0"
+                Background="#CCCCCC" />
+
+            <!--  Add Text Element Section  -->
+            <Button
+                x:Name="btnAddTextElement"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Click="btnAddTextElement_Click"
+                Content="Add Text Element" />
+
+            <ComboBox
+                x:Name="cmbTextElementType"
+                Width="120"
+                SelectedIndex="0">
+                <ComboBoxItem Content="Text Object" />
+                <ComboBoxItem Content="Text Box" />
+            </ComboBox>
         </StackPanel>
 
         <ScrollViewer
