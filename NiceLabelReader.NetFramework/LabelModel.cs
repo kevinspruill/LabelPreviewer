@@ -103,37 +103,37 @@ namespace LabelPreviewer
                     switch (variable.Name)
                     {
                         case "Description1":
-                            variable.SampleValue = "Organic Chicken";
+                            variable.SampleValue = "Description One";
                             break;
                         case "Description2":
-                            variable.SampleValue = "Free Range";
+                            variable.SampleValue = "Description Two";
                             break;
                         case "Description4":
-                            variable.SampleValue = "Fresh Daily";
+                            variable.SampleValue = "Description Four";
                             break;
                         case "Description5":
-                            variable.SampleValue = "Local Farm";
+                            variable.SampleValue = "Description Five";
                             break;
                         case "Description6":
-                            variable.SampleValue = "No Antibiotics";
+                            variable.SampleValue = "Description Six";
                             break;
                         case "Description7":
-                            variable.SampleValue = "100% Natural";
+                            variable.SampleValue = "Description Seven";
                             break;
                         case "Description8":
-                            variable.SampleValue = "Premium Quality";
+                            variable.SampleValue = "Description Eight";
                             break;
                         case "Description9":
-                            variable.SampleValue = "USDA Inspected";
+                            variable.SampleValue = "Description Nine";
                             break;
                         case "Description10":
-                            variable.SampleValue = "Family Owned Since 1985";
+                            variable.SampleValue = "Description Ten";
                             break;
                         case "Description12":
-                            variable.SampleValue = "PARA";
+                            variable.SampleValue = "Description Twelve";
                             break;
                         case "Description14":
-                            variable.SampleValue = "Store in refrigerator";
+                            variable.SampleValue = "Description Fourteen";
                             break;
                         case "Weight":
                             variable.SampleValue = "1.5 lbs";
@@ -218,7 +218,7 @@ namespace LabelPreviewer
                             break;
                         default:
                             if (variable.Name.StartsWith("NF"))
-                                variable.SampleValue = "0%";
+                                variable.SampleValue = "0";
                             else
                                 variable.SampleValue = variable.Name;
                             break;
