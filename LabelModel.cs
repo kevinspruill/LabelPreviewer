@@ -1154,45 +1154,65 @@ namespace LabelPreviewer
 
         private void RenderBarcodeItem(Canvas canvas, BarcodeDocumentItem item)
         {
-            // if no height or width is specified, use defaults
+            // Set default size
             if (item.Width == 0) { item.Width = 100; }
-            if (item.Height == 0) { item.Height = 35; }
+            if (item.Height == 0) { item.Height = 50; }
+
+            // Get the content for the barcode
+            string content = ResolveContent(item);
 
             // Get position adjusted for anchoring point
             Point position = item.GetAdjustedPosition();
 
-            // Get barcode content from variable or function
-            string barcodeContent = ResolveContent(item);
-
+            // Try to render the barcode using ZXing, but fall back to a placeholder if it fails
             try
             {
-                // Create the barcode writer and set properties
-                var barcodeWriter = new BarcodeWriter<System.Drawing.Bitmap>
+                // Create the barcode writer
+                // Create a barcode writer for direct bitmap output
+                var barcodeWriter = new ZXing.Windows.Compatibility.BarcodeWriter()
                 {
-                    Format = GetBarcodeFormat(item.BarcodeType),
-                    Options = new EncodingOptions
+                    Format = ZXing.BarcodeFormat.CODE_128, // Default to CODE_128
+                    Options = new ZXing.Common.EncodingOptions
                     {
-                        Width = item.Width > 0 ? (int)item.Width : 200,
-                        Height = item.Height > 0 ? (int)item.Height : 100,
-                        Margin = item.Margin,
-                        PureBarcode = !item.DisplayCheckDigit
+                        Width = (int)item.Width,
+                        Height = (int)item.Height,
+                        Margin = 2
                     }
                 };
 
-                // Generate the barcode bitmap
-                System.Drawing.Bitmap barcodeBitmap = barcodeWriter.Write(barcodeContent);
+                // Generate the barcode as a System.Drawing.Bitmap
+                System.Drawing.Bitmap drawingBitmap = barcodeWriter.Write(content);
 
-                // Convert to WPF image
-                BitmapImage barcodeImage = ConvertBitmapToImageSource(barcodeBitmap);
+                // Convert System.Drawing.Bitmap to BitmapSource for WPF
+                BitmapSource barcodeBitmap;
+                using (var memory = new System.IO.MemoryStream())
+                {
+                    drawingBitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
+                    memory.Position = 0;
 
-                // Create and add the image to the canvas
+                    var bitmapImage = new BitmapImage();
+                    bitmapImage.BeginInit();
+                    bitmapImage.StreamSource = memory;
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze(); // Important for cross-thread usage
+
+                    barcodeBitmap = bitmapImage;
+                }
+
+                // Clean up the drawing bitmap
+                drawingBitmap.Dispose();
+
+                // Create an Image control to display the barcode
                 Image image = new Image
                 {
-                    Source = barcodeImage,
-                    Width = item.Width > 0 ? item.Width : barcodeImage.Width,
-                    Height = item.Height > 0 ? item.Height : barcodeImage.Height
+                    Source = barcodeBitmap,
+                    Width = item.Width,
+                    Height = item.Height,
+                    Stretch = Stretch.Fill
                 };
 
+                // Position the image
                 Canvas.SetLeft(image, position.X);
                 Canvas.SetTop(image, position.Y);
 
@@ -1204,14 +1224,14 @@ namespace LabelPreviewer
 
                 canvas.Children.Add(image);
 
-                // If debug info is enabled, add info about the barcode
+                // Add debug info if needed
                 if (ShowDebugInfo)
                 {
                     Rectangle debugRect = new Rectangle
                     {
-                        Width = image.Width,
-                        Height = image.Height,
-                        Stroke = Brushes.Orange,
+                        Width = item.Width,
+                        Height = item.Height,
+                        Stroke = Brushes.Purple,
                         StrokeThickness = 1,
                         Fill = Brushes.Transparent
                     };
@@ -1223,9 +1243,9 @@ namespace LabelPreviewer
 
                     TextBlock debugText = new TextBlock
                     {
-                        Text = $"{item.BarcodeType}: {barcodeContent}",
+                        Text = $"{item.Name}: {content}",
                         FontSize = 8,
-                        Foreground = Brushes.Orange,
+                        Foreground = Brushes.Purple,
                         Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
                     };
 
@@ -1237,35 +1257,40 @@ namespace LabelPreviewer
             }
             catch (Exception ex)
             {
-                // Error occurred - create an error rectangle
-                Rectangle errorRect = new Rectangle
+                // Fallback to placeholder rendering
+                Rectangle rect = new Rectangle
                 {
-                    Width = item.Width > 0 ? item.Width : 200,
+                    Width = item.Width > 0 ? item.Width : 100,
                     Height = item.Height > 0 ? item.Height : 50,
-                    Stroke = Brushes.Red,
-                    StrokeThickness = 2,
-                    Fill = new SolidColorBrush(Color.FromArgb(32, 255, 0, 0))
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1,
+                    Fill = Brushes.White
                 };
 
-                Canvas.SetLeft(errorRect, position.X);
-                Canvas.SetTop(errorRect, position.Y);
-                Canvas.SetZIndex(errorRect, item.ZOrder);
-                canvas.Children.Add(errorRect);
+                Canvas.SetLeft(rect, position.X);
+                Canvas.SetTop(rect, position.Y);
 
-                // Add error text
-                TextBlock errorText = new TextBlock
+                // Set z-order if available
+                if (item.ZOrder != 0)
                 {
-                    Text = $"Invalid Barcode: {barcodeContent}\n{ex.Message}",
-                    FontSize = 6,
+                    Canvas.SetZIndex(rect, item.ZOrder);
+                }
+
+                canvas.Children.Add(rect);
+
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = $"BARCODE: {content}\nError: {ex.Message}",
+                    FontSize = 8,
                     TextWrapping = TextWrapping.Wrap,
-                    Width = errorRect.Width - 10,
-                    Foreground = Brushes.Red
+                    Width = item.Width - 10,
+                    Height = item.Height - 5
                 };
 
-                Canvas.SetLeft(errorText, position.X + 5);
-                Canvas.SetTop(errorText, position.Y + 5);
-                Canvas.SetZIndex(errorText, item.ZOrder + 1);
-                canvas.Children.Add(errorText);
+                Canvas.SetLeft(textBlock, position.X + 5);
+                Canvas.SetTop(textBlock, position.Y + 5);
+                Canvas.SetZIndex(textBlock, item.ZOrder + 1);
+                canvas.Children.Add(textBlock);
             }
         }
 
