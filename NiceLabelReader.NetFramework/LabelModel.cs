@@ -24,6 +24,8 @@ namespace LabelPreviewer
         public List<DocumentItem> DocumentItems { get; set; } = new List<DocumentItem>();
         public Dictionary<string, string> VariableNameToIdMap { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> VariableIdToNameMap { get; set; } = new Dictionary<string, string>();
+        public string VariablesXmlData { get; private set; }
+        public string FormatXmlData { get; private set; }
 
         public double Width { get; set; }
         public double Height { get; set; }
@@ -62,6 +64,8 @@ namespace LabelPreviewer
                                 using (StreamReader reader = new StreamReader(stream))
                                 {
                                     variablesXMLData = reader.ReadToEnd();
+                                    // Save the XML data for debugging
+                                    this.VariablesXmlData = variablesXMLData;
                                 }
                             }
                         }
@@ -73,12 +77,12 @@ namespace LabelPreviewer
                                 using (StreamReader reader = new StreamReader(stream))
                                 {
                                     formatXMLData = reader.ReadToEnd();
+                                    // Save the XML data for debugging
+                                    this.FormatXmlData = formatXMLData;
                                 }
                             }
                         }
                     }
-
-
                 }
             }
             catch (Exception ex)

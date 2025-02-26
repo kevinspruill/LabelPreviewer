@@ -82,9 +82,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="LabelModel.cs" />
+    <Compile Include="VariableValueItem.cs" />
     <Compile Include="VBScriptInterpreter.cs" />
     <Compile Include="VBScriptTester.cs" />
     <Compile Include="VisualTreeHelperExtensions.cs" />
+    <Compile Include="XmlViewerWindow.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

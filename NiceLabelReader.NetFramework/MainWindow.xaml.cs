@@ -18,6 +18,7 @@ namespace LabelPreviewer
         private string labelFilePath;
         private string formatXmlPath;
         private LabelModel labelModel;
+        private VariableEditorWindow variableEditorWindow;
 
         public MainWindow()
         {
@@ -360,6 +361,60 @@ namespace LabelPreviewer
             }
         }
 
+        private void btnViewXml_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelModel.VariablesXmlData))
+            {
+                MessageBox.Show("No XML data available. Please open a label file first.",
+                    "No XML Data", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Create and show the XML viewer window
+            XmlViewerWindow xmlViewer = new XmlViewerWindow(labelModel.VariablesXmlData, labelModel.FormatXmlData)
+            {
+                Owner = this
+            };
+            xmlViewer.ShowDialog();
+        }
+
+        private void btnEditVariables_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || labelModel.Variables.Count == 0)
+            {
+                MessageBox.Show("No variables available. Please open a label file first.",
+                    "No Variables", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            // Create the variable editor window if it doesn't exist, or update it
+            if (variableEditorWindow == null)
+            {
+                variableEditorWindow = new VariableEditorWindow(labelModel)
+                {
+                    Owner = this
+                };
+
+                // Subscribe to the VariablesChanged event
+                variableEditorWindow.VariablesChanged += (s, changedVariables) =>
+                {
+                    // Re-render the label with updated variables
+                    labelModel.Render(previewCanvas);
+                };
+
+                // Handle the window closed event
+                variableEditorWindow.Closed += (s, args) => variableEditorWindow = null;
+
+                variableEditorWindow.Show();
+            }
+            else
+            {
+                // Update the existing window with the current model
+                variableEditorWindow.UpdateModel(labelModel);
+                variableEditorWindow.Activate(); // Bring to front
+            }
+        }
+
         private void btnRenderPreview_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -375,6 +430,10 @@ namespace LabelPreviewer
 
                 // Show information about the label
                 this.Title = $"NiceLabel Previewer - {Path.GetFileName(labelFilePath)} ({labelModel.Width:F0}x{labelModel.Height:F0})";
+
+                // Enable debug buttons since we have a label loaded
+                btnViewXml.IsEnabled = true;
+                btnEditVariables.IsEnabled = true;
 
                 Mouse.OverrideCursor = null;
 
