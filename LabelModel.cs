@@ -9,6 +9,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml;
 using ICSharpCode.SharpZipLib.Zip;
+using ZXing.Common;
+using ZXing;
+using ZXing.Rendering;
+using System.Drawing.Imaging;
 
 
 namespace LabelPreviewer
@@ -372,6 +376,52 @@ namespace LabelPreviewer
                             break;
                         case "BarcodeDocumentItem":
                             item = new BarcodeDocumentItem();
+
+                            if (item is BarcodeDocumentItem barcodeItem)
+                            {
+                                // Get barcode type from XML if available
+                                XmlNode barcodeDataNode = node.SelectSingleNode("BarcodeData");
+                                if (barcodeDataNode != null)
+                                {
+                                    string barcodeType = barcodeDataNode.Attributes?["Type"]?.Value;
+                                    if (!string.IsNullOrEmpty(barcodeType))
+                                    {
+                                        // Convert from "UpcABarcodeData" to "UPC_A" format
+                                        if (barcodeType.EndsWith("BarcodeData"))
+                                        {
+                                            string formatName = barcodeType.Substring(0, barcodeType.Length - 11);
+                                            // Convert camelCase to UPPER_SNAKE_CASE
+                                            barcodeItem.BarcodeType = System.Text.RegularExpressions.Regex.Replace(formatName, "([a-z])([A-Z])", "$1_$2").ToUpper();
+                                        }
+                                    }
+
+                                    // Get other barcode properties
+                                    XmlNode hasCheckDigitNode = barcodeDataNode.SelectSingleNode("HasCheckDigit");
+                                    if (hasCheckDigitNode != null && !string.IsNullOrEmpty(hasCheckDigitNode.InnerText))
+                                    {
+                                        barcodeItem.HasCheckDigit = bool.Parse(hasCheckDigitNode.InnerText);
+                                    }
+
+                                    XmlNode displayCheckDigitNode = barcodeDataNode.SelectSingleNode("DisplayCheckDigit");
+                                    if (displayCheckDigitNode != null && !string.IsNullOrEmpty(displayCheckDigitNode.InnerText))
+                                    {
+                                        barcodeItem.DisplayCheckDigit = bool.Parse(displayCheckDigitNode.InnerText);
+                                    }
+
+                                    XmlNode moduleHeightNode = barcodeDataNode.SelectSingleNode("ModuleHeight");
+                                    if (moduleHeightNode != null && !string.IsNullOrEmpty(moduleHeightNode.InnerText))
+                                    {
+                                        barcodeItem.ModuleHeight = double.Parse(moduleHeightNode.InnerText) * 0.00377953;
+                                    }
+
+                                    XmlNode baseBarWidthNode = barcodeDataNode.SelectSingleNode("BaseBarWidth");
+                                    if (baseBarWidthNode != null && !string.IsNullOrEmpty(baseBarWidthNode.InnerText))
+                                    {
+                                        barcodeItem.ModuleWidth = double.Parse(baseBarWidthNode.InnerText) * 0.00377953;
+                                    }
+                                }
+                            }
+
                             break;
                         default:
                             continue;
@@ -1104,45 +1154,158 @@ namespace LabelPreviewer
 
         private void RenderBarcodeItem(Canvas canvas, BarcodeDocumentItem item)
         {
-            // Set default size
+            // if no height or width is specified, use defaults
             if (item.Width == 0) { item.Width = 100; }
-            if (item.Height == 0) { item.Height = 50; }
-
-
-            // Placeholder for barcode - just draw a rectangle with "BARCODE" text
-            Rectangle rect = new Rectangle
-            {
-                Width = item.Width > 0 ? item.Width : 100,
-                Height = item.Height > 0 ? item.Height : 50,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                Fill = Brushes.White
-            };
+            if (item.Height == 0) { item.Height = 35; }
 
             // Get position adjusted for anchoring point
             Point position = item.GetAdjustedPosition();
-            Canvas.SetLeft(rect, position.X);
-            Canvas.SetTop(rect, position.Y);
 
-            // Set z-order if available
-            if (item.ZOrder != 0)
+            // Get barcode content from variable or function
+            string barcodeContent = ResolveContent(item);
+
+            try
             {
-                Canvas.SetZIndex(rect, item.ZOrder);
+                // Create the barcode writer and set properties
+                var barcodeWriter = new BarcodeWriter<System.Drawing.Bitmap>
+                {
+                    Format = GetBarcodeFormat(item.BarcodeType),
+                    Options = new EncodingOptions
+                    {
+                        Width = item.Width > 0 ? (int)item.Width : 200,
+                        Height = item.Height > 0 ? (int)item.Height : 100,
+                        Margin = item.Margin,
+                        PureBarcode = !item.DisplayCheckDigit
+                    }
+                };
+
+                // Generate the barcode bitmap
+                System.Drawing.Bitmap barcodeBitmap = barcodeWriter.Write(barcodeContent);
+
+                // Convert to WPF image
+                BitmapImage barcodeImage = ConvertBitmapToImageSource(barcodeBitmap);
+
+                // Create and add the image to the canvas
+                Image image = new Image
+                {
+                    Source = barcodeImage,
+                    Width = item.Width > 0 ? item.Width : barcodeImage.Width,
+                    Height = item.Height > 0 ? item.Height : barcodeImage.Height
+                };
+
+                Canvas.SetLeft(image, position.X);
+                Canvas.SetTop(image, position.Y);
+
+                // Set z-order if available
+                if (item.ZOrder != 0)
+                {
+                    Canvas.SetZIndex(image, item.ZOrder);
+                }
+
+                canvas.Children.Add(image);
+
+                // If debug info is enabled, add info about the barcode
+                if (ShowDebugInfo)
+                {
+                    Rectangle debugRect = new Rectangle
+                    {
+                        Width = image.Width,
+                        Height = image.Height,
+                        Stroke = Brushes.Orange,
+                        StrokeThickness = 1,
+                        Fill = Brushes.Transparent
+                    };
+
+                    Canvas.SetLeft(debugRect, position.X);
+                    Canvas.SetTop(debugRect, position.Y);
+                    Canvas.SetZIndex(debugRect, item.ZOrder + 1);
+                    canvas.Children.Add(debugRect);
+
+                    TextBlock debugText = new TextBlock
+                    {
+                        Text = $"{item.BarcodeType}: {barcodeContent}",
+                        FontSize = 8,
+                        Foreground = Brushes.Orange,
+                        Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                    };
+
+                    Canvas.SetLeft(debugText, position.X + 2);
+                    Canvas.SetTop(debugText, position.Y + 2);
+                    Canvas.SetZIndex(debugText, item.ZOrder + 2);
+                    canvas.Children.Add(debugText);
+                }
             }
-
-            canvas.Children.Add(rect);
-
-            TextBlock textBlock = new TextBlock
+            catch (Exception ex)
             {
-                Text = "BARCODE: " + ResolveContent(item),
-                FontSize = 8
-            };
+                // Error occurred - create an error rectangle
+                Rectangle errorRect = new Rectangle
+                {
+                    Width = item.Width > 0 ? item.Width : 200,
+                    Height = item.Height > 0 ? item.Height : 50,
+                    Stroke = Brushes.Red,
+                    StrokeThickness = 2,
+                    Fill = new SolidColorBrush(Color.FromArgb(32, 255, 0, 0))
+                };
 
-            Canvas.SetLeft(textBlock, position.X + 5);
-            Canvas.SetTop(textBlock, position.Y + 20);
-            Canvas.SetZIndex(textBlock, item.ZOrder + 1);
-            canvas.Children.Add(textBlock);
+                Canvas.SetLeft(errorRect, position.X);
+                Canvas.SetTop(errorRect, position.Y);
+                Canvas.SetZIndex(errorRect, item.ZOrder);
+                canvas.Children.Add(errorRect);
+
+                // Add error text
+                TextBlock errorText = new TextBlock
+                {
+                    Text = $"Invalid Barcode: {barcodeContent}\n{ex.Message}",
+                    FontSize = 6,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = errorRect.Width - 10,
+                    Foreground = Brushes.Red
+                };
+
+                Canvas.SetLeft(errorText, position.X + 5);
+                Canvas.SetTop(errorText, position.Y + 5);
+                Canvas.SetZIndex(errorText, item.ZOrder + 1);
+                canvas.Children.Add(errorText);
+            }
         }
+
+        // Helper method to convert barcode format string to ZXing format
+        private BarcodeFormat GetBarcodeFormat(string formatString)
+        {
+            switch (formatString?.ToUpper() ?? "UPC_A")
+            {
+                case "UPC_A": return BarcodeFormat.UPC_A;
+                case "UPC_E": return BarcodeFormat.UPC_E;
+                case "EAN_8": return BarcodeFormat.EAN_8;
+                case "EAN_13": return BarcodeFormat.EAN_13;
+                case "CODE_39": return BarcodeFormat.CODE_39;
+                case "CODE_128": return BarcodeFormat.CODE_128;
+                case "QR_CODE": return BarcodeFormat.QR_CODE;
+                case "DATA_MATRIX": return BarcodeFormat.DATA_MATRIX;
+                case "PDF_417": return BarcodeFormat.PDF_417;
+                default: return BarcodeFormat.UPC_A;
+            }
+        }
+
+        // Helper method to convert System.Drawing.Bitmap to BitmapImage
+        private BitmapImage ConvertBitmapToImageSource(System.Drawing.Bitmap bitmap)
+        {
+            using (MemoryStream memory = new MemoryStream())
+            {
+                bitmap.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                bitmapImage.Freeze(); // Important for performance
+
+                return bitmapImage;
+            }
+        }
+
 
         private string ResolveContent(DocumentItem item)
         {
@@ -1270,6 +1433,12 @@ namespace LabelPreviewer
 
     public class BarcodeDocumentItem : DocumentItem
     {
+        public string BarcodeType { get; set; } = "UPC_A";
+        public bool HasCheckDigit { get; set; } = true;
+        public bool DisplayCheckDigit { get; set; } = false;
+        public double ModuleWidth { get; set; } = 1;
+        public double ModuleHeight { get; set; } = 50;
+        public int Margin { get; set; } = 4;
     }
 
     public enum AnchoringPoint
