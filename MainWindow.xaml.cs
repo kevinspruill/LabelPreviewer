@@ -172,7 +172,7 @@ namespace LabelPreviewer
                         Height = dialog.Height,
                         FontName = dialog.FontName,
                         FontSize = dialog.FontSize,
-                        AnchoringPoint = dialog.AnchorPoint,
+                        AnchoringPoint = (AnchoringPoint)dialog.AnchorPoint,
                         TextWrapping = TextWrapping.Wrap
                     };
 
@@ -189,7 +189,7 @@ namespace LabelPreviewer
                         Y = dialog.Y,
                         FontName = dialog.FontName,
                         FontSize = dialog.FontSize,
-                        AnchoringPoint = dialog.AnchorPoint
+                        AnchoringPoint = (AnchoringPoint)dialog.AnchorPoint
                     };
 
                     newItem = textObject;

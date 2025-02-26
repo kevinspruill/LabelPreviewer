@@ -395,7 +395,7 @@ namespace LabelPreviewer
                         }
 
                         // Store the anchoring point and coordinates
-                        item.AnchoringPoint = anchoringPoint;
+                        item.AnchoringPoint = (AnchoringPoint)anchoringPoint;
                         item.X = x;
                         item.Y = y;
                         item.Width = width;
@@ -964,15 +964,54 @@ namespace LabelPreviewer
         public double Height { get; set; }
         public string Content { get; set; }
         public string DataSourceId { get; set; }
-        public int AnchoringPoint { get; set; } // Default to top-left
+        public AnchoringPoint AnchoringPoint { get; set; } = AnchoringPoint.TopLeft;
         public int ZOrder { get; set; } = 0; // Z-index order
 
         // NiceLabel anchoring points:
         // 1 = Top-left, 2 = Top-center, 3 = Top-right
         // 4 = Middle-left, 5 = Middle-center, 6 = Middle-right
         // 7 = Bottom-left, 8 = Bottom-center, 9 = Bottom-right
+        public virtual Point GetAdjustedPosition()
+        {
+            double adjustedX = X;
+            double adjustedY = Y;
 
-        
+            switch (AnchoringPoint)
+            {
+                case AnchoringPoint.TopCenter:
+                    adjustedX -= Width / 2;
+                    break;
+                case AnchoringPoint.TopRight:
+                    adjustedX -= Width;
+                    break;
+                case AnchoringPoint.MiddleLeft:
+                    adjustedY -= Height / 2;
+                    break;
+                case AnchoringPoint.MiddleCenter:
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height / 2;
+                    break;
+                case AnchoringPoint.MiddleRight:
+                    adjustedX -= Width;
+                    adjustedY -= Height / 2;
+                    break;
+                case AnchoringPoint.BottomLeft:
+                    adjustedY -= Height;
+                    break;
+                case AnchoringPoint.BottomCenter:
+                    adjustedX -= Width / 2;
+                    adjustedY -= Height;
+                    break;
+                case AnchoringPoint.BottomRight:
+                    adjustedX -= Width;
+                    adjustedY -= Height;
+                    break;
+                    // Default is TopLeft = no adjustment
+            }
+
+            return new Point(adjustedX, adjustedY);
+        }
+
     }
 
     // Base class for all text items
@@ -984,186 +1023,39 @@ namespace LabelPreviewer
         public bool IsMultiline { get; set; } = false;
         public TextAlignment TextAlignment { get; set; } = TextAlignment.Left;
 
-        public abstract Point GetAdjustedPosition();
     }
 
     // A text object is a single line of text without explicit width/height constraints
     // It expands to fit its content
     public class TextObjectItem : TextDocumentItem
     {
-        public override Point GetAdjustedPosition()
-        {
-            double adjustedX = X;
-            double adjustedY = Y;
-
-            // Adjust based on the anchoring point
-            switch (AnchoringPoint)
-            {
-                case 2: // Top-center
-                    adjustedX -= Width / 2;
-                    break;
-                case 3: // Top-right
-                    adjustedX -= Width;
-                    break;
-                case 4: // Middle-left
-                    adjustedY -= Height / 2;
-                    break;
-                case 5: // Middle-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height / 2;
-                    break;
-                case 6: // Middle-right
-                    adjustedX -= Width;
-                    adjustedY -= Height / 2;
-                    break;
-                case 7: // Bottom-left
-                    adjustedY -= Height;
-                    break;
-                case 8: // Bottom-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height;
-                    break;
-                case 9: // Bottom-right
-                    adjustedX -= Width;
-                    adjustedY -= Height;
-                    break;
-            }
-
-            return new Point(adjustedX, adjustedY);
-        }
     }
 
     // A text box has explicit width/height constraints and can wrap text
     public class TextBoxItem : TextDocumentItem
     {
         public TextWrapping TextWrapping { get; set; } = TextWrapping.Wrap;
-        
-        public override Point GetAdjustedPosition()
-        {
-            double adjustedX = X;
-            double adjustedY = Y;
-
-            // Adjust based on the anchoring point
-            switch (AnchoringPoint)
-            {
-                case 2: // Top-center
-                    adjustedX -= Width / 2;
-                    break;
-                case 3: // Top-right
-                    adjustedX -= Width;
-                    break;
-                case 4: // Middle-left
-                    adjustedY -= Height / 2;
-                    break;
-                case 5: // Middle-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height / 2;
-                    break;
-                case 6: // Middle-right
-                    adjustedX -= Width;
-                    adjustedY -= Height / 2;
-                    break;
-                case 7: // Bottom-left
-                    adjustedY -= Height;
-                    break;
-                case 8: // Bottom-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height;
-                    break;
-                case 9: // Bottom-right
-                    adjustedX -= Width;
-                    adjustedY -= Height;
-                    break;
-            }
-
-            return new Point(adjustedX, adjustedY);
-        }
     }
 
     public class GraphicDocumentItem : DocumentItem
     {
-        public Point GetAdjustedPosition()
-        {
-            double adjustedX = X;
-            double adjustedY = Y;
-
-            // Adjust based on the anchoring point
-            switch (AnchoringPoint)
-            {
-                case 1: // Top-left
-                    break;
-                case 2: // Top-right
-                    adjustedX -= Width;
-                    break;
-                case 3: // Middle-left
-                    adjustedY -= Height / 2;
-                    break;
-                case 4: // Middle-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height / 2;
-                    break;
-                case 6: // Middle-right
-                    adjustedX -= Width;
-                    adjustedY -= Height / 2;
-                    break;
-                case 8: // Bottom-left
-                    adjustedY -= Height;
-                    break;
-                case 7: // Bottom-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height;
-                    break;
-                case 9: // Bottom-right
-                    adjustedX -= Width;
-                    adjustedY -= Height;
-                    break;
-            }
-
-            return new Point(adjustedX, adjustedY);
-        }
     }
 
     public class BarcodeDocumentItem : DocumentItem
     {
-        public Point GetAdjustedPosition()
-        {
-            double adjustedX = X;
-            double adjustedY = Y;
+    }
 
-            // Adjust based on the anchoring point
-            switch (AnchoringPoint)
-            {
-                case 1: // Top-center
-                    adjustedX -= Width / 2;
-                    break;
-                case 2: // Top-right
-                    adjustedX -= Width;
-                    break;
-                case 3: // Middle-left
-                    adjustedY -= Height / 2;
-                    break;
-                case 4: // Middle-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height / 2;
-                    break;
-                case 6: // Middle-right
-                    adjustedX -= Width;
-                    adjustedY -= Height / 2;
-                    break;
-                case 8: // Bottom-left
-                    adjustedY -= Height;
-                    break;
-                case 7: // Bottom-center
-                    adjustedX -= Width / 2;
-                    adjustedY -= Height;
-                    break;
-                case 9: // Bottom-right
-                    adjustedX -= Width;
-                    adjustedY -= Height;
-                    break;
-            }
-
-            return new Point(adjustedX, adjustedY);
-        }
+    public enum AnchoringPoint
+    {
+        None = 0,
+        TopLeft = 1,
+        TopCenter = 2,
+        TopRight = 3,
+        MiddleLeft = 4,
+        MiddleCenter = 5,
+        MiddleRight = 6,
+        BottomLeft = 7,
+        BottomCenter = 8,
+        BottomRight = 9
     }
 }
