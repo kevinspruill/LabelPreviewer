@@ -346,7 +346,29 @@ namespace LabelPreviewer
                             }
                             break;
                         case "GraphicDocumentItem":
-                            item = new GraphicDocumentItem();
+                            GraphicDocumentItem graphicItem = new GraphicDocumentItem();
+                            item = graphicItem;
+
+                            // Get the GraphicFileName if available
+                            XmlNode graphicFileNameNode = node.SelectSingleNode("GraphicFileName");
+                            if (graphicFileNameNode != null)
+                            {
+                                graphicItem.ImagePath = graphicFileNameNode.InnerText;
+                            }
+
+                            // Get ResizeMode if available
+                            XmlNode resizeModeNode = node.SelectSingleNode("ResizeMode");
+                            if (resizeModeNode != null && int.TryParse(resizeModeNode.InnerText, out int resizeMode))
+                            {
+                                graphicItem.ResizeMode = resizeMode;
+                            }
+
+                            // Get ForceColor if available
+                            XmlNode forceColorNode = node.SelectSingleNode("ForceColor");
+                            if (forceColorNode != null && bool.TryParse(forceColorNode.InnerText, out bool forceColor))
+                            {
+                                graphicItem.ForceColor = forceColor;
+                            }
                             break;
                         case "BarcodeDocumentItem":
                             item = new BarcodeDocumentItem();
@@ -519,6 +541,7 @@ namespace LabelPreviewer
                             }
                         }
                     }
+
 
                     // Check for data source reference
                     XmlNode dataSourceNode = node.SelectSingleNode("DataSourceReference");
@@ -910,39 +933,173 @@ namespace LabelPreviewer
             if (item.Width == 0) { item.Width = 50; }
             if (item.Height == 0) { item.Height = 50; }
 
-            // Placeholder for graphics - just draw a rectangle with name
-            Rectangle rect = new Rectangle
-            {
-                Width = item.Width > 0 ? item.Width : 50,
-                Height = item.Height > 0 ? item.Height : 50,
-                Stroke = Brushes.Black,
-                StrokeThickness = 1,
-                Fill = Brushes.LightGray
-            };
-
             // Get position adjusted for anchoring point
             Point position = item.GetAdjustedPosition();
-            Canvas.SetLeft(rect, position.X);
-            Canvas.SetTop(rect, position.Y);
 
-            // Set z-order if available
-            if (item.ZOrder != 0)
+            // Try to get image path from the data source if available
+            string imagePath = null;
+
+            if (!string.IsNullOrEmpty(item.ImagePath))
             {
-                Canvas.SetZIndex(rect, item.ZOrder);
+                imagePath = item.ImagePath;
+            }
+            else if (!string.IsNullOrEmpty(item.DataSourceId))
+            {
+                // Try to resolve from a variable or function
+                if (Variables.TryGetValue(item.DataSourceId, out Variable variable))
+                {
+                    imagePath = variable.SampleValue;
+                }
+                else if (Functions.TryGetValue(item.DataSourceId, out Function function))
+                {
+                    imagePath = function.SampleValue;
+                }
             }
 
-            canvas.Children.Add(rect);
-
-            TextBlock textBlock = new TextBlock
+            // Try to load and display the image if a path is available
+            if (!string.IsNullOrEmpty(imagePath))
             {
-                Text = item.Name,
-                FontSize = 8
-            };
+                if (!System.IO.Path.IsPathRooted(imagePath))
+                {
+                    // Prepend the default images folder path
+                    imagePath = System.IO.Path.Combine(@"C:\Program Files\MM_Label\Labels\Images", imagePath);
+                }
 
-            Canvas.SetLeft(textBlock, position.X + 5);
-            Canvas.SetTop(textBlock, position.Y + 5);
-            Canvas.SetZIndex(textBlock, item.ZOrder + 1);
-            canvas.Children.Add(textBlock);
+                if (File.Exists(imagePath))
+                {
+
+                    try
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.UriSource = new Uri(imagePath);
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.EndInit();
+
+                        Image image = new Image
+                        {
+                            Source = bitmap,
+                            Width = item.Width,
+                            Height = item.Height,
+                            Stretch = Stretch.Fill
+                        };
+
+                        // Apply stretching based on resize mode
+                        switch (item.ResizeMode)
+                        {
+                            case 0: // None
+                                image.Stretch = Stretch.None;
+                                break;
+                            case 1: // Uniform
+                                image.Stretch = Stretch.Uniform;
+                                break;
+                            case 2: // Fill
+                                image.Stretch = Stretch.Fill;
+                                break;
+                            case 3: // Uniform to Fill
+                                image.Stretch = Stretch.UniformToFill;
+                                break;
+                        }
+
+                        Canvas.SetLeft(image, position.X);
+                        Canvas.SetTop(image, position.Y);
+
+                        // Set z-order if available
+                        if (item.ZOrder != 0)
+                        {
+                            Canvas.SetZIndex(image, item.ZOrder);
+                        }
+
+                        canvas.Children.Add(image);
+
+                        // If debug mode is on, add a border around the image
+                        if (ShowDebugInfo)
+                        {
+                            Rectangle debugRect = new Rectangle
+                            {
+                                Width = item.Width,
+                                Height = item.Height,
+                                Stroke = Brushes.Green,
+                                StrokeThickness = 1,
+                                Fill = Brushes.Transparent
+                            };
+
+                            Canvas.SetLeft(debugRect, position.X);
+                            Canvas.SetTop(debugRect, position.Y);
+                            Canvas.SetZIndex(debugRect, item.ZOrder + 1);
+                            canvas.Children.Add(debugRect);
+
+                            TextBlock debugText = new TextBlock
+                            {
+                                Text = item.Name,
+                                FontSize = 8,
+                                Foreground = Brushes.Green,
+                                Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                            };
+
+                            Canvas.SetLeft(debugText, position.X + 2);
+                            Canvas.SetTop(debugText, position.Y + 2);
+                            Canvas.SetZIndex(debugText, item.ZOrder + 2);
+                            canvas.Children.Add(debugText);
+                        }
+
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        // If image loading fails, fall back to the placeholder
+                        Console.WriteLine($"Error loading image: {ex.Message}");
+                    }
+                }
+
+                // If image loading failed or no path, create a placeholder
+                Rectangle rect = new Rectangle
+                {
+                    Width = item.Width,
+                    Height = item.Height,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1,
+                    Fill = Brushes.LightGray
+                };
+
+                Canvas.SetLeft(rect, position.X);
+                Canvas.SetTop(rect, position.Y);
+
+                // Set z-order if available
+                if (item.ZOrder != 0)
+                {
+                    Canvas.SetZIndex(rect, item.ZOrder);
+                }
+
+                canvas.Children.Add(rect);
+
+                // Add text showing the image name or data source
+                string displayText = item.Name;
+                if (!string.IsNullOrEmpty(imagePath))
+                {
+                    displayText += $"\n{System.IO.Path.GetFileName(imagePath)}";
+                }
+                else if (!string.IsNullOrEmpty(item.DataSourceId))
+                {
+                    displayText += $"\nDataSource: {item.DataSourceId}";
+                }
+
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = displayText,
+                    FontSize = 8,
+                    TextWrapping = TextWrapping.Wrap,
+                    Width = item.Width - 10,
+                    Height = item.Height - 10,
+                    Foreground = Brushes.Black,
+                    Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                };
+
+                Canvas.SetLeft(textBlock, position.X + 5);
+                Canvas.SetTop(textBlock, position.Y + 5);
+                Canvas.SetZIndex(textBlock, item.ZOrder + 1);
+                canvas.Children.Add(textBlock);
+            }
         }
 
         private void RenderBarcodeItem(Canvas canvas, BarcodeDocumentItem item)
@@ -1106,6 +1263,9 @@ namespace LabelPreviewer
 
     public class GraphicDocumentItem : DocumentItem
     {
+        public string ImagePath { get; set; }
+        public bool ForceColor { get; set; }
+        public int ResizeMode { get; set; }
     }
 
     public class BarcodeDocumentItem : DocumentItem
