@@ -22,6 +22,9 @@ namespace LabelPreviewer
         public Dictionary<string, Variable> Variables { get; set; } = new Dictionary<string, Variable>();
         public Dictionary<string, Function> Functions { get; set; } = new Dictionary<string, Function>();
         public List<DocumentItem> DocumentItems { get; set; } = new List<DocumentItem>();
+        public Dictionary<string, string> VariableNameToIdMap { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> VariableIdToNameMap { get; set; } = new Dictionary<string, string>();
+
         public double Width { get; set; }
         public double Height { get; set; }
         public string BackgroundImagePath { get; set; }
@@ -251,6 +254,10 @@ namespace LabelPreviewer
                     };
 
                     Variables[variable.Id] = variable;
+
+                    // Create name-to-ID and ID-to-name mappings
+                    VariableNameToIdMap[variable.Name] = variable.Id;
+                    VariableIdToNameMap[variable.Id] = variable.Name;
                 }
             }
 
@@ -1310,44 +1317,6 @@ namespace LabelPreviewer
             }
         }
 
-        // Helper method to convert barcode format string to ZXing format
-        private BarcodeFormat GetBarcodeFormat(string formatString)
-        {
-            switch (formatString?.ToUpper() ?? "UPC_A")
-            {
-                case "UPC_A": return BarcodeFormat.UPC_A;
-                case "UPC_E": return BarcodeFormat.UPC_E;
-                case "EAN_8": return BarcodeFormat.EAN_8;
-                case "EAN_13": return BarcodeFormat.EAN_13;
-                case "CODE_39": return BarcodeFormat.CODE_39;
-                case "CODE_128": return BarcodeFormat.CODE_128;
-                case "QR_CODE": return BarcodeFormat.QR_CODE;
-                case "DATA_MATRIX": return BarcodeFormat.DATA_MATRIX;
-                case "PDF_417": return BarcodeFormat.PDF_417;
-                default: return BarcodeFormat.UPC_A;
-            }
-        }
-
-        // Helper method to convert System.Drawing.Bitmap to BitmapImage
-        private BitmapImage ConvertBitmapToImageSource(System.Drawing.Bitmap bitmap)
-        {
-            using (MemoryStream memory = new MemoryStream())
-            {
-                bitmap.Save(memory, System.Drawing.Imaging.ImageFormat.Png);
-                memory.Position = 0;
-
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze(); // Important for performance
-
-                return bitmapImage;
-            }
-        }
-
-
         private string ResolveContent(DocumentItem item)
         {
             if (item == null) return "???";
@@ -1360,22 +1329,16 @@ namespace LabelPreviewer
                 }
                 else if (Functions != null && Functions.TryGetValue(item.DataSourceId, out Function function))
                 {
-                    // Execute the function instead of just returning the sample value
-                    if (!string.IsNullOrEmpty(function.Script) || !string.IsNullOrEmpty(function.ScriptWithReferences))
+                    // Execute the function using its own Execute method
+                    // which already has access to the Interpreter
+                    try
                     {
-                        try
-                        {
-                            return function.Execute(Variables);
-                        }
-                        catch (Exception ex)
-                        {
-                            // If execution fails, fall back to the sample value
-                            System.Diagnostics.Debug.WriteLine($"Function execution failed: {ex.Message}");
-                            return function.SampleValue ?? "???";
-                        }
+                        // Pass both Variables and the mapping dictionary
+                        return function.Execute(Variables, VariableIdToNameMap);
                     }
-                    else
+                    catch (Exception ex)
                     {
+                        System.Diagnostics.Debug.WriteLine($"Function execution failed: {ex.Message}");
                         return function.SampleValue ?? "???";
                     }
                 }
@@ -1419,39 +1382,36 @@ namespace LabelPreviewer
         /// <summary>
         /// Executes the function's script with the provided variables
         /// </summary>
-        public string Execute(Dictionary<string, Variable> variables)
+        public string Execute(Dictionary<string, Variable> variables, Dictionary<string, string> idToNameMap)
         {
             try
             {
-                // Reset the interpreter to clear any previous state
-                Interpreter.Reset();
-
-                // Prepare variable values for the script
+                // Prepare variable values with friendly names
                 var variableValues = new Dictionary<string, string>();
 
-                // Add ALL variables from the label to the script context
+                // Add all variables by their friendly names
                 foreach (var variable in variables)
                 {
-                    variableValues[variable.Key] = variable.Value.SampleValue ?? string.Empty;
+                    if (idToNameMap.TryGetValue(variable.Key, out string friendlyName))
+                    {
+                        variableValues[friendlyName] = variable.Value.SampleValue ?? string.Empty;
+                    }
                 }
 
-                // Execute the script with variable references if available
-                string scriptToExecute = !string.IsNullOrEmpty(ScriptWithReferences)
-                    ? ScriptWithReferences
-                    : Script;
+                // Get and decode the script
+                string scriptToExecute = !string.IsNullOrEmpty(Script)
+                    ? Script : Script;
 
                 if (string.IsNullOrEmpty(scriptToExecute))
                     return SampleValue ?? string.Empty;
 
-                // Execute the script and get the result
-                object result = Interpreter.ExecuteBase64Script(scriptToExecute, variableValues);
+                // Execute with the decoded script and friendly variable names
+                object result = Interpreter.ExecuteDecodedScript(scriptToExecute, variableValues);
 
-                // Convert result to string
                 return result?.ToString() ?? string.Empty;
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine($"Error executing function '{Name}': {ex.Message}");
                 return SampleValue ?? $"Error: {ex.Message}";
             }
         }

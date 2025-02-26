@@ -31,8 +31,17 @@ namespace LabelPreviewer
                 // Show the decoded script in a message box
                 MessageBox.Show($"Decoded Script:\n\n{script}", "Decoded Script");
 
-                // Execute the script
-                object result = interpreter.ExecuteBase64Script(base64Script, variables);
+                // Execute the script using the new approach - directly set variables and run decoded script
+                interpreter.Reset();
+
+                // Set all variables directly by their names
+                foreach (var pair in variables)
+                {
+                    interpreter.SetVariable(pair.Key, pair.Value);
+                }
+
+                // Execute the decoded script directly
+                object result = interpreter.ExecuteScript(script);
 
                 // Show the result
                 MessageBox.Show($"Script Result: {result}", "Script Result");

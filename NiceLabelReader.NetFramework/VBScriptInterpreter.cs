@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using MSScriptControl;
 
@@ -59,7 +60,11 @@ namespace LabelPreviewer
             try
             {
                 // Add the variable to the script engine
-                scriptControl.AddObject(name, value, true);
+                //scriptControl.AddObject(name, value, true);
+
+                scriptControl.AddCode($"Dim {name}\r\n{name} = \"{value}\"\r\n");
+
+                Debug.WriteLine($"Set variable '{name}' to '{value}'");
             }
             catch (Exception ex)
             {
@@ -79,8 +84,8 @@ namespace LabelPreviewer
             try
             {
                 // Add VBScript constants
-                scriptControl.AddCode("Option Explicit Off");  // Allow undeclared variables
-                scriptControl.AddCode("Const VBCRLF = vbCrLF");
+                //scriptControl.AddCode("Option Explicit Off");  // Allow undeclared variables
+                //scriptControl.AddCode("Const VBCRLF = vbCrLF");
 
                 // Execute the script - the script should set the "Result" variable
                 scriptControl.AddCode(script);
@@ -88,7 +93,9 @@ namespace LabelPreviewer
                 // Get the result
                 try
                 {
-                    return scriptControl.Eval("Result");
+                    var result = scriptControl.Eval("Result");
+
+                    return result;
                 }
                 catch
                 {
@@ -101,6 +108,41 @@ namespace LabelPreviewer
                 throw new Exception($"Script execution failed: {ex.Message}\nScript: {script}", ex);
             }
         }
+
+        public object ExecuteOriginalScript(string script, Dictionary<string, string> variableValues)
+        {
+            Reset();
+
+            // Set all variables with their friendly names
+            foreach (var pair in variableValues)
+            {
+                SetVariable(pair.Key, pair.Value);
+            }
+
+            // Execute original script (no replacements)
+            return ExecuteScript(script);
+        }
+
+        public object ExecuteDecodedScript(string base64Script, Dictionary<string, string> variableValues)
+        {
+            if (string.IsNullOrEmpty(base64Script))
+                return null;
+
+            Reset();
+
+            // Decode the base64 script
+            string decodedScript = DecodeBase64Script(base64Script);
+
+            // Set all variables with their friendly names
+            foreach (var pair in variableValues)
+            {
+                SetVariable(pair.Key, pair.Value);
+            }
+
+            // Execute the decoded script without text replacements
+            return ExecuteScript(decodedScript);
+        }
+
 
         /// <summary>
         /// Execute a base64-encoded VBScript with variable substitution

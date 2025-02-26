@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -158,13 +159,6 @@ namespace LabelPreviewer
                 Binding = new System.Windows.Data.Binding("SampleValue"),
                 Width = 150
             });
-            functionsGrid.Columns.Add(new DataGridTextColumn
-            {
-                Header = "Has Script",
-                Binding = new System.Windows.Data.Binding("Script"),
-                Width = 100,
-                Visibility = Visibility.Collapsed
-            });
 
             // Add functions to the grid
             functionsGrid.ItemsSource = labelModel.Functions.Values;
@@ -197,6 +191,19 @@ namespace LabelPreviewer
                 Height = 120
             };
             scriptPanel.Children.Add(decodedScriptBox);
+
+            var variablesLabel = new Label { Content = "Input Variables:" };
+            scriptPanel.Children.Add(variablesLabel);
+
+            var variablesBox = new TextBox
+            {
+                IsReadOnly = true,
+                TextWrapping = TextWrapping.Wrap,
+                AcceptsReturn = true,
+                VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
+                Height = 80
+            };
+            scriptPanel.Children.Add(variablesBox);
 
             // Button to test the script
             var testButton = new Button
@@ -234,6 +241,21 @@ namespace LabelPreviewer
                         decodedScriptBox.Text = "No script available.";
                     }
 
+                    // Display the input variables with their friendly names
+                    StringBuilder sb = new StringBuilder();
+                    foreach (var sourceId in selectedFunction.InputDataSourceIds)
+                    {
+                        string friendlyName = labelModel.VariableIdToNameMap.TryGetValue(sourceId, out string name)
+                            ? name : sourceId;
+
+                        string value = labelModel.Variables.TryGetValue(sourceId, out Variable variable)
+                            ? variable.SampleValue ?? "(empty)"
+                            : "(not found)";
+
+                        sb.AppendLine($"{friendlyName} = {value}");
+                    }
+                    variablesBox.Text = sb.ToString();
+
                     // Enable/disable test button based on script availability
                     testButton.IsEnabled = !string.IsNullOrEmpty(scriptBox.Text);
                 }
@@ -241,6 +263,7 @@ namespace LabelPreviewer
                 {
                     scriptBox.Text = "";
                     decodedScriptBox.Text = "";
+                    variablesBox.Text = "";
                     testButton.IsEnabled = false;
                 }
             };
@@ -252,27 +275,39 @@ namespace LabelPreviewer
                 {
                     try
                     {
-                        // Prepare variables for testing
+                        // Prepare variables using friendly names
                         var variableValues = new Dictionary<string, string>();
 
-                        // Add all input data source variables
-                        foreach (var sourceId in selectedFunction.InputDataSourceIds)
+                        // Add all variables by friendly name
+                        foreach (var pair in labelModel.Variables)
                         {
-                            if (labelModel.Variables.TryGetValue(sourceId, out var variable))
-                            {
-                                variableValues[sourceId] = variable.SampleValue ?? string.Empty;
-                            }
+                            string friendlyName = labelModel.VariableIdToNameMap.TryGetValue(pair.Key, out string name)
+                                ? name : pair.Key;
+                            variableValues[friendlyName] = pair.Value.SampleValue ?? string.Empty;
                         }
 
-                        // Create tester and execute script
-                        var tester = new VBScriptTester();
-                        string scriptToUse = !string.IsNullOrEmpty(selectedFunction.ScriptWithReferences)
-                            ? selectedFunction.ScriptWithReferences
+                        // Get script
+                        string scriptToUse = !string.IsNullOrEmpty(selectedFunction.Script)
+                            ? selectedFunction.Script
                             : selectedFunction.Script;
 
                         if (!string.IsNullOrEmpty(scriptToUse))
                         {
-                            tester.TestScript(scriptToUse, variableValues);
+                            // Create interpreter and decode script
+                            var interpreter = new VBScriptInterpreter();
+                            string decodedScript = interpreter.DecodeBase64Script(scriptToUse);
+
+                            // Set variables directly
+                            foreach (var pair in variableValues)
+                            {
+                                interpreter.SetVariable(pair.Key, pair.Value);
+                            }
+
+                            // Execute decoded script
+                            object result = interpreter.ExecuteScript(decodedScript);
+
+                            // Show result
+                            MessageBox.Show($"Script Result: {result}", "Script Result");
                         }
                         else
                         {
