@@ -10,6 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="NiceLabelReader.NetFramework\**" />
+    <EmbeddedResource Remove="NiceLabelReader.NetFramework\**" />
+    <None Remove="NiceLabelReader.NetFramework\**" />
+    <Page Remove="NiceLabelReader.NetFramework\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".gitattributes" />
+    <None Remove=".gitignore" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="Microsoft.Windows.Compatibility" Version="9.0.2" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="System.Drawing.Common" Version="9.0.2" />
