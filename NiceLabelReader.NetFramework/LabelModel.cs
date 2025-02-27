@@ -1057,18 +1057,21 @@ namespace LabelPreviewer
 
                 if (File.Exists(imagePath))
                 {
-
                     try
                     {
                         BitmapImage bitmap = new BitmapImage();
                         bitmap.BeginInit();
-                        bitmap.UriSource = new Uri(imagePath);
                         bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.UriSource = new Uri(imagePath);
                         bitmap.EndInit();
+                        bitmap.Freeze(); // Optimize performance
+
+                        // Convert white to transparent if needed
+                        BitmapSource transparentBitmap = MakeWhiteTransparent(bitmap);
 
                         Image image = new Image
                         {
-                            Source = bitmap,
+                            Source = transparentBitmap,
                             Width = item.Width,
                             Height = item.Height,
                             Stretch = Stretch.Uniform
@@ -1237,7 +1240,7 @@ namespace LabelPreviewer
                     bitmapImage.EndInit();
                     bitmapImage.Freeze(); // Important for cross-thread usage
 
-                    barcodeBitmap = bitmapImage;
+                    barcodeBitmap = MakeWhiteTransparent(bitmapImage);
                 }
 
                 // Clean up the drawing bitmap
@@ -1362,6 +1365,42 @@ namespace LabelPreviewer
             }
 
             return item.Content ?? "???";
+        }
+        private BitmapSource MakeWhiteTransparent(BitmapImage bitmap)
+        {
+            // Convert BitmapImage to a writeable format
+            WriteableBitmap writeBmp = new WriteableBitmap(bitmap);
+
+            // Get pixel data
+            int width = writeBmp.PixelWidth;
+            int height = writeBmp.PixelHeight;
+            int stride = width * 4; // 4 bytes per pixel (BGRA)
+            byte[] pixels = new byte[height * stride];
+            writeBmp.CopyPixels(pixels, stride, 0);
+
+            // Process each pixel
+            for (int i = 0; i < pixels.Length; i += 4)
+            {
+                byte blue = pixels[i];
+                byte green = pixels[i + 1];
+                byte red = pixels[i + 2];
+
+                // Check if pixel is close to white (within 10% tolerance)
+                // 255 * 0.9 = 229.5
+                if (red >= 230 && green >= 230 && blue >= 230)
+                {
+                    pixels[i + 3] = 0; // Set alpha to transparent
+                }
+            }
+
+            // Create new bitmap with modified pixels
+            return BitmapSource.Create(
+                width, height,
+                96, 96, // DPI
+                PixelFormats.Bgra32,
+                null,
+                pixels,
+                stride);
         }
     }
 }
