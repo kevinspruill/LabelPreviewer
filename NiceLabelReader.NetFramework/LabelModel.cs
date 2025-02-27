@@ -386,6 +386,19 @@ namespace LabelPreviewer
                             {
                                 graphicItem.ImagePath = graphicFileNameNode.InnerText;
                             }
+                            else
+                            {
+                                // If no file name is specified, it uses a DataSourceReference
+                                XmlNode dataSourceRefNode = node.SelectSingleNode("DataSourceReference");
+                                if (dataSourceRefNode != null)
+                                {
+                                    string dataSourceId = GetNodeValue(dataSourceRefNode, "Id");
+                                    if (!string.IsNullOrEmpty(dataSourceId))
+                                    {
+                                        graphicItem.DataSourceId = dataSourceId;
+                                    }
+                                }
+                            }
 
                             // Get ResizeMode if available
                             XmlNode resizeModeNode = node.SelectSingleNode("ResizeMode");
@@ -569,22 +582,22 @@ namespace LabelPreviewer
                             }
 
                             // Check for text alignment
-                            XmlNode alignmentNode = node.SelectSingleNode("Alignment");
+                            XmlNode alignmentNode = node.SelectSingleNode("TextBoxAlignment");
                             if (alignmentNode != null)
                             {
                                 string alignmentValue = alignmentNode.InnerText;
                                 switch (alignmentValue)
                                 {
-                                    case "0": // Left
+                                    case "1": // Left
                                         textItem.TextAlignment = TextAlignment.Left;
                                         break;
-                                    case "1": // Center
+                                    case "2": // Center
                                         textItem.TextAlignment = TextAlignment.Center;
                                         break;
-                                    case "2": // Right
+                                    case "3": // Right
                                         textItem.TextAlignment = TextAlignment.Right;
                                         break;
-                                    case "3": // Justify
+                                    case "4": // Justify
                                         textItem.TextAlignment = TextAlignment.Justify;
                                         break;
                                 }
@@ -1029,7 +1042,7 @@ namespace LabelPreviewer
                 }
                 else if (Functions.TryGetValue(item.DataSourceId, out Function function))
                 {
-                    imagePath = function.SampleValue;
+                    imagePath = ResolveContent(item); //cp_35
                 }
             }
 
@@ -1058,7 +1071,7 @@ namespace LabelPreviewer
                             Source = bitmap,
                             Width = item.Width,
                             Height = item.Height,
-                            Stretch = Stretch.Fill
+                            Stretch = Stretch.Uniform
                         };
 
                         // Apply stretching based on resize mode
@@ -1067,11 +1080,11 @@ namespace LabelPreviewer
                             case 0: // None
                                 image.Stretch = Stretch.None;
                                 break;
-                            case 1: // Uniform
-                                image.Stretch = Stretch.Uniform;
-                                break;
-                            case 2: // Fill
+                            case 1: // Fill
                                 image.Stretch = Stretch.Fill;
+                                break;
+                            case 2: // Uniform
+                                image.Stretch = Stretch.Uniform;
                                 break;
                             case 3: // Uniform to Fill
                                 image.Stretch = Stretch.UniformToFill;
@@ -1520,6 +1533,23 @@ namespace LabelPreviewer
         public double ModuleHeight { get; set; } = 50;
         public int Margin { get; set; } = 4;
     }
+
+    public enum GraphicResizeMode
+    {
+        None,
+        Fill,
+        Uniform,
+        UniformFill,
+        Tile,
+    }
+    public enum TextType
+    {
+        Unknown,
+        Text,
+        TextBox,
+        TextOnPath,
+    }
+
 
     public enum AnchoringPoint
     {
