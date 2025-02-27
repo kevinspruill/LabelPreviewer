@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35818.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LabelPreviewer", "LabelPreviewer.csproj", "{BF829E9B-A58B-45DC-BB29-C4FD695F225D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NiceLabelReader.NetFramework", "NiceLabelReader.NetFramework\NiceLabelReader.NetFramework.csproj", "{88E77A2E-258C-4E42-8F1E-D2A28A97A390}"
 EndProject
 Global
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BF829E9B-A58B-45DC-BB29-C4FD695F225D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BF829E9B-A58B-45DC-BB29-C4FD695F225D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BF829E9B-A58B-45DC-BB29-C4FD695F225D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BF829E9B-A58B-45DC-BB29-C4FD695F225D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{88E77A2E-258C-4E42-8F1E-D2A28A97A390}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{88E77A2E-258C-4E42-8F1E-D2A28A97A390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88E77A2E-258C-4E42-8F1E-D2A28A97A390}.Release|Any CPU.ActiveCfg = Release|Any CPU
