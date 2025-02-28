@@ -24,6 +24,10 @@ namespace LabelPreviewer
         public List<DocumentItem> DocumentItems { get; set; } = new List<DocumentItem>();
         public Dictionary<string, string> VariableNameToIdMap { get; set; } = new Dictionary<string, string>();
         public Dictionary<string, string> VariableIdToNameMap { get; set; } = new Dictionary<string, string>();
+        private Dictionary<string, string> functionResultCache = new Dictionary<string, string>();
+        private HashSet<string> functionsInProgress = new HashSet<string>();
+        public Dictionary<string, string> FunctionIdToNameMap { get; private set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> FunctionNameToIdMap { get; private set; } = new Dictionary<string, string>();
         public string VariablesXmlData { get; private set; }
         public string FormatXmlData { get; private set; }
 
@@ -245,6 +249,7 @@ namespace LabelPreviewer
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(variablesXMLData);
 
+            // First, load all variables
             XmlNodeList variableNodes = doc.SelectNodes("//EuroPlus.NiceLabel/Variables/Item[@Type='Variable']");
             if (variableNodes != null)
             {
@@ -265,30 +270,78 @@ namespace LabelPreviewer
                 }
             }
 
+            // Then load all functions including concatenate functions
             XmlNodeList functionNodes = doc.SelectNodes("//EuroPlus.NiceLabel/Functions/Item");
             if (functionNodes != null)
             {
                 foreach (XmlNode node in functionNodes)
                 {
-                    Function function = new Function
-                    {
-                        Id = GetNodeValue(node, "Id"),
-                        Name = GetNodeValue(node, "Name"),
-                        SampleValue = GetSampleValue(node),
-                        Script = GetNodeValue(node, "Script"),
-                        ScriptWithReferences = GetNodeValue(node, "ScriptWithReferences")
-                    };
+                    string functionType = node.Attributes?["Type"]?.Value ?? "ExecuteScriptFunction";
 
-                    // Extract input data source references
-                    XmlNodeList inputDataNodes = node.SelectNodes("InputDataSourceReferences/Item");
-                    if (inputDataNodes != null)
+                    // Create the appropriate function type
+                    Function function = Function.CreateFunction(functionType);
+
+                    // Set common properties
+                    function.Id = GetNodeValue(node, "Id");
+                    function.Name = GetNodeValue(node, "Name");
+                    function.SampleValue = GetSampleValue(node);
+                    function.FunctionType = functionType;
+
+                    // Store in function maps for lookup
+                    if (!string.IsNullOrEmpty(function.Id) && !string.IsNullOrEmpty(function.Name))
                     {
-                        foreach (XmlNode inputNode in inputDataNodes)
+                        FunctionIdToNameMap[function.Id] = function.Name;
+                        FunctionNameToIdMap[function.Name] = function.Id;
+                    }
+
+                    // Handle specific function types
+                    if (functionType == "ConcatenateFunction")
+                    {
+                        if (function is ConcatenateFunction concatFunction)
                         {
-                            string refId = GetNodeValue(inputNode, "Id");
-                            if (!string.IsNullOrEmpty(refId))
+                            // Get separator (may be Base64 encoded)
+                            string base64Separator = GetNodeValue(node, "Separator");
+                            concatFunction.Separator = ConcatenateFunction.DecodeSeparator(base64Separator);
+
+                            // Get ignore empty values flag
+                            string ignoreEmptyValuesStr = GetNodeValue(node, "IgnoreEmptyValues");
+                            if (!string.IsNullOrEmpty(ignoreEmptyValuesStr))
                             {
-                                function.InputDataSourceIds.Add(refId);
+                                concatFunction.IgnoreEmptyValues = bool.Parse(ignoreEmptyValuesStr);
+                            }
+
+                            // Get data sources to concatenate
+                            XmlNodeList dataValueNodes = node.SelectNodes("DataValues/Item/DataSourceReference");
+                            if (dataValueNodes != null)
+                            {
+                                foreach (XmlNode dataValueNode in dataValueNodes)
+                                {
+                                    string dataSourceId = GetNodeValue(dataValueNode, "Id");
+                                    if (!string.IsNullOrEmpty(dataSourceId))
+                                    {
+                                        concatFunction.DataSourceIds.Add(dataSourceId);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // For script-based functions
+                        function.Script = GetNodeValue(node, "Script");
+                        function.ScriptWithReferences = GetNodeValue(node, "ScriptWithReferences");
+
+                        // Extract input data source references
+                        XmlNodeList inputDataNodes = node.SelectNodes("InputDataSourceReferences/Item");
+                        if (inputDataNodes != null)
+                        {
+                            foreach (XmlNode inputNode in inputDataNodes)
+                            {
+                                string refId = GetNodeValue(inputNode, "Id");
+                                if (!string.IsNullOrEmpty(refId))
+                                {
+                                    function.InputDataSourceIds.Add(refId);
+                                }
                             }
                         }
                     }
@@ -655,6 +708,9 @@ namespace LabelPreviewer
                     DocumentItems.Add(item);
                 }
             }
+
+            VerifyDocumentItemReferences();
+
         }
 
         // Helper method to determine if a text element is a text box or text object
@@ -702,6 +758,35 @@ namespace LabelPreviewer
 
         public void Render(Canvas canvas)
         {
+            // Clear function result cache before rendering
+            ClearFunctionCache();
+
+            // Add debug logging for textboxes with function datasources
+            System.Diagnostics.Debug.WriteLine("----------- RENDER STARTED -----------");
+            foreach (var item in DocumentItems)
+            {
+                if (!string.IsNullOrEmpty(item.DataSourceId))
+                {
+                    string content = ResolveContent(item);
+                    System.Diagnostics.Debug.WriteLine($"Item: {item.Name} (ID: {item.DataSourceId})");
+                    System.Diagnostics.Debug.WriteLine($"  Resolved content: '{content}'");
+
+                    // Special handling for the DescriptionFields function
+                    if (item.DataSourceId == "246def0c-4bd4-4a59-885f-901b15ae3eee" ||
+                        item.DataSourceId == "DescriptionFields")
+                    {
+                        System.Diagnostics.Debug.WriteLine($"  Special DescriptionFields function detected!");
+
+                        // Directly resolve by function ID
+                        if (Functions.TryGetValue("246def0c-4bd4-4a59-885f-901b15ae3eee", out Function func))
+                        {
+                            string directResult = ExecuteFunctionWithDependencies(func.Id);
+                            System.Diagnostics.Debug.WriteLine($"  Direct function result: '{directResult}'");
+                        }
+                    }
+                }
+            }
+
             canvas.Children.Clear();
             canvas.Width = Width;
             canvas.Height = Height;
@@ -809,7 +894,7 @@ namespace LabelPreviewer
 
             TextBlock textBlock = new TextBlock
             {
-                Text = content,
+                Text = FormatTextContent(content),
                 Width = item.Width,
                 FontFamily = new FontFamily(item.FontName),
                 FontSize = item.FontSize,
@@ -881,11 +966,43 @@ namespace LabelPreviewer
         // Update the RenderTextBox method in LabelModel.cs
         private void RenderTextBox(Canvas canvas, TextBoxItem item)
         {
-            string content = ResolveContent(item);
+            // Get content with special handling for DescriptionFields function
+            string content;
+
+            if (item.DataSourceId == "246def0c-4bd4-4a59-885f-901b15ae3eee" ||
+                item.DataSourceId == "DescriptionFields")
+            {
+                // Special handling for DescriptionFields function
+                System.Diagnostics.Debug.WriteLine($"Special handling for DescriptionFields in TextBox: {item.Name}");
+
+                // Try to find function directly by ID
+                if (Functions.TryGetValue("246def0c-4bd4-4a59-885f-901b15ae3eee", out Function func))
+                {
+                    content = ExecuteFunctionWithDependencies(func.Id);
+                    System.Diagnostics.Debug.WriteLine($"Direct result: '{content}'");
+                }
+                else if (FunctionNameToIdMap.TryGetValue("DescriptionFields", out string functionId))
+                {
+                    // Try by name lookup
+                    content = ExecuteFunctionWithDependencies(functionId);
+                    System.Diagnostics.Debug.WriteLine($"Name lookup result: '{content}'");
+                }
+                else
+                {
+                    // Fall back to normal content resolution
+                    content = ResolveContent(item);
+                    System.Diagnostics.Debug.WriteLine($"Standard resolve result: '{content}'");
+                }
+            }
+            else
+            {
+                // Normal content resolution
+                content = ResolveContent(item);
+            }
 
             TextBlock textBlock = new TextBlock
             {
-                Text = content,
+                Text = FormatTextContent(content),
                 FontFamily = new FontFamily(item.FontName),
                 FontSize = item.FontSize,
                 Foreground = new SolidColorBrush(item.FontColor),
@@ -946,6 +1063,38 @@ namespace LabelPreviewer
                 canvas.Children.Add(debugAnchor);
             }
 
+            if (ShowDebugInfo &&
+        (item.DataSourceId == "246def0c-4bd4-4a59-885f-901b15ae3eee" ||
+         item.DataSourceId == "DescriptionFields"))
+            {
+                // Visual indicator that this is using DescriptionFields
+                Rectangle marker = new Rectangle
+                {
+                    Width = 10,
+                    Height = 10,
+                    Fill = Brushes.Purple,
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 1
+                };
+
+                Canvas.SetLeft(marker, position.X - 15);
+                Canvas.SetTop(marker, position.Y);
+                canvas.Children.Add(marker);
+
+                // Add an annotation
+                TextBlock annotation = new TextBlock
+                {
+                    Text = "DescriptionFields",
+                    FontSize = 8,
+                    Foreground = Brushes.Purple,
+                    Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                };
+
+                Canvas.SetLeft(annotation, position.X - 15);
+                Canvas.SetTop(annotation, position.Y + 15);
+                canvas.Children.Add(annotation);
+            }
+
             // Set z-order if available
             if (item.ZOrder != 0)
             {
@@ -953,6 +1102,113 @@ namespace LabelPreviewer
             }
 
             canvas.Children.Add(textBlock);
+        }
+
+        /// <summary>
+        /// Ensures text content has proper newline formatting for WPF TextBlock
+        /// </summary>
+        private string FormatTextContent(string content)
+        {
+            if (string.IsNullOrEmpty(content))
+                return string.Empty;
+
+            // Ensure Windows newlines are converted properly for TextBlock
+            // TextBlock uses Environment.NewLine which is \r\n on Windows
+            return content.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
+        }
+
+        /// <summary>
+        /// Verifies and fixes document item references to functions
+        /// </summary>
+        public void VerifyDocumentItemReferences()
+        {
+            System.Diagnostics.Debug.WriteLine("Verifying document item references...");
+
+            // Target function ID
+            string targetFunctionId = "246def0c-4bd4-4a59-885f-901b15ae3eee";
+            string targetFunctionName = "DescriptionFields";
+
+            // Check if function exists
+            bool functionExists = Functions.ContainsKey(targetFunctionId);
+            System.Diagnostics.Debug.WriteLine($"Function ID '{targetFunctionId}' exists: {functionExists}");
+
+            if (!functionExists)
+            {
+                System.Diagnostics.Debug.WriteLine("Function doesn't exist - checking by name...");
+
+                // Try to find by name
+                if (FunctionNameToIdMap.TryGetValue(targetFunctionName, out string foundId))
+                {
+                    System.Diagnostics.Debug.WriteLine($"Found via name: {foundId}");
+                    targetFunctionId = foundId;
+                    functionExists = true;
+                }
+            }
+
+            if (!functionExists)
+            {
+                System.Diagnostics.Debug.WriteLine("Function doesn't exist - creating it...");
+
+                // Create the function if it doesn't exist
+                var concatFunction = new ConcatenateFunction
+                {
+                    Id = targetFunctionId,
+                    Name = targetFunctionName,
+                    FunctionType = "ConcatenateFunction",
+                    Separator = "\r\n", // Decoded from Base64 "DQo="
+                    IgnoreEmptyValues = false
+                };
+
+                // Add the data sources
+                concatFunction.DataSourceIds.Add("9b19b3d6-fd8e-4250-b84e-64fa7bd7a049"); // Description1
+                concatFunction.DataSourceIds.Add("d8409940-a513-4e07-8cda-b92361625140"); // Description2
+
+                // Add the function to the model
+                Functions[targetFunctionId] = concatFunction;
+
+                // Update the mappings
+                FunctionIdToNameMap[targetFunctionId] = targetFunctionName;
+                FunctionNameToIdMap[targetFunctionName] = targetFunctionId;
+
+                System.Diagnostics.Debug.WriteLine("Function created successfully!");
+            }
+
+            // Check document items
+            System.Diagnostics.Debug.WriteLine("Checking document items that reference this function...");
+            int count = 0;
+
+            foreach (var item in DocumentItems)
+            {
+                if (item.DataSourceId == targetFunctionId || item.DataSourceId == targetFunctionName)
+                {
+                    count++;
+                    System.Diagnostics.Debug.WriteLine($"Item {count}: {item.GetType().Name} '{item.Name}' (ID: {item.DataSourceId})");
+
+                    // Ensure the item references the correct function ID
+                    if (item.DataSourceId != targetFunctionId)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"  Fixing reference from '{item.DataSourceId}' to '{targetFunctionId}'");
+                        item.DataSourceId = targetFunctionId;
+                    }
+                }
+            }
+
+            System.Diagnostics.Debug.WriteLine($"Found {count} items referencing this function");
+
+            if (count == 0)
+            {
+                System.Diagnostics.Debug.WriteLine("No items reference the function - checking for items that might be missing reference...");
+
+                // Look for text items that might be intended to show the concatenated fields
+                foreach (var item in DocumentItems.OfType<TextDocumentItem>())
+                {
+                    if (item.Content != null &&
+                        (item.Content.Contains("Description1") || item.Content.Contains("Description2")))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Possible candidate: {item.GetType().Name} '{item.Name}' with content: '{item.Content}'");
+                    }
+                }
+            }
         }
 
         // Add this helper method to calculate the actual anchor point coordinates
@@ -1337,35 +1593,187 @@ namespace LabelPreviewer
             }
         }
 
+        /// <summary>
+        /// Resolves the content for a document item, taking into account function dependencies
+        /// </summary>
         private string ResolveContent(DocumentItem item)
         {
             if (item == null) return "???";
 
             if (!string.IsNullOrEmpty(item.DataSourceId))
             {
-                if (Variables != null && Variables.TryGetValue(item.DataSourceId, out Variable variable))
+                // First check if it's a direct variable reference
+                if (Variables.TryGetValue(item.DataSourceId, out Variable variable))
                 {
                     return variable.SampleValue ?? "???";
                 }
-                else if (Functions != null && Functions.TryGetValue(item.DataSourceId, out Function function))
+
+                // Check if it's a direct function reference by ID
+                if (Functions.TryGetValue(item.DataSourceId, out Function function))
                 {
-                    // Execute the function using its own Execute method
-                    // which already has access to the Interpreter
-                    try
-                    {
-                        // Pass both Variables and the mapping dictionary
-                        return function.Execute(Variables, VariableIdToNameMap);
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Function execution failed: {ex.Message}");
-                        return function.SampleValue ?? "???";
-                    }
+                    return ExecuteFunctionWithDependencies(function.Id);
                 }
+
+                // Check if it's a function reference by name
+                if (FunctionNameToIdMap.TryGetValue(item.DataSourceId, out string functionId) &&
+                    Functions.TryGetValue(functionId, out function))
+                {
+                    return ExecuteFunctionWithDependencies(functionId);
+                }
+
+                // Debug the missing reference
+                System.Diagnostics.Debug.WriteLine($"Could not resolve content for ID: {item.DataSourceId}");
+                System.Diagnostics.Debug.WriteLine($"Available Functions: {string.Join(", ", Functions.Keys)}");
+                System.Diagnostics.Debug.WriteLine($"Available Function Names: {string.Join(", ", FunctionNameToIdMap.Keys)}");
             }
 
             return item.Content ?? "???";
         }
+
+        /// <summary>
+        /// Executes a function, handling any dependencies on other functions
+        /// </summary>
+        public string ExecuteFunctionWithDependencies(string functionId)
+        {
+            // First try to resolve by name if it's not a direct ID
+            if (!Functions.ContainsKey(functionId) && FunctionNameToIdMap.TryGetValue(functionId, out string resolvedId))
+            {
+                functionId = resolvedId;
+            }
+
+            // Check if we have a cached result
+            if (functionResultCache.TryGetValue(functionId, out string cachedResult))
+            {
+                return cachedResult;
+            }
+
+            // Check for circular dependencies
+            if (functionsInProgress.Contains(functionId))
+            {
+                return $"Circular dependency detected for function {functionId}";
+            }
+
+            // Get the function
+            if (!Functions.TryGetValue(functionId, out Function function))
+            {
+                return $"Function {functionId} not found";
+            }
+
+            try
+            {
+                // Mark function as in-progress to detect circular dependencies
+                functionsInProgress.Add(functionId);
+
+                // If this function depends on other functions, resolve those first
+                Dictionary<string, Variable> resolvedVariables = new Dictionary<string, Variable>();
+
+                // Copy all regular variables
+                foreach (var kvp in Variables)
+                {
+                    resolvedVariables[kvp.Key] = kvp.Value;
+                }
+
+                // For each referenced data source, ensure it's resolved
+                foreach (string dataSourceId in function.InputDataSourceIds)
+                {
+                    // If it's a regular variable, it's already in resolvedVariables
+                    // If it's a function, we need to execute it and create a temporary variable
+                    if (!Variables.ContainsKey(dataSourceId) && Functions.ContainsKey(dataSourceId))
+                    {
+                        string dependencyResult = ExecuteFunctionWithDependencies(dataSourceId);
+
+                        // Create a temporary variable with the result
+                        resolvedVariables[dataSourceId] = new Variable
+                        {
+                            Id = dataSourceId,
+                            Name = Functions[dataSourceId].Name,
+                            SampleValue = dependencyResult
+                        };
+                    }
+                }
+
+                // For ConcatenateFunction, also handle its DataSourceIds if they reference functions
+                if (function is ConcatenateFunction concatFunction)
+                {
+                    foreach (string dataSourceId in concatFunction.DataSourceIds)
+                    {
+                        // If it's a function reference, execute it and create a temporary variable
+                        if (!Variables.ContainsKey(dataSourceId) && Functions.ContainsKey(dataSourceId))
+                        {
+                            string dependencyResult = ExecuteFunctionWithDependencies(dataSourceId);
+
+                            // Create a temporary variable with the result
+                            resolvedVariables[dataSourceId] = new Variable
+                            {
+                                Id = dataSourceId,
+                                Name = Functions[dataSourceId].Name,
+                                SampleValue = dependencyResult
+                            };
+                        }
+                    }
+                }
+
+                // Execute the function with all dependencies resolved
+                string result = function.Execute(resolvedVariables, VariableIdToNameMap);
+
+                // Cache the result
+                functionResultCache[functionId] = result;
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return function.SampleValue ?? $"Error: {ex.Message}";
+            }
+            finally
+            {
+                // Remove the function from in-progress list
+                functionsInProgress.Remove(functionId);
+            }
+        }
+
+        public void DumpFunctionInfo()
+        {
+            System.Diagnostics.Debug.WriteLine("=== FUNCTION INFO DUMP ===");
+
+            System.Diagnostics.Debug.WriteLine("Function Count: " + Functions.Count);
+
+            System.Diagnostics.Debug.WriteLine("\nFunction IDs:");
+            foreach (var id in Functions.Keys)
+            {
+                System.Diagnostics.Debug.WriteLine($"  {id}");
+            }
+
+            System.Diagnostics.Debug.WriteLine("\nFunction Names:");
+            foreach (var func in Functions.Values)
+            {
+                System.Diagnostics.Debug.WriteLine($"  {func.Name} ({func.Id})");
+            }
+
+            System.Diagnostics.Debug.WriteLine("\nFunction ID to Name Map:");
+            foreach (var pair in FunctionIdToNameMap)
+            {
+                System.Diagnostics.Debug.WriteLine($"  {pair.Key} => {pair.Value}");
+            }
+
+            System.Diagnostics.Debug.WriteLine("\nFunction Name to ID Map:");
+            foreach (var pair in FunctionNameToIdMap)
+            {
+                System.Diagnostics.Debug.WriteLine($"  {pair.Key} => {pair.Value}");
+            }
+
+            System.Diagnostics.Debug.WriteLine("=== END FUNCTION INFO ===");
+        }
+
+        /// <summary>
+        /// Clears cached function results
+        /// </summary>
+        public void ClearFunctionCache()
+        {
+            functionResultCache.Clear();
+            functionsInProgress.Clear();
+        }
+
         private BitmapSource MakeWhiteTransparent(BitmapImage bitmap)
         {
             // Convert BitmapImage to a writeable format

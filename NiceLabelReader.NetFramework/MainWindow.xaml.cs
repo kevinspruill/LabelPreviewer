@@ -414,6 +414,117 @@ namespace LabelPreviewer
                 variableEditorWindow.Activate(); // Bring to front
             }
         }
+        private void menuTestFunctions_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelFilePath))
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Label Loaded", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            FunctionTester.ShowFunctionsList(this, labelModel);
+        }
+
+        private void TestSpecificFunction()
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelFilePath))
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Label Loaded", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // The specific function GUID you mentioned
+            string functionGuid = "246def0c-4bd4-4a59-885f-901b15ae3eee";
+
+            // Dump the function information first
+            labelModel.DumpFunctionInfo();
+
+            // Log to debug output
+            System.Diagnostics.Debug.WriteLine($"Testing specific function GUID: {functionGuid}");
+
+            // Check direct match
+            bool functionFound = false;
+            if (labelModel.Functions.ContainsKey(functionGuid))
+            {
+                System.Diagnostics.Debug.WriteLine("Function found directly by GUID");
+                functionFound = true;
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("Function not found directly by GUID");
+
+                // Look for a function with the name "DescriptionFields"
+                string targetName = "DescriptionFields";
+                foreach (var func in labelModel.Functions.Values)
+                {
+                    if (func.Name == targetName)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Found function by name '{targetName}' with ID '{func.Id}'");
+                        functionGuid = func.Id;
+                        functionFound = true;
+                        break;
+                    }
+                }
+            }
+
+            if (functionFound)
+            {
+                // Test the function
+                FunctionTester.TestFunction(labelModel, functionGuid);
+            }
+            else
+            {
+                // If still not found, try to manually create and test it
+                MessageBox.Show(
+                    "Specified function GUID not found in model. Do you want to manually create a test function?",
+                    "Function Not Found", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                // This would go to a routine that manually creates a test function
+            }
+        }
+
+        // Add a new menu item to your XAML:
+        // <MenuItem x:Name="menuTestSpecificFunction" Click="menuTestSpecificFunction_Click" Header="Test Concatenate Function" />
+
+        // Add the click handler:
+        private void menuTestSpecificFunction_Click(object sender, RoutedEventArgs e)
+        {
+            TestSpecificFunction();
+        }
+
+        // For quick testing of the concatenation function specifically, you can add this method:
+        private void TestConcatenateFunction()
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelFilePath))
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Label Loaded", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Find the concatenate function with name "DescriptionFields"
+            string concatFunctionId = null;
+            foreach (var function in labelModel.Functions.Values)
+            {
+                if (function.Name == "DescriptionFields" && function is ConcatenateFunction)
+                {
+                    concatFunctionId = function.Id;
+                    break;
+                }
+            }
+
+            if (concatFunctionId != null)
+            {
+                FunctionTester.TestFunction(labelModel, concatFunctionId);
+            }
+            else
+            {
+                MessageBox.Show("Concatenate function 'DescriptionFields' not found in this label.",
+                    "Function Not Found", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
 
         private void btnRenderPreview_Click(object sender, RoutedEventArgs e)
         {
@@ -573,8 +684,255 @@ namespace LabelPreviewer
             previewScrollViewer.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
             previewScrollViewer.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
         }
-    }
 
+        // Add these handlers to your MainWindow.xaml.cs:
+        private void menuTroubleshootFunction_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelFilePath))
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Label Loaded", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Show an input dialog to get the reference
+            InputDialog dialog = new InputDialog("Enter Function Reference", "Enter a function ID or name to troubleshoot:");
+            if (dialog.ShowDialog() == true)
+            {
+                string reference = dialog.ResponseText;
+                if (!string.IsNullOrWhiteSpace(reference))
+                {
+                    FunctionTroubleshooter.TroubleshootFunctionReference(this, labelModel, reference);
+                }
+            }
+        }
+
+        private void menuTestDescriptionFields_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || string.IsNullOrEmpty(labelFilePath))
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Label Loaded", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // The DescriptionFields function GUID
+            string functionGuid = "246def0c-4bd4-4a59-885f-901b15ae3eee";
+
+            // First try by GUID
+            if (labelModel.Functions.ContainsKey(functionGuid))
+            {
+                FunctionTester.TestFunction(labelModel, functionGuid);
+                return;
+            }
+
+            // Then try by name
+            if (labelModel.FunctionNameToIdMap.ContainsKey("DescriptionFields"))
+            {
+                FunctionTester.TestFunction(labelModel, "DescriptionFields");
+                return;
+            }
+
+            // If not found, offer to create it
+            if (MessageBox.Show(
+                "The DescriptionFields function was not found in the model. Do you want to create it?",
+                "Function Not Found", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                == MessageBoxResult.Yes)
+            {
+                // Create the function (implementation from FunctionTroubleshooter)
+                var concatFunction = new ConcatenateFunction
+                {
+                    Id = functionGuid,
+                    Name = "DescriptionFields",
+                    FunctionType = "ConcatenateFunction",
+                    Separator = "\r\n", // Decoded from Base64 "DQo="
+                    IgnoreEmptyValues = false
+                };
+
+                // Add the data sources (from your example)
+                concatFunction.DataSourceIds.Add("9b19b3d6-fd8e-4250-b84e-64fa7bd7a049"); // Description1
+                concatFunction.DataSourceIds.Add("d8409940-a513-4e07-8cda-b92361625140"); // Description2
+
+                // Add the function to the model
+                labelModel.Functions[concatFunction.Id] = concatFunction;
+
+                // Update the function name mappings
+                labelModel.FunctionIdToNameMap[concatFunction.Id] = concatFunction.Name;
+                labelModel.FunctionNameToIdMap[concatFunction.Name] = concatFunction.Id;
+
+                // Test the newly created function
+                FunctionTester.TestFunction(labelModel, functionGuid);
+            }
+            else
+            {
+                // Show troubleshooter for advanced diagnosis
+                FunctionTroubleshooter.TroubleshootFunctionReference(this, labelModel, functionGuid);
+            }
+        }
+
+        private void TestFunctionRendering()
+        {
+            if (labelModel == null)
+            {
+                MessageBox.Show("Please load a label file first.",
+                    "No Model", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Clear the canvas for testing
+            previewCanvas.Children.Clear();
+
+            // First verify/create the function
+            labelModel.VerifyDocumentItemReferences();
+
+            // Get the function
+            string functionId = "246def0c-4bd4-4a59-885f-901b15ae3eee";
+            if (!labelModel.Functions.TryGetValue(functionId, out Function function))
+            {
+                MessageBox.Show("Could not find the DescriptionFields function.",
+                    "Function Not Found", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // Execute the function
+            string result = labelModel.ExecuteFunctionWithDependencies(functionId);
+
+            // Create a test text box to display the result
+            var textBox = new System.Windows.Controls.TextBox
+            {
+                Text = result,
+                TextWrapping = TextWrapping.Wrap,
+                Width = 300,
+                Height = 150,
+                Margin = new Thickness(10)
+            };
+
+            // Add to a popup window
+            var window = new Window
+            {
+                Title = "Function Result Test",
+                Width = 400,
+                Height = 300,
+                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                Owner = this
+            };
+
+            var panel = new StackPanel();
+            panel.Children.Add(new TextBlock
+            {
+                Text = $"Function: {function.Name}",
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(10, 10, 10, 5)
+            });
+
+            panel.Children.Add(new TextBlock
+            {
+                Text = "Result:",
+                Margin = new Thickness(10, 5, 10, 5)
+            });
+
+            panel.Children.Add(textBox);
+
+            var button = new Button
+            {
+                Content = "Close",
+                Width = 80,
+                Height = 30,
+                Margin = new Thickness(10),
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+            button.Click += (s, e) => window.Close();
+            panel.Children.Add(button);
+
+            window.Content = panel;
+            window.ShowDialog();
+
+            // Re-render the label
+            labelModel.Render(previewCanvas);
+        }
+
+        // Add a menu item:
+        // <MenuItem x:Name="menuTestRendering" Click="menuTestRendering_Click" Header="Test Function Rendering" />
+
+        private void menuTestRendering_Click(object sender, RoutedEventArgs e)
+        {
+            TestFunctionRendering();
+        }
+
+    }
+    public class InputDialog : Window
+    {
+        private TextBox txtInput;
+        public string ResponseText { get; private set; }
+
+        public InputDialog(string title, string prompt)
+        {
+            this.Title = title;
+            this.Width = 400;
+            this.Height = 150;
+            this.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            this.ResizeMode = ResizeMode.NoResize;
+
+            Grid grid = new Grid();
+            grid.Margin = new Thickness(10);
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+
+            // Prompt
+            TextBlock promptBlock = new TextBlock
+            {
+                Text = prompt,
+                Margin = new Thickness(0, 0, 0, 5)
+            };
+            Grid.SetRow(promptBlock, 0);
+            grid.Children.Add(promptBlock);
+
+            // Input text box
+            txtInput = new TextBox
+            {
+                Margin = new Thickness(0, 0, 0, 10)
+            };
+            Grid.SetRow(txtInput, 1);
+            grid.Children.Add(txtInput);
+
+            // Buttons
+            StackPanel buttonPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                HorizontalAlignment = HorizontalAlignment.Right
+            };
+
+            Button okButton = new Button
+            {
+                Content = "OK",
+                IsDefault = true,
+                Width = 75,
+                Height = 23,
+                Margin = new Thickness(0, 0, 10, 0)
+            };
+            okButton.Click += (s, e) =>
+            {
+                ResponseText = txtInput.Text;
+                this.DialogResult = true;
+            };
+
+            Button cancelButton = new Button
+            {
+                Content = "Cancel",
+                IsCancel = true,
+                Width = 75,
+                Height = 23
+            };
+
+            buttonPanel.Children.Add(okButton);
+            buttonPanel.Children.Add(cancelButton);
+            Grid.SetRow(buttonPanel, 2);
+            grid.Children.Add(buttonPanel);
+
+            this.Content = grid;
+        }
+    }
     // Dialog for entering text element properties
     public class TextInputDialog : Window
     {

@@ -36,6 +36,10 @@
                     Click="menuScriptTester_Click"
                     Header="Script Tester" />
                 <MenuItem
+                    x:Name="menuTestFunctions"
+                    Click="menuTestFunctions_Click"
+                    Header="Test Functions" />
+                <MenuItem
                     x:Name="menuViewVariables"
                     Click="menuViewVariables_Click"
                     Header="View Variables" />
@@ -43,6 +47,19 @@
                     x:Name="menuViewFunctions"
                     Click="menuViewFunctions_Click"
                     Header="View Functions" />
+                <MenuItem
+                    x:Name="menuTroubleshootFunction"
+                    Click="menuTroubleshootFunction_Click"
+                    Header="Troubleshoot Function" />
+                <MenuItem
+                    x:Name="menuTestDescriptionFields"
+                    Click="menuTestDescriptionFields_Click"
+                    Header="Test DescriptionFields" />
+                <MenuItem
+                    x:Name="menuTestRendering"
+                    Click="menuTestRendering_Click"
+                    Header="Test Function Rendering" />
+
             </MenuItem>
         </Menu>
 

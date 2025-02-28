@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
 namespace LabelPreviewer
 {
     public class Function
@@ -12,11 +11,12 @@ namespace LabelPreviewer
         public string Script { get; set; }             // Base64-encoded script
         public string ScriptWithReferences { get; set; } // Base64-encoded script with variable references
         public List<string> InputDataSourceIds { get; set; } = new List<string>();
+        public string FunctionType { get; set; } = "ExecuteScriptFunction";
 
         private static VBScriptInterpreter _interpreter;
 
         // Lazy-initialize the interpreter
-        private static VBScriptInterpreter Interpreter
+        protected static VBScriptInterpreter Interpreter
         {
             get
             {
@@ -29,12 +29,14 @@ namespace LabelPreviewer
         }
 
         /// <summary>
-        /// Executes the function's script with the provided variables
+        /// Executes the function with the provided variables
         /// </summary>
-        public string Execute(Dictionary<string, Variable> variables, Dictionary<string, string> idToNameMap)
+        public virtual string Execute(Dictionary<string, Variable> variables, Dictionary<string, string> idToNameMap)
         {
             try
             {
+                // Script-based function implementation (default)
+
                 // Prepare variable values with friendly names
                 var variableValues = new Dictionary<string, string>();
 
@@ -62,6 +64,24 @@ namespace LabelPreviewer
             catch (Exception ex)
             {
                 return SampleValue ?? $"Error: {ex.Message}";
+            }
+        }
+
+        /// <summary>
+        /// Creates the appropriate type of function based on the function type
+        /// </summary>
+        public static Function CreateFunction(string type)
+        {
+            switch (type)
+            {
+                case "ConcatenateFunction":
+                    return new ConcatenateFunction();
+                case "DateAddFunction":
+                    // You could implement a DateAddFunction class later
+                    return new Function { FunctionType = "DateAddFunction" };
+                case "ExecuteScriptFunction":
+                default:
+                    return new Function();
             }
         }
     }

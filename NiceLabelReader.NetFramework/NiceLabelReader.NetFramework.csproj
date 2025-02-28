@@ -82,7 +82,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Enums\AnchoringPoint.cs" />
+    <Compile Include="FunctionTester.cs" />
+    <Compile Include="FunctionTroubleshooter.cs" />
     <Compile Include="Models\BarcodeDocumentItem.cs" />
+    <Compile Include="Models\ConcatenateFunction.cs" />
     <Compile Include="Models\DocumentItem.cs" />
     <Compile Include="Models\Function.cs" />
     <Compile Include="Models\GraphicDocumentItem.cs" />
