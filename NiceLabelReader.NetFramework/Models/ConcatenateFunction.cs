@@ -57,7 +57,7 @@ namespace LabelPreviewer
         public static string DecodeSeparator(string base64Separator)
         {
             if (string.IsNullOrEmpty(base64Separator))
-                return "\n"; // Default separator
+                return " "; // Default separator
 
             try
             {
