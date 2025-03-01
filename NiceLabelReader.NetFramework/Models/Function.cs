@@ -35,29 +35,24 @@ namespace LabelPreviewer
         {
             try
             {
-                // Script-based function implementation (default)
-
-                // Prepare variable values with friendly names
+                // Prepare variable values with their IDs (not friendly names)
                 var variableValues = new Dictionary<string, string>();
 
-                // Add all variables by their friendly names
+                // Add all variables by their ID
                 foreach (var variable in variables)
                 {
-                    if (idToNameMap.TryGetValue(variable.Key, out string friendlyName))
-                    {
-                        variableValues[friendlyName] = variable.Value.SampleValue ?? string.Empty;
-                    }
+                    variableValues[variable.Key] = variable.Value.SampleValue ?? string.Empty;
                 }
 
-                // Get and decode the script
-                string scriptToExecute = !string.IsNullOrEmpty(Script)
-                    ? Script : Script;
+                // First try to use ScriptWithReferences if available, then fall back to Script
+                string scriptToExecute = !string.IsNullOrEmpty(ScriptWithReferences)
+                    ? ScriptWithReferences : Script;
 
                 if (string.IsNullOrEmpty(scriptToExecute))
                     return SampleValue ?? string.Empty;
 
-                // Execute with the decoded script and friendly variable names
-                object result = Interpreter.ExecuteDecodedScript(scriptToExecute, variableValues);
+                // Execute with the script and variable ID replacements
+                object result = Interpreter.ExecuteBase64Script(scriptToExecute, variableValues);
 
                 return result?.ToString() ?? string.Empty;
             }

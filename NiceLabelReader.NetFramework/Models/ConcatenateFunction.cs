@@ -30,6 +30,7 @@ namespace LabelPreviewer
             if (DataSourceIds == null || DataSourceIds.Count == 0)
                 return SampleValue ?? string.Empty;
 
+            // Special handling for concatenate function - don't use VBScript interpreter
             List<string> values = new List<string>();
 
             // Get values for each data source

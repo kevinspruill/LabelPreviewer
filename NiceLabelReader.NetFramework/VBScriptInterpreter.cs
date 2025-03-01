@@ -59,10 +59,24 @@ namespace LabelPreviewer
 
             try
             {
-                // Add the variable to the script engine
-                //scriptControl.AddObject(name, value, true);
+                // Convert value to string and properly escape for VBScript
+                string safeValue = value?.ToString() ?? "";
 
-                scriptControl.AddCode($"Dim {name}\r\n{name} = \"{value}\"\r\n");
+                // Replace special characters with VBScript constants
+                safeValue = safeValue.Replace("\r\n", "\" & vbCrLf & \"")
+                                     .Replace("\r", "\" & vbCr & \"")
+                                     .Replace("\n", "\" & vbLf & \"");
+
+                if (name == "[246def0c-4bd4-4a59-885f-901b15ae3eee]")
+                {
+                    Debug.WriteLine($"Set variable '{name}' to '{value}'");
+                }
+
+                // For empty string or string with only special chars
+                if (string.IsNullOrEmpty(safeValue) || safeValue.StartsWith("\" & vb"))
+                    scriptControl.AddCode($"Dim {name}\r\n{name} = \"\" {safeValue}\r\n");
+                else
+                    scriptControl.AddCode($"Dim {name}\r\n{name} = \"{safeValue}\"\r\n");
 
                 Debug.WriteLine($"Set variable '{name}' to '{value}'");
             }
