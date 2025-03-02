@@ -595,6 +595,8 @@ namespace LabelPreviewer
                     }
 
                     // Load font info for text items
+                    // Inside the LoadFormatFromXml method, in the part that handles TextDocumentItem:
+
                     if (item is TextDocumentItem textItem)
                     {
                         XmlNode fontNode = node.SelectSingleNode("FontDescriptor");
@@ -656,9 +658,10 @@ namespace LabelPreviewer
                                 }
                             }
 
-                            // For TextBoxItem, handle text wrapping
+                            // For TextBoxItem, handle text wrapping and best fit
                             if (textItem is TextBoxItem textBox)
                             {
+                                // Handle text wrapping
                                 XmlNode wrapNode = node.SelectSingleNode("TextWrapping");
                                 if (wrapNode != null)
                                 {
@@ -680,6 +683,42 @@ namespace LabelPreviewer
                                 {
                                     // Default to Wrap for TextBoxItem
                                     textBox.TextWrapping = TextWrapping.Wrap;
+                                }
+
+                                // Handle best fit properties
+                                XmlNode bestFitNode = node.SelectSingleNode("BestFit");
+                                if (bestFitNode != null && !string.IsNullOrEmpty(bestFitNode.InnerText))
+                                {
+                                    textBox.BestFit = bestFitNode.InnerText == "1";
+                                }
+
+                                XmlNode minFontSizeNode = node.SelectSingleNode("BestFitMinimumFontSize");
+                                if (minFontSizeNode != null && !string.IsNullOrEmpty(minFontSizeNode.InnerText))
+                                {
+                                    double.TryParse(minFontSizeNode.InnerText, out double minSize);
+                                    textBox.BestFitMinimumFontSize = minSize;
+                                }
+
+                                XmlNode maxFontSizeNode = node.SelectSingleNode("BestFitMaximumFontSize");
+                                if (maxFontSizeNode != null && !string.IsNullOrEmpty(maxFontSizeNode.InnerText))
+                                {
+                                    double.TryParse(maxFontSizeNode.InnerText, out double maxSize);
+                                    textBox.BestFitMaximumFontSize = maxSize;
+                                }
+
+                                // Additional scaling factors if needed
+                                XmlNode minScalingNode = node.SelectSingleNode("BestFitMinimumFontScaling");
+                                if (minScalingNode != null && !string.IsNullOrEmpty(minScalingNode.InnerText))
+                                {
+                                    double.TryParse(minScalingNode.InnerText, out double minScaling);
+                                    textBox.BestFitMinimumFontScaling = minScaling;
+                                }
+
+                                XmlNode maxScalingNode = node.SelectSingleNode("BestFitMaximumFontScaling");
+                                if (maxScalingNode != null && !string.IsNullOrEmpty(maxScalingNode.InnerText))
+                                {
+                                    double.TryParse(maxScalingNode.InnerText, out double maxScaling);
+                                    textBox.BestFitMaximumFontScaling = maxScaling;
                                 }
                             }
                         }
@@ -1000,9 +1039,13 @@ namespace LabelPreviewer
                 content = ResolveContent(item);
             }
 
+            // Process content to replace VBScript notations
+            content = FormatTextContent(content);
+
+            // Create the text block with initial properties
             TextBlock textBlock = new TextBlock
             {
-                Text = FormatTextContent(content),
+                Text = content,
                 FontFamily = new FontFamily(item.FontName),
                 FontSize = item.FontSize,
                 Foreground = new SolidColorBrush(item.FontColor),
@@ -1010,7 +1053,7 @@ namespace LabelPreviewer
                 TextWrapping = item.TextWrapping
             };
 
-            // TextBox has explicit width and height
+            // Set initial width and height
             if (item.Width > 0)
             {
                 textBlock.Width = item.Width;
@@ -1019,6 +1062,68 @@ namespace LabelPreviewer
             if (item.Height > 0)
             {
                 textBlock.Height = item.Height;
+            }
+
+            // Apply best fit text sizing if enabled
+            if (item.BestFit && item.Width > 0 && item.Height > 0)
+            {
+                try
+                {
+                    // Start with the maximum font size
+                    double currentFontSize = item.BestFitMaximumFontSize;
+                    textBlock.FontSize = currentFontSize;
+
+                    // Create a temporary text block to measure text
+                    TextBlock measuringBlock = new TextBlock
+                    {
+                        Text = content,
+                        FontFamily = textBlock.FontFamily,
+                        TextWrapping = textBlock.TextWrapping,
+                        Width = item.Width
+                    };
+
+                    // Binary search for best fit font size
+                    double minSize = item.BestFitMinimumFontSize;
+                    double maxSize = item.BestFitMaximumFontSize;
+
+                    int iterations = 0;  // Safeguard to prevent infinite loops
+                    const int MaxIterations = 20;
+
+                    while (maxSize - minSize > 0.5 && iterations < MaxIterations) // 0.5pt precision
+                    {
+                        iterations++;
+                        currentFontSize = (minSize + maxSize) / 2;
+                        measuringBlock.FontSize = currentFontSize;
+
+                        // Measure the text at current font size
+                        measuringBlock.Measure(new Size(item.Width, double.PositiveInfinity));
+
+                        if (measuringBlock.DesiredSize.Height <= item.Height)
+                        {
+                            // Text fits, try larger
+                            minSize = currentFontSize;
+                        }
+                        else
+                        {
+                            // Text too large, try smaller
+                            maxSize = currentFontSize;
+                        }
+                    }
+
+                    // Set the final best fit size
+                    textBlock.FontSize = minSize; // Use the largest size that fits
+
+                    // Debug info
+                    if (ShowDebugInfo)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Best fit for {item.Name}: Original size {item.FontSize}, Best fit size {minSize}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // If best fit fails, use the original font size
+                    System.Diagnostics.Debug.WriteLine($"Best fit failed: {ex.Message}");
+                }
             }
 
             // Get position adjusted for anchoring point
@@ -1064,8 +1169,8 @@ namespace LabelPreviewer
             }
 
             if (ShowDebugInfo &&
-        (item.DataSourceId == "246def0c-4bd4-4a59-885f-901b15ae3eee" ||
-         item.DataSourceId == "DescriptionFields"))
+                (item.DataSourceId == "246def0c-4bd4-4a59-885f-901b15ae3eee" ||
+                 item.DataSourceId == "DescriptionFields"))
             {
                 // Visual indicator that this is using DescriptionFields
                 Rectangle marker = new Rectangle
@@ -1093,6 +1198,22 @@ namespace LabelPreviewer
                 Canvas.SetLeft(annotation, position.X - 15);
                 Canvas.SetTop(annotation, position.Y + 15);
                 canvas.Children.Add(annotation);
+
+                // Add best fit info if enabled
+                if (item.BestFit)
+                {
+                    TextBlock bestFitInfo = new TextBlock
+                    {
+                        Text = $"BestFit: {textBlock.FontSize:0.0}pt",
+                        FontSize = 8,
+                        Foreground = Brushes.DarkBlue,
+                        Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                    };
+
+                    Canvas.SetLeft(bestFitInfo, position.X - 15);
+                    Canvas.SetTop(bestFitInfo, position.Y + 30);
+                    canvas.Children.Add(bestFitInfo);
+                }
             }
 
             // Set z-order if available
@@ -1451,6 +1572,11 @@ namespace LabelPreviewer
             }
         }
 
+        /// <summary>
+        /// Utility class for unit conversions
+        /// </summary>
+
+
         private void RenderBarcodeItem(Canvas canvas, BarcodeDocumentItem item)
         {
             // Set default size
@@ -1468,14 +1594,22 @@ namespace LabelPreviewer
             {
                 // Create the barcode writer
                 // Create a barcode writer for direct bitmap output
-                var barcodeWriter = new ZXing.BarcodeWriter()
+                var barcodeWriter = new BarcodeWriter()
                 {
-                    Format = ZXing.BarcodeFormat.CODE_128, // Default to CODE_128
-                    Options = new ZXing.Common.EncodingOptions
+                    Format = BarcodeFormat.UPC_A, // Default to UPC_A
+                    Options = new EncodingOptions
                     {
                         Width = (int)item.Width,
                         Height = (int)item.Height,
-                        Margin = 2
+                        Margin = 2,
+                        GS1Format = false, // Enable GS1 format which includes proper descender bars
+                        PureBarcode = false // Ensure we get the full barcode with descenders
+                    },
+                    Renderer = new BitmapRenderer
+                    {
+                        TextFont = new System.Drawing.Font("calibri", 8),
+                        Background = System.Drawing.Color.Transparent,
+                        Foreground = System.Drawing.Color.Black
                     }
                 };
 
@@ -1551,7 +1685,7 @@ namespace LabelPreviewer
                     Canvas.SetLeft(debugText, position.X + 2);
                     Canvas.SetTop(debugText, position.Y + 2);
                     Canvas.SetZIndex(debugText, item.ZOrder + 2);
-                    canvas.Children.Add(debugText);
+                    //canvas.Children.Add(debugText);
                 }
             }
             catch (Exception ex)
@@ -1809,6 +1943,35 @@ namespace LabelPreviewer
                 null,
                 pixels,
                 stride);
+        }
+    }
+
+    public static class UnitConverter
+    {
+        /// <summary>
+        /// Converts a measurement in microns (1/1000 mm) to WPF units (1/96 inch)
+        /// </summary>
+        /// <param name="microns">The value in microns</param>
+        /// <returns>The equivalent value in WPF display units (logical pixels at 96 DPI)</returns>
+        public static double MicronsToWpfUnits(double microns)
+        {
+            const double MicronsPerInch = 25400.0;
+            const double PixelsPerInch = 96.0;
+
+            return microns * (PixelsPerInch / MicronsPerInch);
+        }
+
+        /// <summary>
+        /// Converts WPF units (1/96 inch) to microns (1/1000 mm)
+        /// </summary>
+        /// <param name="wpfUnits">The value in WPF display units (logical pixels at 96 DPI)</param>
+        /// <returns>The equivalent value in microns</returns>
+        public static double WpfUnitsToMicrons(double wpfUnits)
+        {
+            const double MicronsPerInch = 25400.0;
+            const double PixelsPerInch = 96.0;
+
+            return wpfUnits * (MicronsPerInch / PixelsPerInch);
         }
     }
 }
