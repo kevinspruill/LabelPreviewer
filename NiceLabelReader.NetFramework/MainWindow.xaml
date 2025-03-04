@@ -121,6 +121,26 @@
                 Content="Edit Variables"
                 IsEnabled="False" />
 
+            <!--  Add this button right after the btnEditVariables button in MainWindow.xaml  -->
+            <Separator
+                Width="1"
+                Height="20"
+                Margin="10,0"
+                Background="#CCCCCC" />
+
+            <Button
+                x:Name="btnPrint"
+                Margin="0,0,10,0"
+                Padding="10,5"
+                Click="btnPrint_Click"
+                Content="Print (300 DPI)" />
+
+            <!--  Also add a menu item  -->
+            <!--  In the File menu, add this new item after the "Open Label Files" item  -->
+            <MenuItem
+                x:Name="menuPrint"
+                Click="btnPrint_Click"
+                Header="Print (300 DPI)" />
             <!--  Separator  -->
             <Separator
                 Width="1"

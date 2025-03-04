@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using Microsoft.Win32;
+using NiceLabelReader.NetFramework;
+using System.Windows.Shapes;
+using System.Windows.Documents;
+using System.Windows.Markup;
+using System.Windows.Xps;
 
 namespace LabelPreviewer
 {
@@ -526,6 +531,142 @@ namespace LabelPreviewer
             }
         }
 
+        /// <summary>
+        /// Handles the Print button click event with proper positioning and margins
+        /// </summary>
+        private void btnPrint_Click(object sender, RoutedEventArgs e)
+        {
+            if (labelModel == null || previewCanvas.Children.Count == 0)
+            {
+                MessageBox.Show("Nothing to print. Please open a label file first.",
+                    "No Content", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            try
+            {
+                Mouse.OverrideCursor = Cursors.Wait;
+
+                // Create print dialog
+                PrintDialog printDialog = new PrintDialog();
+
+                // Show print dialog - exit if canceled
+                if (printDialog.ShowDialog() != true)
+                {
+                    Mouse.OverrideCursor = null;
+                    return;
+                }
+
+                // Get the physical dimensions of the label in millimeters
+                double labelWidthInMillimeters = labelModel.Width * 25.4 / 96;  // Convert WPF units to mm
+                double labelHeightInMillimeters = labelModel.Height * 25.4 / 96; // Convert WPF units to mm
+
+                // Get information about the printable area
+                double printableAreaWidth = printDialog.PrintableAreaWidth;
+                double printableAreaHeight = printDialog.PrintableAreaHeight;
+
+                System.Diagnostics.Debug.WriteLine($"Printable area: {printableAreaWidth:F2} × {printableAreaHeight:F2}");
+
+                // Create a print-specific canvas with white background
+                Canvas printCanvas = new Canvas
+                {
+                    Width = labelModel.Width,
+                    Height = labelModel.Height,
+                    Background = Brushes.White
+                };
+
+                // Copy all elements from preview canvas to print canvas without debug info
+                CopyCanvasElementsForPrinting(previewCanvas, printCanvas);
+
+                // Convert to 1/1000 inch for page media size
+                double widthInThousandthsOfInch = labelWidthInMillimeters / 25.4 * 1000;
+                double heightInThousandthsOfInch = labelHeightInMillimeters / 25.4 * 1000;
+
+                // Create a visual brush from the print canvas
+                VisualBrush canvasBrush = new VisualBrush(printCanvas);
+
+                // Create a visual for printing
+                DrawingVisual drawingVisual = new DrawingVisual();
+                using (DrawingContext drawingContext = drawingVisual.RenderOpen())
+                {
+                    // Default margin in device units (1/96 inch)
+                    double leftMargin = 96; // 1 inch left margin
+                    double topMargin = 48;  // 0.5 inch top margin
+
+                    // Calculate position to center the content within printable area if needed
+                    double xPos = (printableAreaWidth - labelModel.Width) / 2;
+                    double yPos = (printableAreaHeight - labelModel.Height) / 2;
+
+                    // Ensure we don't position less than our minimum margins
+                    xPos = Math.Max(leftMargin, xPos);
+                    yPos = Math.Max(topMargin, yPos);
+
+                    // Draw the content at the calculated position
+                    drawingContext.DrawRectangle(
+                        canvasBrush,
+                        null,
+                        new Rect(xPos, yPos, labelModel.Width, labelModel.Height));
+                }
+
+                // Set the print ticket for physical page size and DPI
+                PrintTicket printTicket = printDialog.PrintTicket;
+                if (printTicket != null)
+                {
+                    try
+                    {
+                        // For custom page size that's smaller than the printer's minimum,
+                        // it's often better to use the default page size and position the content
+                        // where we want it.
+
+                        // Set high print resolution (300 DPI)
+                        printTicket.PageResolution = new PageResolution(300, 300);
+
+                        // Tell the printer not to scale our content
+                        printTicket.PageScalingFactor = 100; // 100% scale
+
+                        // Apply the ticket
+                        printDialog.PrintTicket = printTicket;
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Warning: Could not set print ticket: {ex.Message}");
+                    }
+                }
+
+                // Print the visual
+                printDialog.PrintVisual(drawingVisual, $"NiceLabel - {System.IO.Path.GetFileNameWithoutExtension(labelFilePath)}");
+
+                MessageBox.Show($"Print job sent to {printDialog.PrintQueue.Name} at 300 DPI with proper positioning.",
+                    "Print", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error printing: {ex.Message}", "Print Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                Mouse.OverrideCursor = null;
+            }
+        }
+
+        /// <summary>
+        /// Creates a clean copy of the canvas elements for printing,
+        /// removing any debug visualization elements
+        /// </summary>
+        private void CopyCanvasElementsForPrinting(Canvas sourceCanvas, Canvas targetCanvas)
+        {
+            // First, clear debug info setting temporarily to avoid debug visuals in print
+            bool originalDebugMode = labelModel.ShowDebugInfo;
+            labelModel.ShowDebugInfo = false;
+
+            // Re-render the entire label without debug info
+            targetCanvas.Children.Clear();
+            labelModel.Render(targetCanvas);
+
+            // Restore original debug mode
+            labelModel.ShowDebugInfo = originalDebugMode;
+        }
+
         private void btnRenderPreview_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -540,7 +681,7 @@ namespace LabelPreviewer
                 previewCanvas.Height = labelModel.Height;
 
                 // Show information about the label
-                this.Title = $"NiceLabel Previewer - {Path.GetFileName(labelFilePath)} ({labelModel.Width:F0}x{labelModel.Height:F0})";
+                this.Title = $"NiceLabel Previewer - {System.IO.Path.GetFileName(labelFilePath)} ({labelModel.Width:F0}x{labelModel.Height:F0})";
 
                 // Enable debug buttons since we have a label loaded
                 btnViewXml.IsEnabled = true;

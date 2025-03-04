@@ -516,6 +516,9 @@ namespace LabelPreviewer
                             }
 
                             break;
+                        case "RectangleDocumentItem":  // Add this new case
+                            LoadRectangleItem(node, DocumentItems);
+                            continue;
                         default:
                             continue;
                     }
@@ -920,6 +923,168 @@ namespace LabelPreviewer
                 {
                     RenderBarcodeItem(canvas, barcodeItem);
                 }
+                else if (item is RectangleDocumentItem rectangleItem)  // Add this new case
+                {
+                    RenderRectangleItem(canvas, rectangleItem);
+                }
+            }
+        }
+
+        private void CreatePatternFill(Rectangle rect, RectangleDocumentItem item, Color fillColor)
+        {
+            // Apply different fill styles based on NiceLabel's FillStyles enum
+            switch (item.FillStyle)
+            {
+                case 1: // Clear - transparent
+                    rect.Fill = Brushes.Transparent;
+                    break;
+
+                case 2: // Solid
+                    rect.Fill = new SolidColorBrush(fillColor);
+                    break;
+
+                case 4: // RightDiagonal
+                    DrawingBrush rightDiagBrush = new DrawingBrush();
+                    GeometryDrawing rightDiagDrawing = new GeometryDrawing();
+
+                    // Create a small diagonal line pattern
+                    GeometryGroup rightDiagGeometry = new GeometryGroup();
+                    rightDiagGeometry.Children.Add(new LineGeometry(new Point(0, 6), new Point(6, 0)));
+
+                    // Set the fill and stroke
+                    rightDiagDrawing.Geometry = rightDiagGeometry;
+                    rightDiagDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    rightDiagBrush.Drawing = rightDiagDrawing;
+                    rightDiagBrush.TileMode = TileMode.Tile;
+                    rightDiagBrush.Viewport = new Rect(0, 0, 6, 6);
+                    rightDiagBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = rightDiagBrush;
+                    break;
+
+                case 8: // LeftDiagonal
+                    DrawingBrush leftDiagBrush = new DrawingBrush();
+                    GeometryDrawing leftDiagDrawing = new GeometryDrawing();
+
+                    // Create a small diagonal line pattern
+                    GeometryGroup leftDiagGeometry = new GeometryGroup();
+                    leftDiagGeometry.Children.Add(new LineGeometry(new Point(0, 0), new Point(6, 6)));
+
+                    // Set the fill and stroke
+                    leftDiagDrawing.Geometry = leftDiagGeometry;
+                    leftDiagDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    leftDiagBrush.Drawing = leftDiagDrawing;
+                    leftDiagBrush.TileMode = TileMode.Tile;
+                    leftDiagBrush.Viewport = new Rect(0, 0, 6, 6);
+                    leftDiagBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = leftDiagBrush;
+                    break;
+
+                case 16: // Vertical
+                    DrawingBrush verticalBrush = new DrawingBrush();
+                    GeometryDrawing verticalDrawing = new GeometryDrawing();
+
+                    // Create a vertical line pattern
+                    GeometryGroup verticalGeometry = new GeometryGroup();
+                    verticalGeometry.Children.Add(new LineGeometry(new Point(3, 0), new Point(3, 6)));
+
+                    // Set the fill and stroke
+                    verticalDrawing.Geometry = verticalGeometry;
+                    verticalDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    verticalBrush.Drawing = verticalDrawing;
+                    verticalBrush.TileMode = TileMode.Tile;
+                    verticalBrush.Viewport = new Rect(0, 0, 6, 6);
+                    verticalBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = verticalBrush;
+                    break;
+
+                case 32: // Horizontal
+                    DrawingBrush horizontalBrush = new DrawingBrush();
+                    GeometryDrawing horizontalDrawing = new GeometryDrawing();
+
+                    // Create a horizontal line pattern
+                    GeometryGroup horizontalGeometry = new GeometryGroup();
+                    horizontalGeometry.Children.Add(new LineGeometry(new Point(0, 3), new Point(6, 3)));
+
+                    // Set the fill and stroke
+                    horizontalDrawing.Geometry = horizontalGeometry;
+                    horizontalDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    horizontalBrush.Drawing = horizontalDrawing;
+                    horizontalBrush.TileMode = TileMode.Tile;
+                    horizontalBrush.Viewport = new Rect(0, 0, 6, 6);
+                    horizontalBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = horizontalBrush;
+                    break;
+
+                case 64: // Cross
+                    DrawingBrush crossBrush = new DrawingBrush();
+                    GeometryDrawing crossDrawing = new GeometryDrawing();
+
+                    // Create a cross pattern
+                    GeometryGroup crossGeometry = new GeometryGroup();
+                    crossGeometry.Children.Add(new LineGeometry(new Point(3, 0), new Point(3, 6)));
+                    crossGeometry.Children.Add(new LineGeometry(new Point(0, 3), new Point(6, 3)));
+
+                    // Set the fill and stroke
+                    crossDrawing.Geometry = crossGeometry;
+                    crossDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    crossBrush.Drawing = crossDrawing;
+                    crossBrush.TileMode = TileMode.Tile;
+                    crossBrush.Viewport = new Rect(0, 0, 6, 6);
+                    crossBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = crossBrush;
+                    break;
+
+                case 128: // CrossDiagonal
+                    DrawingBrush crossDiagBrush = new DrawingBrush();
+                    GeometryDrawing crossDiagDrawing = new GeometryDrawing();
+
+                    // Create a diagonal cross pattern
+                    GeometryGroup crossDiagGeometry = new GeometryGroup();
+                    crossDiagGeometry.Children.Add(new LineGeometry(new Point(0, 0), new Point(6, 6)));
+                    crossDiagGeometry.Children.Add(new LineGeometry(new Point(0, 6), new Point(6, 0)));
+
+                    // Set the fill and stroke
+                    crossDiagDrawing.Geometry = crossDiagGeometry;
+                    crossDiagDrawing.Pen = new Pen(new SolidColorBrush(fillColor), 1);
+
+                    // Create the brush
+                    crossDiagBrush.Drawing = crossDiagDrawing;
+                    crossDiagBrush.TileMode = TileMode.Tile;
+                    crossDiagBrush.Viewport = new Rect(0, 0, 6, 6);
+                    crossDiagBrush.ViewportUnits = BrushMappingMode.Absolute;
+
+                    rect.Fill = crossDiagBrush;
+                    break;
+
+                case 256: // Gray25 (25% of the fill color)
+                    rect.Fill = new SolidColorBrush(Color.FromArgb(64, fillColor.R, fillColor.G, fillColor.B));
+                    break;
+                case 512: // Gray50 (50% of the fill color)
+                    rect.Fill = new SolidColorBrush(Color.FromArgb(128, fillColor.R, fillColor.G, fillColor.B));
+                    break;
+
+                case 1024: // Gray75 (75% of the fill color)
+                    rect.Fill = new SolidColorBrush(Color.FromArgb(192, fillColor.R, fillColor.G, fillColor.B));
+                    break;
+
+                default:
+                    rect.Fill = Brushes.Transparent;
+                    break;
             }
         }
 
@@ -1725,6 +1890,214 @@ namespace LabelPreviewer
                 Canvas.SetZIndex(textBlock, item.ZOrder + 1);
                 canvas.Children.Add(textBlock);
             }
+        }
+
+        private void LoadRectangleItem(XmlNode node, List<DocumentItem> items)
+        {
+            RectangleDocumentItem rectItem = new RectangleDocumentItem();
+
+            // Set common properties
+            rectItem.Id = GetNodeValue(node, "Id");
+            rectItem.Name = GetNodeValue(node, "Name");
+
+            // Get color
+            string colorHex = GetNodeValue(node, "Color") ?? "FF000000";
+            rectItem.Color = colorHex;
+
+            // Get fill color
+            string fillColorHex = GetNodeValue(node, "FillColor") ?? "FF000000";
+            rectItem.FillColor = fillColorHex;
+
+            // Load geometry
+            XmlNode geometryNode = node.SelectSingleNode("Geometry");
+            if (geometryNode != null)
+            {
+                string geometryType = geometryNode.Attributes?["Type"]?.Value;
+
+                if (geometryType == "RectGeometry")
+                {
+                    // Convert from NiceLabel units (1/10 mm) to WPF units (1/96 inch)
+                    double conversionFactor = 0.00377953;
+
+                    double width = double.Parse(GetNodeValue(geometryNode, "Width") ?? "0") * conversionFactor;
+                    double height = double.Parse(GetNodeValue(geometryNode, "Height") ?? "0") * conversionFactor;
+                    double left = double.Parse(GetNodeValue(geometryNode, "Left") ?? "0") * conversionFactor;
+                    double top = double.Parse(GetNodeValue(geometryNode, "Top") ?? "0") * conversionFactor;
+
+                    // Store dimensions
+                    rectItem.Width = width;
+                    rectItem.Height = height;
+                    rectItem.X = left;
+                    rectItem.Y = top;
+                }
+            }
+
+            // Get other rectangle properties
+            string radiusStr = GetNodeValue(node, "Radius");
+            if (!string.IsNullOrEmpty(radiusStr))
+            {
+                rectItem.Radius = double.Parse(radiusStr) * 0.00377953; // Apply conversion factor
+            }
+
+            string thicknessStr = GetNodeValue(node, "Thickness");
+            if (!string.IsNullOrEmpty(thicknessStr))
+            {
+                rectItem.Thickness = double.Parse(thicknessStr) * 0.00377953; // Apply conversion factor
+            }
+
+            string lineStyleStr = GetNodeValue(node, "LineStyle");
+            if (!string.IsNullOrEmpty(lineStyleStr))
+            {
+                rectItem.LineStyle = int.Parse(lineStyleStr);
+            }
+
+            string fillStyleStr = GetNodeValue(node, "FillStyle");
+            if (!string.IsNullOrEmpty(fillStyleStr))
+            {
+                rectItem.FillStyle = int.Parse(fillStyleStr);
+            }
+
+            // Get Z-Order if available
+            XmlNode zOrderNode = node.SelectSingleNode("ZOrder");
+            if (zOrderNode != null && !string.IsNullOrEmpty(zOrderNode.InnerText))
+            {
+                int.TryParse(zOrderNode.InnerText, out int zOrder);
+                rectItem.ZOrder = zOrder;
+            }
+
+            // Add to document items
+            items.Add(rectItem);
+        }
+
+        private void RenderRectangleItem(Canvas canvas, RectangleDocumentItem item)
+        {
+            // Get position adjusted for anchoring point
+            Point position = item.GetAdjustedPosition();
+
+            // Create a rectangle element
+            Rectangle rect = new Rectangle
+            {
+                Width = item.Width,
+                Height = item.Height
+            };
+
+            // Set corner radius if specified
+            if (item.Radius > 0)
+            {
+                rect.RadiusX = item.Radius;
+                rect.RadiusY = item.Radius;
+            }
+
+            // Convert color from hex string to brush
+            try
+            {
+                string strokeColorHex = item.Color;
+                if (strokeColorHex.StartsWith("FF"))
+                {
+                    strokeColorHex = "#" + strokeColorHex.Substring(2);
+                }
+                else
+                {
+                    strokeColorHex = "#" + strokeColorHex;
+                }
+
+                Color strokeColor = (Color)ColorConverter.ConvertFromString(strokeColorHex);
+                rect.Stroke = new SolidColorBrush(strokeColor);
+            }
+            catch
+            {
+                rect.Stroke = Brushes.Black; // Default to black if conversion fails
+            }
+
+            // Set stroke thickness
+            rect.StrokeThickness = item.Thickness;
+
+            // Set stroke dash pattern based on line style (matching NiceLabel LineStyles enum)
+            switch (item.LineStyle)
+            {
+                case 0: // None
+                    rect.Stroke = null; // No stroke/border
+                    break;
+                case 2: // Dash
+                    rect.StrokeDashArray = new DoubleCollection { 4, 2 };
+                    break;
+                case 4: // Dot
+                    rect.StrokeDashArray = new DoubleCollection { 1, 1 };
+                    break;
+                case 8: // DashDot
+                    rect.StrokeDashArray = new DoubleCollection { 4, 2, 1, 2 };
+                    break;
+                case 16: // DashDotDot
+                    rect.StrokeDashArray = new DoubleCollection { 4, 2, 1, 2, 1, 2 };
+                    break;
+                case 32: // Clear
+                    rect.Stroke = Brushes.Transparent; // Transparent stroke
+                    break;
+                case 1: // Solid (default)
+                default:
+                    // No dash pattern for solid line
+                    break;
+            }
+
+            // Apply fill based on fill style
+            if (item.FillStyle != 0) // 0 = No Fill
+            {
+                try
+                {
+                    string fillColorHex = item.FillColor;
+                    if (fillColorHex.StartsWith("FF"))
+                    {
+                        fillColorHex = "#" + fillColorHex.Substring(2);
+                    }
+                    else
+                    {
+                        fillColorHex = "#" + fillColorHex;
+                    }
+
+                    Color fillColor = (Color)ColorConverter.ConvertFromString(fillColorHex);
+
+                    // Apply different fill styles based on NiceLabel's FillStyles enum
+                    CreatePatternFill(rect, item, fillColor);
+                }
+                catch
+                {
+                    rect.Fill = Brushes.Transparent; // Default to transparent if conversion fails
+                }
+            }
+            else
+            {
+                rect.Fill = Brushes.Transparent; // No fill
+            }
+
+            // Position the rectangle
+            Canvas.SetLeft(rect, position.X);
+            Canvas.SetTop(rect, position.Y);
+
+            // Set z-order if available
+            if (item.ZOrder != 0)
+            {
+                Canvas.SetZIndex(rect, item.ZOrder);
+            }
+
+            // Add debug visualization if needed
+            if (ShowDebugInfo)
+            {
+                TextBlock debugText = new TextBlock
+                {
+                    Text = $"{item.Name} ({item.Width:F0}x{item.Height:F0})",
+                    FontSize = 8,
+                    Foreground = Brushes.Green,
+                    Background = new SolidColorBrush(Color.FromArgb(128, 255, 255, 255))
+                };
+
+                Canvas.SetLeft(debugText, position.X + 2);
+                Canvas.SetTop(debugText, position.Y + 2);
+                Canvas.SetZIndex(debugText, item.ZOrder + 1);
+                canvas.Children.Add(debugText);
+            }
+
+            // Add to canvas
+            canvas.Children.Add(rect);
         }
 
         /// <summary>
