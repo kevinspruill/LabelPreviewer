@@ -86,6 +86,7 @@
     <Compile Include="Enums\AnchoringPoint.cs" />
     <Compile Include="FunctionTester.cs" />
     <Compile Include="FunctionTroubleshooter.cs" />
+    <Compile Include="Models\BackgroundImage.cs" />
     <Compile Include="Models\BarcodeDocumentItem.cs" />
     <Compile Include="Models\ConcatenateFunction.cs" />
     <Compile Include="Models\DocumentItem.cs" />

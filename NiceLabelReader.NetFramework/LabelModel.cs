@@ -34,6 +34,8 @@ namespace LabelPreviewer
         public double Width { get; set; }
         public double Height { get; set; }
         public string BackgroundImagePath { get; set; }
+        // Replace the BackgroundImagePath with a BackgroundImage object
+        public BackgroundImage Background { get; set; }
 
         public void LoadFromXml(string labelFilePath)
         {
@@ -386,23 +388,18 @@ namespace LabelPreviewer
 
                 if (widthNode != null && heightNode != null)
                 {
-                    // Convert from microns to WPF units (1/96 inch)
-                    double conversionFactor = 0.00377953;
 
-                    Width = (double.Parse(widthNode.InnerText) / 1000) * (96 / 25.4);
-                    Height = (double.Parse(heightNode.InnerText) / 1000) * (96 / 25.4);
+                    Width = UnitConverter.MicronsToWpfUnits(double.Parse(widthNode.InnerText));
+                    Height = UnitConverter.MicronsToWpfUnits(double.Parse(heightNode.InnerText));
+
                 }
             }
 
-            // Get background image
+            // Load background image using the new BackgroundImage class
             XmlNode backgroundNode = doc.SelectSingleNode("//BackgroundDocumentItem");
             if (backgroundNode != null)
             {
-                XmlNode graphicFileNameNode = backgroundNode.SelectSingleNode("GraphicFileName");
-                if (graphicFileNameNode != null)
-                {
-                    BackgroundImagePath = graphicFileNameNode.InnerText;
-                }
+                Background = BackgroundImage.LoadFromXml(backgroundNode, Width, Height);
             }
 
             // Get document items
@@ -834,71 +831,13 @@ namespace LabelPreviewer
             canvas.Height = Height;
 
             // Set background image if available
-            if (!string.IsNullOrEmpty(BackgroundImagePath))
+            if (Background != null)
             {
-                try
-                {
-                    ImageBrush imageBrush = new ImageBrush();
-
-                    // Try to load the actual image first
-                    if (File.Exists(BackgroundImagePath))
-                    {
-                        BitmapImage bmp = new BitmapImage();
-                        bmp.BeginInit();
-                        bmp.UriSource = new Uri(BackgroundImagePath);
-                        bmp.CacheOption = BitmapCacheOption.OnLoad;
-                        bmp.EndInit();
-                        imageBrush.ImageSource = bmp;
-                    }
-                    else
-                    {
-                        // If file doesn't exist, create a placeholder image
-                        DrawingVisual drawingVisual = new DrawingVisual();
-                        using (DrawingContext drawingContext = drawingVisual.RenderOpen())
-                        {
-                            Rect rect = new Rect(0, 0, Width, Height);
-                            drawingContext.DrawRectangle(Brushes.White, null, rect);
-
-                            // Add text to indicate it's a placeholder
-                            FormattedText text = new FormattedText(
-                                "NICHOLAS_OVALSTRIP.jpg\n(Placeholder Background)",
-                                System.Globalization.CultureInfo.InvariantCulture,
-                                FlowDirection.LeftToRight,
-                                new Typeface("Arial"),
-                                14,
-                                Brushes.Gray,
-                                VisualTreeHelper.GetDpi(drawingVisual).PixelsPerDip);
-
-                            drawingContext.DrawText(text, new Point(Width / 2 - text.Width / 2, Height / 2 - text.Height / 2));
-                        }
-
-                        RenderTargetBitmap renderBitmap = new RenderTargetBitmap(
-                            (int)(Width * 2), // Double resolution
-                            (int)(Height * 2), // Double resolution
-                            192, // Higher DPI (was 96)
-                            192, // Higher DPI (was 96)
-                            PixelFormats.Pbgra32);
-
-                        imageBrush.ImageSource = renderBitmap;
-                    }
-
-                    imageBrush.Stretch = Stretch.None;
-                    imageBrush.AlignmentX = AlignmentX.Left;
-                    imageBrush.AlignmentY = AlignmentY.Top;
-                    imageBrush.ViewportUnits = BrushMappingMode.Absolute;
-                    imageBrush.Viewport = new Rect(0, 0, Width, Height);
-                    canvas.Background = imageBrush;
-                }
-                catch (Exception ex)
-                {
-                    // If loading the image fails, just set a white background
-                    canvas.Background = Brushes.White;
-                    MessageBox.Show($"Error loading background image: {ex.Message}",
-                        "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                }
+                Background.Render(canvas, ShowDebugInfo);
             }
             else
             {
+                // No background defined, set default white background
                 canvas.Background = Brushes.White;
             }
 

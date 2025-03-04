@@ -15,6 +15,7 @@ namespace LabelPreviewer
         public string DataSourceId { get; set; }
         public AnchoringPoint AnchoringPoint { get; set; } = AnchoringPoint.LeftTop;
         public int ZOrder { get; set; } = 0; // Z-index order
+        public bool IsPrintable { get; set; } = true; // Default to printable
 
         // NiceLabel anchoring points:
         // 1 = Top-left, 2 = Top-center, 3 = Top-right
